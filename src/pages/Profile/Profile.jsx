@@ -31,19 +31,19 @@ const Profile = () => {
         const result = await getUser(email);
     }
     
-    // const EditDataUser = async (email, newValue) => {
-    //     setValuesUser({
-    //         ...valuesUser,
-    //         displayName: newValue,
-    //     })
-    //     const result = await editUser(email, valuesUser)
-    // }
+    const EditDataUser = async (email, newValue) => {
+        setValuesUser({
+            ...valuesUser,
+            displayName: newValue,
+        })
+        const result = await editUser(email, valuesUser)
+    }
 
-    useEffect(() => {
-        if (!user) {
-            navigate("/");
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!user) {
+    //         navigate("/");
+    //     }
+    // }, [])
 
     useEffect(() => {
         setValuesUser({
