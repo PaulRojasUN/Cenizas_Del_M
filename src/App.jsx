@@ -1,42 +1,51 @@
 // import { Theme } from '@radix-ui/themes';
-import { Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout';
-import ProtectedRoute from './components/ProtectedRoute';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import { AnimatePresence } from 'framer-motion'
+import { Route, Routes } from 'react-router-dom'
+import LayoutInit from './components/LayoutInit'
+import ProtectedRoute from './components/ProtectedRoute'
+import Game from './pages/Game'
+import Init from './pages/Init'
+import Login from './pages/Login'
+import Menu from './pages/Menu'
 
 const App = () => {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <Layout>
-            <Login/>
-          </Layout>
+    <AnimatePresence mode='wait'>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <LayoutInit>
+              <Init />
+            </LayoutInit>
+          }
+        />
+        <Route
+          path='/menu' element={
+            <LayoutInit>
+              <Menu />
+            </LayoutInit>
+          }
+        />
+        <Route
+          path='/login' element={
+            <LayoutInit>
+              <Login />
+            </LayoutInit>
         }
-      />
-      <Route
-        path="*"
-        element={
-          <Layout>
-            <h1>Not Found</h1>
-          </Layout>
-        }
-      />
-      <Route
-        path="/i"
-        element={
-          <ProtectedRoute>
-            <Layout>
-              {' '}
-              <Dashboard />{' '}
-            </Layout>
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-  );
-};
+        />
+        <Route path='*' element={<h1>Not Found</h1>} />
+        <Route
+          path='/i'
+          element={
+            <ProtectedRoute>
+              <Game />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  )
+}
 
-export default App;
+export default App
