@@ -26,5 +26,8 @@ dist-ssr
 info.md
 
 # Config files
-
 firebase.config.js
+
+# local env files
+.env*.local
+*.local
