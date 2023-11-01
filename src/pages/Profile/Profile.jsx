@@ -49,7 +49,7 @@ const Profile = () => {
         setValuesUser({
             email: email,
             name: displayName,
-            photoUrl: photoUrl,
+            counter:0
         });
     }, [email, displayName]);
 

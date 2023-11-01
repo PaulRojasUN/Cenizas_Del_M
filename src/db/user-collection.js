@@ -29,7 +29,7 @@ const getUser = async (userEmail) => {
         );
 
         if (userSnapshot.empty) {
-            return { success: false, message: "User not found" };
+            return { success: false, message: "User not found"};
         }
         const userData = userSnapshot.docs.map((doc) => doc.data());
         return { success: true, data: userData };
