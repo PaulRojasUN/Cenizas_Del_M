@@ -24,7 +24,3 @@ dist-ssr
 *.sw?
 
 info.md
-
-# Config files
-
-firebase.config.js
