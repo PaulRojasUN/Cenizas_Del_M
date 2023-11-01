@@ -3,8 +3,22 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useAuthStore } from '../store/auth'
+import { useAuth } from '../context/AuthContext'
 
 const Init = () => {
+  const auth = useAuth()
+
+  const onHandleGoogle = async () => {
+    const result = await auth.loginWithGoogle();
+    
+    const logged = result.success ? true : false
+    if (logged) {//(isAuthenticated) {
+      navigate('/menu')
+    } else {
+      navigate('/login')
+    }
+    }
+
   const navigate = useNavigate()
   const { continueKey } = useKeyboard()
   const [isAuthenticated] = useAuthStore((state) => [
@@ -13,12 +27,14 @@ const Init = () => {
 
   useEffect(() => {
     if (continueKey) {
-      console.log(isAuthenticated)
-      if (isAuthenticated) {
-        navigate('/menu')
-      } else {
-        navigate('/login')
-      }
+      //console.log(isAuthenticated)
+      // const logged = onHandleGoogle()
+      // if (logged) {//(isAuthenticated) {
+      //   navigate('/menu')
+      // } else {
+      //   navigate('/login')
+      // }
+      onHandleGoogle()
     }
   }, [continueKey])
 
