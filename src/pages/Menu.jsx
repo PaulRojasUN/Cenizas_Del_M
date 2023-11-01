@@ -23,8 +23,6 @@ const Menu = () => {
     
     const result = await getDataUser(valuesUser.email)
 
-    console.log(result)
-
     if (!result.success && !result.error) {
       await createUser(valuesUser)
     }
