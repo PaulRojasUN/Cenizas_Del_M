@@ -1,73 +1,29 @@
-import { motion } from 'framer-motion'
-import { InitialTransition } from './InitialTransition'
-import { useAuth } from '../context/AuthContext'
-import { useState, useEffect } from 'react'
-import { createUser, getUser, editUser} from '../db/user-collection'
-
+import { IconReturn } from '../assets/icons/icons'
+import { InitialTransition } from '../components/InitialTransition'
+import { useAuthStore } from '../store/auth'
 
 const Menu = () => {
-  const auth = useAuth()
-
-  const [valuesUser, setValuesUser] = useState(null);
-
-  const { displayName, email} = auth.userLogged;
-
-
-  const getDataUser = async (email) => {
-    const result = await getUser(email);
-
-    return result
-  }
-
-  const saveDataUser = async (valuesUser) => {
-    
-    const result = await getDataUser(valuesUser.email)
-
-    console.log(result)
-
-    if (!result.success && !result.error) {
-      await createUser(valuesUser)
-    }
-  }
-
-  const editDataUser = async (email, valuesUser) => {
-    const result = await editUser(email, valuesUser)
-  }
-
-  useEffect(() => {
-    setValuesUser({
-        email: email,
-        name: displayName,
-    });
-  }, [email, displayName]);
-
-
-  useEffect(() => {
-    if (valuesUser) {
-        saveDataUser(valuesUser);
-    }
-  }, [valuesUser])
-
-
+  const [userLogged] = useAuthStore((state) => [
+    state.userLogged
+  ])
   return (
-    <div>
+    <div className='mt-16 w-full  flex flex-col items-center'>
       <InitialTransition />
-      <motion.div
-        exit={{ opacity: 0 }}
-        className='mb-20 flex flex-col gap-20 items-center'
-      >
-        <h2 className="text-novel text-4xl font-bold text-black uppercase">Logged-in as {displayName}</h2>
-        <br />
-        <button className='text-novel text-4xl font-bold text-black uppercase hover:cursor-pointer hover:text-gray-900 z-50'>
+      <div exit={{ opacity: 0 }} className='flex flex-col gap-20 items-center'>
+        <h2 className='text-novel text-4xl font-bold text-black uppercase'>Logged-in as {userLogged.name}</h2>
+        <button className='text-novel text-4xl font-bold text-black uppercase hover:cursor-pointer hover:text-gray-900 z-40'>
           Iniciar juego
         </button>
-        <button className='text-novel text-4xl font-bold text-black uppercase hover:cursor-pointer hover:text-gray-900 z-50'>
+        <button className='text-novel text-4xl font-bold text-black uppercase hover:cursor-pointer hover:text-gray-900 z-40'>
           Cargar partida
         </button>
-        <button className='text-novel text-4xl font-bold text-black uppercase hover:cursor-pointer hover:text-gray-900 z-50'>
+        <button className='text-novel text-4xl font-bold text-black uppercase hover:cursor-pointer hover:text-gray-900 z-40'>
           Controles
         </button>
-      </motion.div>
+      </div>
+      <div className='z-40 mr-20' style={{ marginLeft: 'auto' }}>
+        <IconReturn size={64} />
+      </div>
     </div>
   )
 }

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import { Navigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { useAuthStore } from '../store/auth'
 
 const ProtectedRoute = ({ children }) => {
-  const auth = useAuth()
-  const user = auth.userLogged
+  const [isAuthenticated] = useAuthStore((state) => [
+    state.isAuthenticated
+  ])
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <Navigate to='/' />
   }
 
