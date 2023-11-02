@@ -5,7 +5,11 @@
 
 @font-face {
   font-family: "PIXEL-CRAFT";
-  src: url("../assets/fonts/PIXELCRAFT.otf")
+  src: url("../assets/fonts/PixelifySans-VariableFont_wght.ttf")
+}
+@font-face {
+  font-family: "PRESS-START-2P";
+  src: url("../assets/fonts/PressStart2P-Regular.ttf")
 }
 
 *{

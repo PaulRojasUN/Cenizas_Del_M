@@ -13,7 +13,8 @@ export default {
         }
       },
       fontFamily: {
-        pixelcraft: ['PIXEL-CRAFT', 'sans-serif']
+        pixelcraft: ['PIXEL-CRAFT', 'sans-serif'],
+        presstart: ['PRESS-START-2P', 'sans-serif']
       }
     }
   },

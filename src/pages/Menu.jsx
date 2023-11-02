@@ -21,6 +21,7 @@ const Menu = () => {
   return (
     <>
       {/* <InitialTransition /> */}
+
       <div className='bg-white bg-opacity-50 rounded-lg p-4 '>
         <h2 className='font-pixelcraft text-4xl font-bold text-black uppercase'>Logged-in as {userLogged.name}</h2>
       </div>
