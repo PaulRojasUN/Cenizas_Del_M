@@ -28,16 +28,17 @@ const Init = () => {
       if (isAuthenticated) {
         navigate('/menu')
       } else {
-        console.log('siuu')
         onHandleGoogle()
       }
     }
   }, [continueKey])
 
   return (
-    <span className='text-novel text-4xl font-bold text-black uppercase'>
-      Presione ENTER para continuar
-    </span>
+    <div className='bg-white bg-opacity-50 rounded-lg p-4'>
+      <span className='font-pixelcraft text-4xl font-bold text-black uppercase'>
+        Presione ENTER para continuar
+      </span>
+    </div>
   )
 }
 

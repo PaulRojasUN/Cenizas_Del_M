@@ -3,13 +3,15 @@ import '../css/layout-init.css'
 
 const LayoutInit = ({ children }) => {
   return (
-    <div exit={{ opacity: 0 }} className='relative'>
+    <div className='relative'>
       <div className='background-image' />
       <div className='absolute inset-0 flex flex-col items-center z-0'>
-        <h1 className='text-novel text-8xl font-bold text-black mt-10 uppercase h-1/2'>
-          Cenizas del Mañana
-        </h1>
-        <div className='h-1/2 flex flex-col items-center w-full'>
+        <div className='bg-white bg-opacity-50 rounded-lg p-4 mt-10 '>
+          <h1 className='font-pixelcraft text-8xl font-bold text-black uppercase text-center'>
+            Cenizas del Mañana
+          </h1>
+        </div>
+        <div className='h-3/5 flex flex-col items-center justify-center'>
           {children}
         </div>
       </div>

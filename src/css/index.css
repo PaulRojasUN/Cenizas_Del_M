@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "PIXEL-CRAFT";
+  src: url("../assets/fonts/PIXELCRAFT.otf")
+}
 
 *{
   box-sizing: border-box;
