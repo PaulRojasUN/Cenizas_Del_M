@@ -18,18 +18,33 @@ const Menu = () => {
     }
   }
 
+  const handleInitGame = async (e) => {
+    e.preventDefault()
+    navigate('/game')
+  }
+
   return (
     <>
       <InitialTransition />
 
       <div className='bg-white bg-opacity-50 rounded-lg p-4 '>
-        <h2 className='font-pixelcraft text-4xl font-bold text-black uppercase'>Logged-in as {userLogged.name}</h2>
+        <h2 className='font-pixelcraft text-4xl font-bold text-black uppercase'>
+          Logged-in as {userLogged.name}
+        </h2>
       </div>
 
       <div className='flex flex-col items-center justify-center mt-14 gap-0'>
-        <PixelButton text='Iniciar juego' font='font-pixelcraft' />
+        <PixelButton
+          text='Iniciar juego'
+          font='font-pixelcraft'
+          handleFunction={handleInitGame}
+        />
         <PixelButton text='Controles' font='font-pixelcraft' />
-        <PixelButton text='Salir' font='font-pixelcraft' handleFunction={handleLogout} />
+        <PixelButton
+          text='Salir'
+          font='font-pixelcraft'
+          handleFunction={handleLogout}
+        />
       </div>
     </>
   )

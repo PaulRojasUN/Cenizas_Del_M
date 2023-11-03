@@ -51,3 +51,9 @@ canvas{
   transform: translate(-50%, -50%);
   opacity: 0.5;
 }
+
+.menuBar {
+  position:absolute;
+  left: 94%;
+  margin-top: 1.5%;
+}
