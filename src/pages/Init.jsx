@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { loginWithGoogle } from '../api/auth'
-import { InitialTransition } from '../components/InitialTransition'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useAuthStore } from '../store/auth'
 

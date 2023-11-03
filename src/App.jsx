@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { Route, Routes } from 'react-router-dom'
 import LayoutInit from './components/LayoutInit'
 import ProtectedRoute from './components/ProtectedRoute'
+import Game from './pages/Game'
 import Init from './pages/Init'
 import Menu from './pages/Menu'
 
@@ -24,6 +25,13 @@ const App = () => {
               <LayoutInit>
                 <Menu />
               </LayoutInit>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/game' element={
+            <ProtectedRoute>
+              <Game />
             </ProtectedRoute>
           }
         />

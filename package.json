@@ -14,7 +14,7 @@
     "@react-three/cannon": "6.6.0",
     "@react-three/drei": "9.88.9",
     "@react-three/fiber": "8.15.9",
-    "firebase": "^10.5.2",
+    "firebase": "10.5.2",
     "framer-motion": "10.16.4",
     "nanoid": "5.0.2",
     "nes.css": "^2.3.0",
