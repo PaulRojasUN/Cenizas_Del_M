@@ -1,21 +1,19 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: "PIXEL-CRAFT";
-  src: url("../assets/fonts/PixelifySans-VariableFont_wght.ttf")
+  font-family: 'PIXEL-CRAFT';
+  src: url('../assets/fonts/PixelifySans-VariableFont_wght.ttf');
 }
 @font-face {
-  font-family: "PRESS-START-2P";
-  src: url("../assets/fonts/PressStart2P-Regular.ttf")
+  font-family: 'PRESS-START-2P';
+  src: url('../assets/fonts/PressStart2P-Regular.ttf');
 }
 
-*{
+* {
   box-sizing: border-box;
 }
-
 
 html,
 body,
@@ -28,7 +26,7 @@ body,
   overflow: hidden;
 }
 
-canvas {
+body {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -38,6 +36,7 @@ canvas {
   bottom: 0;
   right: 0;
 }
+
 .pointer {
   color: white;
   font-size: 40px;
@@ -45,5 +44,5 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: .5;
+  opacity: 0.5;
 }

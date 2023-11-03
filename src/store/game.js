@@ -3,10 +3,10 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 export const useGameStore = create(devtools(persist((set) => ({
-  gameState:null,
-  games:null,
-  currentGame:null
+  gameState: null,
+  games: null,
+  currentGame: null
 
 }), {
-  name: "game"
+  name: 'game'
 })))

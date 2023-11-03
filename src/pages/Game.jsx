@@ -6,17 +6,14 @@ import { Ground } from '../World/test/Ground'
 
 const Game = () => {
   return (
-    <>
-      <Canvas className='canvass'>
-        <Sky sunPosition={[100, 100, 20]} />
-        <ambientLight intensity={0.5} />
-        <Fpv />
-        <Physics>
-          <Ground />
-        </Physics>
-      </Canvas>
-      {/* <div className='pointer'>+</div> */}
-    </>
+    <Canvas>
+      <Sky sunPosition={[100, 100, 20]} />
+      <ambientLight intensity={0.5} />
+      <Fpv />
+      <Physics>
+        <Ground />
+      </Physics>
+    </Canvas>
   )
 }
 
