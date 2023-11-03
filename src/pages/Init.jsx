@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { loginWithGoogle } from '../api/auth'
+import { InitialTransition } from '../components/InitialTransition'
 import { useKeyboard } from '../hooks/useKeyboard'
 import { useAuthStore } from '../store/auth'
 
@@ -34,11 +35,13 @@ const Init = () => {
   }, [continueKey])
 
   return (
-    <div className='bg-white bg-opacity-50 rounded-lg p-4'>
-      <span className='font-pixelcraft text-4xl font-bold text-black uppercase'>
-        Presione ENTER para continuar
-      </span>
-    </div>
+    <>
+      <div className='bg-white bg-opacity-50 rounded-lg p-4'>
+        <span className='font-pixelcraft text-4xl font-bold text-black uppercase'>
+          Presione ENTER para continuar
+        </span>
+      </div>
+    </>
   )
 }
 
