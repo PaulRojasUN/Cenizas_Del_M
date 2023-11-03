@@ -9,7 +9,6 @@
   vertical-align: top;
   text-transform: uppercase;
 
-  cursor: pointer;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -46,7 +45,11 @@
   border-image: url(https://i.imgur.com/sREM8Yn.png) 20 stretch;
 }
 
-.pixel-button button {
+.pixel-button span {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
   display: inline-block;
   vertical-align: top;
   position: relative;
