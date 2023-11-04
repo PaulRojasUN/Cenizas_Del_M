@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { Route, Routes } from 'react-router-dom'
 import LayoutInit from './components/LayoutInit'
 import ProtectedRoute from './components/ProtectedRoute'
+import FightClub from './pages/FightClub'
 import Game from './pages/Game'
 import Init from './pages/Init'
 import Menu from './pages/Menu'
@@ -35,7 +36,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='*' element={<h1>Not Found</h1>} />
+        <Route path='*' element={<FightClub />} />
       </Routes>
     </AnimatePresence>
   )
