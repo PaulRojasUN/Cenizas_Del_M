@@ -8,7 +8,7 @@ const PixelButton = ({ text, font, handleFunction }) => {
   }
 
   return (
-    <div className={`pixel-button ${font} text-white cursor-pointer`}>
+    <div className={`pixel-button ${font} text-white nes-pointer`}>
       <span onClick={(e) => onHandleButton(e)}>
         {text}
       </span>
