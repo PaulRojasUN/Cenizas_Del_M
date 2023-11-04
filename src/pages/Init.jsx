@@ -33,9 +33,17 @@ const Init = () => {
     }
   }, [continueKey])
 
+  const onHandleClick = () => {
+    if (isAuthenticated) {
+      navigate('/menu')
+    } else {
+      onHandleGoogle()
+    }
+  }
+
   return (
     <>
-      <div className='bg-white bg-opacity-50 rounded-lg p-4'>
+      <div onClick={() => onHandleClick()} className='bg-white bg-opacity-50 rounded-lg p-4 nes-pointer'>
         <span className='font-pixelcraft text-4xl font-bold text-black uppercase'>
           Presione ENTER para continuar
         </span>
