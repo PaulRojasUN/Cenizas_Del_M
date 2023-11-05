@@ -1,7 +1,9 @@
 'use strict'
 
 import {
+  doc,
   addDoc,
+  setDoc,
   collection,
   getDocs,
   query,
@@ -10,12 +12,26 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../firebase.config'
 
-const usersRef = collection(db, 'users')
+const usersCollectionRef = collection(db, 'users')
 
 const createUser = async (userData) => {
   try {
-    const res = await addDoc(usersRef, userData)
-    return { success: true, data: res }
+    const userDocRef = await addDoc(usersCollectionRef, userData)
+
+    const scene1Data = {
+      checkedNews:false,
+      hasFlashlight:false,
+      hasBackpack:false,
+      followedCrowd:false,
+      continueGirlfriendSearch:false,
+      hasKey:false
+    }
+
+    const scene1DataDocRef = collection(usersCollectionRef, userDocRef.id, "game")
+
+    await setDoc(doc(scene1DataDocRef, 'scene1'), scene1Data)
+
+    return { success: true, data: userDocRef }
   } catch (error) {
     console.log('Error to create user', error)
     return { success: false, data: error }
@@ -25,7 +41,7 @@ const createUser = async (userData) => {
 const getUser = async (userEmail) => {
   try {
     const userSnapshot = await getDocs(
-      query(usersRef, where('email', '==', userEmail))
+      query(usersCollectionRef, where('email', '==', userEmail))
     )
 
     if (userSnapshot.empty) {
@@ -41,7 +57,7 @@ const getUser = async (userEmail) => {
 const editUser = async (userEmail, newData) => {
   try {
     const userSnapshot = await getDocs(
-      query(usersRef, where('email', '==', userEmail))
+      query(usersCollectionRef, where('email', '==', userEmail))
     )
 
     if (userSnapshot.empty) {

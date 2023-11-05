@@ -1,0 +1,15 @@
+.text{
+    position: absolute;
+    font-size: 18px;
+    bottom: 0;
+    left: 2.5%;
+    width: 95%;
+    z-index: 1;
+    color: white; 
+    background-color: rgb(20, 18, 18);
+}
+
+
+
+
+
