@@ -16,7 +16,7 @@ export const loginWithGoogle = async (body) => {
     const { accessToken } = res.user.stsTokenManager
     const { email, displayName } = res.user
     loginSuccess(accessToken, { email, name: displayName })
-    saveDataUser({ email, name: displayName, backpack: []})
+    saveDataUser({ email, name: displayName, backpack: [] })
     return { type: 'success' }
   } catch (err) {
     loginFail()

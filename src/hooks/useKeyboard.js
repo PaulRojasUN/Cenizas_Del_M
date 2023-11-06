@@ -2,12 +2,21 @@ import { useEffect, useState } from 'react'
 
 const ACTIONS_KEYBOARD_MAP = {
   Enter: 'continueKey',
-  Space: 'continueKey'
+  Space: 'jump',
+  KeyW: 'moveForward',
+  KeyS: 'moveBackward',
+  KeyA: 'moveLeft',
+  KeyD: 'moveRight'
 }
 
 export const useKeyboard = () => {
   const [actions, setActions] = useState({
-    continue: false
+    continue: false,
+    moveForward: false,
+    moveBackward: false,
+    moveLeft: false,
+    moveRight: false,
+    jump: false
   })
 
   useEffect(() => {
