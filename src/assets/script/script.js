@@ -1,6 +1,13 @@
 const ScriptScene1 = (decisions, nameScript) => {
   const { examinoPeriodicoDigital, tieneMochila } = decisions
 
+  const scriptFirstDialog = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Hace mucho que no llamo a mi madre. Aunque primero debería revisar un poco'
+    }
+  ]
+
   const scriptConversation = [
     {
       author: '<strong>Alex</strong>',
@@ -88,8 +95,12 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 
-  return {
-    content: nameScript === 'news' ? scriptNews : scriptConversation
+  if (nameScript === 'scriptFirstDialog') {
+    return scriptFirstDialog
+  } else if (nameScript === 'scriptConversation') {
+    return scriptConversation
+  } else if (nameScript === 'scriptNews') {
+    return scriptNews
   }
 }
 

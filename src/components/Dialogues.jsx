@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { getSceneScript } from '../assets/script/script'
 import { useKeyboard } from '../hooks/useKeyboard'
+import { useGameStore } from '../store/game'
 import { Dialogue } from './Dialogue'
 
-const Dialogues = ({ scene, decisions, nameScript }) => {
+const Dialogues = ({ content }) => {
+  const { resetDialogue } = useGameStore.getState()
   const { continueKey } = useKeyboard()
-  const { content } = getSceneScript(scene, decisions, nameScript)
   const [index, setIndex] = useState(0)
   const [author, setAuthor] = useState(content[0].author)
   const [text, setText] = useState(content[0].text)
@@ -26,9 +26,12 @@ const Dialogues = ({ scene, decisions, nameScript }) => {
     }
   }, [continueKey])
 
-  if (index > content.length) {
-    return null
-  }
+  useEffect(() => {
+    if (index > content.length) {
+      resetDialogue()
+      setFinish(true)
+    }
+  }, [index])
 
   return (
     <>

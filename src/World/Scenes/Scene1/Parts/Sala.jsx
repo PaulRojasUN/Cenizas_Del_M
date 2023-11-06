@@ -3,8 +3,10 @@ import { useFrame } from '@react-three/fiber'
 import { Physics, RigidBody } from '@react-three/rapier'
 import Ecctrl from 'ecctrl'
 import { Howl } from 'howler'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { getSceneScript } from '../../../../assets/script/script'
 import { keyboardControls } from '../../../../hooks/useControls'
+import { useGameStore } from '../../../../store/game'
 import { Alex } from '../../../Characters/Alex'
 import Lights from '../Lights'
 import { House } from '../Places/House'
@@ -12,12 +14,31 @@ import { Telephone } from '../Telephone'
 
 const Sala = () => {
   const alexRef = useRef()
+  const { setDialogue } = useGameStore.getState()
+  const [dialogues, decisionsScene1] = useGameStore((state) => [
+    state.dialogue,
+    state.decisionsScene1
+  ])
+  const { showS1D2 } = dialogues
+  const [dialog1Showed, setDialog1Showed] = useState(false)
 
   useFrame(() => {
     if (alexRef.current) {
       console.log('Alex Position:', alexRef.current.position.toArray())
     }
   })
+
+  useEffect(() => {
+    const showFirstDialog = () => {
+      if (!showS1D2 && !dialog1Showed) {
+        const script = getSceneScript(1, [], 'scriptFirstDialog')
+        setDialogue(script)
+        setDialog1Showed(true)
+      }
+    }
+
+    showFirstDialog()
+  }, [])
 
   const telSound = new Howl({
     src: ['/assets/sounds/tel.wav']
@@ -40,11 +61,19 @@ const Sala = () => {
   document.addEventListener('keydown', handleKeyDown)
   document.addEventListener('keyup', handleKeyUp)
 
-  if (pressed === 'r' && telephone) {
-    telSound.currentTime = 0
-    telSound.volume = Math.random()
-    telSound.play()
+  const showConversation = () => {
+    const script = getSceneScript(1, decisionsScene1, 'scriptConversation')
+    setDialogue(script)
   }
+
+  useEffect(() => {
+    if (pressed === 'r' && telephone) {
+      telSound.currentTime = 0
+      telSound.volume = 0.2
+      telSound.play()
+      showConversation()
+    }
+  }, [pressed, telephone])
 
   return (
     <>
@@ -95,6 +124,7 @@ const Sala = () => {
         </RigidBody>
         <House position={[-5.5, -1.9, 0]} />
       </Physics>
+
     </>
   )
 }

@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useEffect } from 'react'
 import { setSceneInGame } from '../api/game'
 import { useGameStore } from '../store/game'
+import ShowDialogues from './Dialogues/ShowDialogues'
 import Scene1 from './Scenes/Scene1/Scene1'
 import { cameraSettings } from './camera/cameraSetting'
 
@@ -28,6 +29,7 @@ const Experience = () => {
       >
         {scene === 1 && <Scene1 />}
       </Canvas>
+      {/* <ShowDialogues /> */}
     </>
   )
 }

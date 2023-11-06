@@ -1,5 +1,7 @@
+import { Html } from '@react-three/drei'
 import { useEffect } from 'react'
 import { setPlaceInGame } from '../../../api/game'
+import Dialogues from '../../../components/Dialogues'
 import { useGameStore } from '../../../store/game'
 import Sala from './Parts/Sala'
 

@@ -6,7 +6,10 @@ export const useGameStore = create(devtools(persist((set) => ({
   scene: 1,
   place: 'Sala',
   backlog: [],
-  decisions: [],
+  decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
+  // dialogues: { showS1D1: false, showS1D2: false },
+  // isDialog: false,
+  dialogue: [],
 
   setGameState: (scene, place) => set((state) => ({
     scene,
@@ -27,6 +30,25 @@ export const useGameStore = create(devtools(persist((set) => ({
 
   removeFromBacklog: (item) => set((state) => ({
     backlog: state.backlog.filter((backlogItem) => backlogItem !== item)
+  })),
+
+  changeIsDialog: (value) => set((state) => ({
+    isDialog: value
+  })),
+
+  setDecisionScene1: (decision, value) => set((state) => ({
+    decisionsScene1: {
+      ...state.decisionsScene1,
+      [decision]: value
+    }
+  })),
+
+  setDialogue: (dialogue) => set((state) => ({
+    dialogue
+  })),
+
+  resetDialogue: () => set((state) => ({
+    dialogue: []
   }))
 
 }), {
