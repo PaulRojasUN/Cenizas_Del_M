@@ -21,9 +21,9 @@ const BarMenu = () => {
         <path
           fill='none'
           stroke='#ffffff'
-          stroke-linecap='round'
-          stroke-linejoin='round'
-          stroke-width='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          strokeWidth='2'
           d='M4 8h24M4 16h24M4 24h24'
         />
       </svg>

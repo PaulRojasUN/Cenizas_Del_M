@@ -10,6 +10,9 @@ export default {
         primary: {
           500: '#FBBF24',
           600: '#F59E0B'
+        },
+        script: {
+          200: '#2f8ebd'
         }
       },
       fontFamily: {

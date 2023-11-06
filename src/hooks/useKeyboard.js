@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 const ACTIONS_KEYBOARD_MAP = {
-  Enter: 'continueKey'
+  Enter: 'continueKey',
+  Space: 'continueKey'
 }
 
 export const useKeyboard = () => {
