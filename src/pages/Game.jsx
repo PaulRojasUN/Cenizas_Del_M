@@ -1,11 +1,11 @@
-import App from '../World/App/App'
+import Experience from '../World/Experience'
 import BarMenu from '../components/BarMenu'
 
 const Game = () => {
   return (
     <>
       <BarMenu />
-      <App />
+      <Experience />
     </>
   )
 }

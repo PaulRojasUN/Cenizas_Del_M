@@ -1,12 +1,12 @@
 'use strict'
 
 import {
-  doc,
   addDoc,
-  setDoc,
   collection,
+  doc,
   getDocs,
   query,
+  setDoc,
   updateDoc,
   where
 } from 'firebase/firestore'
@@ -19,15 +19,15 @@ const createUser = async (userData) => {
     const userDocRef = await addDoc(usersCollectionRef, userData)
 
     const scene1Data = {
-      checkedNews:false,
-      hasFlashlight:false,
-      hasBackpack:false,
-      followedCrowd:false,
-      continueGirlfriendSearch:false,
-      hasKey:false
+      checkedNews: false,
+      hasFlashlight: false,
+      hasBackpack: false,
+      followedCrowd: false,
+      continueGirlfriendSearch: false,
+      hasKey: false
     }
 
-    const scene1DataDocRef = collection(usersCollectionRef, userDocRef.id, "game")
+    const scene1DataDocRef = collection(usersCollectionRef, userDocRef.id, 'game')
 
     await setDoc(doc(scene1DataDocRef, 'scene1'), scene1Data)
 

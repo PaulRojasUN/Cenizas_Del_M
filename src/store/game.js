@@ -3,8 +3,10 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 export const useGameStore = create(devtools(persist((set) => ({
-  scene: 0,
-  place: null,
+  scene: 1,
+  place: 'Sala',
+  backlog: [],
+  decisions: [],
 
   setGameState: (scene, place) => set((state) => ({
     scene,
@@ -17,6 +19,14 @@ export const useGameStore = create(devtools(persist((set) => ({
 
   setPlace: (place) => set((state) => ({
     place
+  })),
+
+  addToBacklog: (item) => set((state) => ({
+    backlog: [...state.backlog, item]
+  })),
+
+  removeFromBacklog: (item) => set((state) => ({
+    backlog: state.backlog.filter((backlogItem) => backlogItem !== item)
   }))
 
 }), {

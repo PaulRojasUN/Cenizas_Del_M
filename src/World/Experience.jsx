@@ -1,20 +1,20 @@
 import { Canvas } from '@react-three/fiber'
 import { useEffect } from 'react'
-import { setSceneInGame } from '../../api/game'
-import { useGameStore } from '../../store/game'
-import Scene1 from '../Scenes/Scene1/Scene1'
-import { cameraSettings } from '../camera/cameraSetting'
+import { setSceneInGame } from '../api/game'
+import { useGameStore } from '../store/game'
+import Scene1 from './Scenes/Scene1/Scene1'
+import { cameraSettings } from './camera/cameraSetting'
 
-const App = () => {
+const Experience = () => {
   const [scene] = useGameStore((state) => [state.scene])
 
   useEffect(() => {
-    const consult = async () => {
+    const consultScene = async () => {
       if (scene === 0) {
         await setSceneInGame(1)
       }
     }
-    consult()
+    consultScene()
   }, [scene])
 
   return (
@@ -32,4 +32,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Experience
