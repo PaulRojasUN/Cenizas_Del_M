@@ -104,8 +104,29 @@ const ScriptScene1 = (decisions, nameScript) => {
   }
 }
 
+const ScriptIntroduction = () => {
+  const script = [
+    {
+      text: 'Bienvenido a Nueva Éireann, año 2045. La tecnología ha catapultado la civilización a nuevas alturas, pero no todo es lo que parece.'
+    },
+    {
+      text: 'El mundo está al borde. Dos gigantes, la Coalición de América del Norte y la Unión Euroasiática, se enfrentan en un juego peligroso de poder. Las ganas de poseer algo que se encontro en el Artico'
+    },
+    {
+      text: 'Un recurso vital, el COV49, esencial para combatir patógenos mortales. La competencia por su control ha desencadenado un conflicto global.'
+    },
+    {
+      text: 'Lo que inició como una disputa territorial ha evolucionado hacia una inminente guerra a gran escala. La tensión es palpable, y cada decisión puede llevar al mundo al abismo.'
+    }
+  ]
+
+  return script
+}
+
 export const getSceneScript = (scene, decisions, nameScript) => {
   switch (scene) {
+    case 0:
+      return ScriptIntroduction()
     case 1:
       return ScriptScene1(decisions, nameScript)
     default:
