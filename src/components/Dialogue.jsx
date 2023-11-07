@@ -16,7 +16,8 @@ export const Dialogue = ({ keyProp, author, text }) => {
     >
       <Typewriter
         options={{
-          cursor: ''
+          cursor: '',
+          delay: 50
         }}
         onInit={(textTypewriter) => {
           textTypewriter

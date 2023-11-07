@@ -3,8 +3,8 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 export const useGameStore = create(devtools(persist((set) => ({
-  scene: 1,
-  place: 'Sala',
+  scene: 0,
+  place: 'Introduction',
   backlog: [],
   decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
   // dialogues: { showS1D1: false, showS1D2: false },
