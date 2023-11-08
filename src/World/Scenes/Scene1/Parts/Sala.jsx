@@ -13,10 +13,14 @@ import { LivingRoom } from '../Places/LivingRoom'
 import { House } from '../Places/House'
 import { Telephone } from '../Telephone'
 import { Alex_Main } from '../../../Characters/Alex_main'
+import { Phone } from '../Items/Phone'
+import { Backpack } from '../Items/Backpack'
+import { Flashlight } from '../Items/Flashlight'
+import { Key } from '../Items/Key'
 
 const Sala = () => {
   const alexRef = useRef()
-  const { setDialogue, setActionsScene1, getActionsScene1 } = useGameStore.getState()
+  const { setDialogue, setActionsScene1, getActionsScene1, setHasBackpack, setHasFlashlight, setHasKey } = useGameStore.getState()
   const [decisionsScene1] = useGameStore((state) => [
     state.decisionsScene1
   ])
@@ -62,6 +66,9 @@ const Sala = () => {
     src: ['/assets/sounds/tel.wav']
   })
   const [telephone, setTelephone] = useState(false)
+  const [backpack, setBackpack] = useState(false)
+  const [flashlight, setFlashlight] = useState(false)
+  const [key, setKey] = useState(false)
   const [pressed, setPressed] = useState('none')
 
   const handleKeyDown = (e) => {
@@ -75,6 +82,7 @@ const Sala = () => {
       setPressed('none')
     }
   }
+
 
   document.addEventListener('keydown', handleKeyDown)
   document.addEventListener('keyup', handleKeyUp)
@@ -94,10 +102,28 @@ const Sala = () => {
         setDialogue(script)
         setActionsScene1('showD2', true)
       } else {
-        console.log('Ya llame a mi mam')
+        console.log('Ya llame a mi madre')
       }
     }
   }, [pressed, telephone])
+
+  useEffect(() => {
+    if (pressed === 'r' && backpack) {
+      setHasBackpack(true);
+    }  
+  }, [pressed, backpack])
+
+  useEffect(() => {
+    if (pressed === 'r' && flashlight && decisionsScene1.hasBackpack) {
+      setHasFlashlight(true);
+    }  
+  }, [pressed, flashlight])
+
+  useEffect(() => {
+    if (pressed === 'r' && key && decisionsScene1.hasBackpack) {
+      setHasKey(true);
+    }  
+  }, [pressed, flashlight])
 
   return (
     <>
@@ -110,7 +136,7 @@ const Sala = () => {
             floatHeight={0.8}
             capsuleHalfHeight={0.7}
             friction={0.2}
-            name='Telephone'
+            name='alex'
           >
             <EcctrlAnimation characterURL={alexURL} animationSet={animationSet}>
               <Alex_Main position={[0, -1.5, 0]} scale={1.65} />
@@ -127,7 +153,7 @@ const Sala = () => {
           type='fixed'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'Telephone') {
+              if (other.rigidBodyObject.name === 'alex') {
                 setTelephone(true)
               }
             }
@@ -141,25 +167,72 @@ const Sala = () => {
               Presiona R para interactuar
             </Text>
           )}
+          <Phone scale={0.01} position={[0,0,3]} rotation-y={1.2}/>
         </RigidBody>
+        {!decisionsScene1.hasBackpack && <RigidBody type='fixed' colliders={"cuboid"}
+          onCollisionEnter={({ manifold, target, other }) => {
+            if (other.rigidBodyObject) {
+              if (other.rigidBodyObject.name === 'alex') {
+                setBackpack(true)
+              }
+            }
+
+          }}
+          onCollisionExit={({ manifold, target, other }) => {
+            setBackpack(false)
+          }}
+          >
+          <Backpack scale={0.8} position={[1.8,0,-4]} rotation-y={1.5+Math.PI}/>
+        </RigidBody>}
+        {!decisionsScene1.hasFlashlight && <RigidBody type="fixed" colliders={"cuboid"}
+          onCollisionEnter={({ manifold, target, other }) => {
+            if (other.rigidBodyObject) {
+              if (other.rigidBodyObject.name === 'alex') {
+                setFlashlight(true)
+              }
+            }
+
+          }}
+          onCollisionExit={({ manifold, target, other }) => {
+            setFlashlight(false)
+          }}
+        >
+          
+          <Flashlight position={[-10.4,0,3]} rotation-y={1}/>
+        </RigidBody>}
+        {!decisionsScene1.hasKey && <RigidBody type="fixed" colliders={"cuboid"}
+          onCollisionEnter={({ manifold, target, other }) => {
+            if (other.rigidBodyObject) {
+              if (other.rigidBodyObject.name === 'alex') {
+                setKey(true)
+              }
+            }
+
+          }}
+          onCollisionExit={({ manifold, target, other }) => {
+            setKey(false)
+          }}
+        >
+          <Key scale={0.5} position={[2,0,3.3]}/>
+        </RigidBody>}
         <LivingRoom />
         <RigidBody>
           <mesh position-z={5.6}>
             <planeGeometry attach='geometry' args={[21, 5]} />
           </mesh>
         </RigidBody>
-        <RigidBody>
+        <RigidBody >
           <mesh position-z={-7.6}>
             <planeGeometry attach='geometry' args={[21, 15]} />
           </mesh>
         </RigidBody>
-        <RigidBody>
+        <RigidBody colliders={"cuboid"}>
           <mesh rotation-y={-Math.PI/2} position-x={8}>
             <planeGeometry attach='geometry' args={[21, 15]} />
           </mesh>
         </RigidBody>
         <RigidBody>
-          <mesh rotation-y={-Math.PI/2} position-x={-10} >
+          <mesh rotation-y={-Math.PI/2} position-x={-10.5} >
             <planeGeometry attach='geometry' args={[21, 15]} />
           </mesh>
         </RigidBody>
