@@ -2,11 +2,12 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-export const useGameStore = create(devtools(persist((set) => ({
+export const useGameStore = create(devtools(persist((set, get) => ({
   scene: 0,
   place: 'Introduction',
   backlog: [],
   decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
+  actionsScene1: { showD1: false, showD2: false },
   dialogue: [],
 
   setGameState: (scene, place) => set((state) => ({
@@ -19,6 +20,7 @@ export const useGameStore = create(devtools(persist((set) => ({
     place: 'Introduction',
     backlog: [],
     decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
+    actionsScene1: { showD1: false, showD2: false },
     dialogue: []
   })),
 
@@ -55,8 +57,16 @@ export const useGameStore = create(devtools(persist((set) => ({
 
   resetDialogue: () => set((state) => ({
     dialogue: []
-  }))
+  })),
 
+  setActionsScene1: (action, value) => set((state) => ({
+    actionsScene1: {
+      ...state.actionsScene1,
+      [action]: value
+    }
+  })),
+
+  getActionsScene1: (action) => get().actionsScene1[action]
 }), {
   name: 'game'
 })))

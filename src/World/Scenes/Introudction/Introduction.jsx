@@ -6,7 +6,6 @@ import DialoguesIntroduction from '../../../components/DialoguesIntroduction'
 const Introduction = () => {
   const texture = useTexture('/assets/images/background2.jpg')
   const script = getSceneScript(0, [], '')
-  console.log(script)
   return (
     <group>
       <mesh scale={17}>

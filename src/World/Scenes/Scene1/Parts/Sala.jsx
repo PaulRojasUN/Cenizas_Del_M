@@ -14,17 +14,10 @@ import { Telephone } from '../Telephone'
 
 const Sala = () => {
   const alexRef = useRef()
-  const { setDialogue } = useGameStore.getState()
-  const [dialogues, decisionsScene1] = useGameStore((state) => [
-    state.dialogue,
+  const { setDialogue, setActionsScene1, getActionsScene1 } = useGameStore.getState()
+  const [decisionsScene1] = useGameStore((state) => [
     state.decisionsScene1
   ])
-  const { showS1D2 } = dialogues
-  const [dialog1Showed, setDialog1Showed] = useState(false)
-  const showConversation = () => {
-    const script = getSceneScript(1, decisionsScene1, 'scriptConversation')
-    setDialogue(script)
-  }
 
   useFrame(() => {
     if (alexRef.current) {
@@ -34,10 +27,13 @@ const Sala = () => {
 
   useEffect(() => {
     const showFirstDialog = () => {
-      if (!showS1D2 && !dialog1Showed) {
-        const script = getSceneScript(1, [], 'scriptFirstDialog')
-        setDialogue(script)
-        setDialog1Showed(true)
+      const showD2 = getActionsScene1('showD2')
+      if (!showD2) {
+        setTimeout(() => {
+          const script = getSceneScript(1, [], 'scriptFirstDialog')
+          setDialogue(script)
+          setActionsScene1('showD1', true)
+        }, 4000)
       }
     }
 
@@ -67,10 +63,21 @@ const Sala = () => {
 
   useEffect(() => {
     if (pressed === 'r' && telephone) {
-      telSound.currentTime = 0
-      telSound.volume = 0.2
-      telSound.play()
-      showConversation()
+      const showD2 = getActionsScene1('showD2')
+      if (!showD2) {
+        telSound.currentTime = 0
+        telSound.volume = 0.2
+        telSound.play()
+        const script = getSceneScript(
+          1,
+          decisionsScene1,
+          'scriptConversation'
+        )
+        setDialogue(script)
+        setActionsScene1('showD2', true)
+      } else {
+        console.log('Ya llame a mi mam')
+      }
     }
   }, [pressed, telephone])
 
