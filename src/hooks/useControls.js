@@ -4,5 +4,6 @@ export const keyboardControls = [
   { name: 'leftward', keys: ['ArrowLeft', 'KeyA'] },
   { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
   { name: 'jump', keys: ['Space'] },
-  { name: 'run', keys: ['Shift'] }
+  { name: 'run', keys: ['Shift'] },
+  { name: 'action1', keys: ['KeyR'] },
 ]

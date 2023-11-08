@@ -1,7 +1,7 @@
 import { KeyboardControls, Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { Physics, RigidBody } from '@react-three/rapier'
-import Ecctrl from 'ecctrl'
+import Ecctrl, {EcctrlAnimation} from 'ecctrl'
 import { Howl } from 'howler'
 import React, { useEffect, useRef, useState } from 'react'
 import { getSceneScript } from '../../../../assets/script/script'
@@ -12,6 +12,7 @@ import Lights from '../Lights'
 import { LivingRoom } from '../Places/LivingRoom'
 import { House } from '../Places/House'
 import { Telephone } from '../Telephone'
+import { Alex_Main } from '../../../Characters/Alex_main'
 
 const Sala = () => {
   const alexRef = useRef()
@@ -19,6 +20,22 @@ const Sala = () => {
   const [decisionsScene1] = useGameStore((state) => [
     state.decisionsScene1
   ])
+
+  const alexURL = '/assets/models/character/alex_main.glb'
+
+  const animationSet = {
+    idle: 'idle',
+    walk: 'walking',
+    run: 'running',
+    jump: 'moving-jump',
+    jumpIdle: 'idle-jump',
+    jumpLand: 'idle',
+    fall: 'idle', // This is for falling from high sky
+    action1: 'pickup',
+    action2: 'idle',
+    action3: 'idle',
+    action4: 'idle'
+  }
 
   useFrame(() => {
     if (alexRef.current) {
@@ -87,20 +104,22 @@ const Sala = () => {
       <Lights />
       <Physics debug>
         <KeyboardControls map={keyboardControls}>
-          <Ecctrl
-            maxVelLimit={10}
+          <Ecctrl animated={true} autoBalance={false}
+            maxVelLimit={8}
             capsuleRadius={0.35}
-            floatHeight={1}
-            capsuleHalfHeight={0.3}
-            friction={0.1}
+            floatHeight={0.8}
+            capsuleHalfHeight={0.7}
+            friction={0.2}
             name='Telephone'
           >
-            <Alex position={[0, -0.45, 0]} scale={0.8} />
+            <EcctrlAnimation characterURL={alexURL} animationSet={animationSet}>
+              <Alex_Main position={[0, -1.5, 0]} scale={1.65} />
+            </EcctrlAnimation>
           </Ecctrl>
         </KeyboardControls>
-        <RigidBody>
+        <RigidBody colliders={'trimesh'} type="fixed">
           <mesh position-y={-2} position-x={-2.2} rotation-x={-Math.PI / 2}>
-            <planeGeometry attach='geometry' args={[21, 15]} />
+            <planeGeometry attach='geometry' args={[21, 14]} />
             <meshStandardMaterial />
           </mesh>
         </RigidBody>
