@@ -9,6 +9,7 @@ import { keyboardControls } from '../../../../hooks/useControls'
 import { useGameStore } from '../../../../store/game'
 import { Alex } from '../../../Characters/Alex'
 import Lights from '../Lights'
+import { LivingRoom } from '../Places/LivingRoom'
 import { House } from '../Places/House'
 import { Telephone } from '../Telephone'
 
@@ -84,22 +85,22 @@ const Sala = () => {
   return (
     <>
       <Lights />
-      <Physics>
+      <Physics debug>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
-            maxVelLimit={5}
+            maxVelLimit={10}
             capsuleRadius={0.35}
-            floatHeight={0.4}
+            floatHeight={1}
             capsuleHalfHeight={0.3}
             friction={0.1}
             name='Telephone'
           >
-            <Alex position={[0, -0.45, 0]} scale={0.5} />
+            <Alex position={[0, -0.45, 0]} scale={0.8} />
           </Ecctrl>
         </KeyboardControls>
         <RigidBody>
-          <mesh position-y={-2} rotation-x={-Math.PI / 2} receiveShadow>
-            <planeGeometry attach='geometry' args={[15, 11]} />
+          <mesh position-y={-2} position-x={-2.2} rotation-x={-Math.PI / 2}>
+            <planeGeometry attach='geometry' args={[21, 15]} />
             <meshStandardMaterial />
           </mesh>
         </RigidBody>
@@ -121,16 +122,29 @@ const Sala = () => {
               Presiona R para interactuar
             </Text>
           )}
-          <Telephone
-            position={[0.6, -0.5, -2.4]}
-            color='red'
-            scale={0.6}
-            rotation-y={-Math.PI / 2}
-          />
         </RigidBody>
-        <House position={[-5.5, -1.9, 0]} />
+        <LivingRoom />
+        <RigidBody>
+          <mesh position-z={5.6}>
+            <planeGeometry attach='geometry' args={[21, 5]} />
+          </mesh>
+        </RigidBody>
+        <RigidBody>
+          <mesh position-z={-7.6}>
+            <planeGeometry attach='geometry' args={[21, 15]} />
+          </mesh>
+        </RigidBody>
+        <RigidBody>
+          <mesh rotation-y={-Math.PI/2} position-x={8}>
+            <planeGeometry attach='geometry' args={[21, 15]} />
+          </mesh>
+        </RigidBody>
+        <RigidBody>
+          <mesh rotation-y={-Math.PI/2} position-x={-10} >
+            <planeGeometry attach='geometry' args={[21, 15]} />
+          </mesh>
+        </RigidBody>
       </Physics>
-
     </>
   )
 }
