@@ -7,13 +7,19 @@ export const useGameStore = create(devtools(persist((set) => ({
   place: 'Introduction',
   backlog: [],
   decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
-  // dialogues: { showS1D1: false, showS1D2: false },
-  // isDialog: false,
   dialogue: [],
 
   setGameState: (scene, place) => set((state) => ({
     scene,
     place
+  })),
+
+  reset: () => set((state) => ({
+    scene: 0,
+    place: 'Introduction',
+    backlog: [],
+    decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
+    dialogue: []
   })),
 
   setScene: (scene) => set((state) => ({

@@ -13,8 +13,6 @@ const Init = () => {
 
   const onHandleGoogle = async () => {
     const result = await loginWithGoogle()
-    console.log(result)
-    console.log(result.type)
     if (result.type === 'success') {
       navigate('/menu')
     } else {
