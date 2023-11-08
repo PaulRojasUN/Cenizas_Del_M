@@ -4,6 +4,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -54,6 +55,37 @@ const getUser = async (userEmail) => {
   }
 }
 
+const getUserGame = async (userEmail, gameAttribute) => {
+  try {
+    const userSnapshot = await getDocs(
+      query(usersCollectionRef, where('email', '==', userEmail))
+    )
+
+    if (userSnapshot.empty) {
+      return { success: false, message: 'User not found' }
+    }
+
+    const userId = userSnapshot.docs[0].id
+    
+    const userDocRef = doc(usersCollectionRef, userId)
+  
+    const gameColRef = collection(userDocRef, 'game')
+  
+    const scene1DocRef = doc(gameColRef, gameAttribute)
+
+    const scene1Snapshot = await getDoc(scene1DocRef)
+
+    const scene1Data = scene1Snapshot.data()
+
+    
+    return { success: true, data: scene1Data }
+  } catch (error) {
+    return { success: false, message: 'Error to get the user', error }
+  }
+}
+
+
+
 const editUser = async (userEmail, newData) => {
   try {
     const userSnapshot = await getDocs(
@@ -66,6 +98,32 @@ const editUser = async (userEmail, newData) => {
     const userDoc = userSnapshot.docs[0]
 
     await updateDoc(userDoc.ref, newData)
+
+    return { success: true, message: 'User updated successfully' }
+  } catch (error) {
+    return { success: false, message: 'Error to update the user', error }
+  }
+}
+
+const editUserGame = async (userEmail, gameAttribute, newData) => {
+  try {
+    const userSnapshot = await getDocs(
+      query(usersCollectionRef, where('email', '==', userEmail))
+    )
+
+    if (userSnapshot.empty) {
+      return { success: false, message: 'User not found' }
+    }
+    
+    const userId = userSnapshot.docs[0].id
+    
+    const userDocRef = doc(usersCollectionRef, userId)
+  
+    const gameColRef = collection(userDocRef, 'game')
+  
+    const scene1DocRef = doc(gameColRef, gameAttribute)
+
+    await updateDoc(scene1DocRef, newData)
 
     return { success: true, message: 'User updated successfully' }
   } catch (error) {
