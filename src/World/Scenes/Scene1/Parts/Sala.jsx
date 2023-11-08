@@ -35,10 +35,7 @@ const Sala = () => {
     jumpIdle: 'idle-jump',
     jumpLand: 'idle',
     fall: 'idle', // This is for falling from high sky
-    action1: 'pickup',
-    action2: 'idle',
-    action3: 'idle',
-    action4: 'idle'
+    action1: 'pickup'
   }
 
   useFrame(() => {
@@ -128,23 +125,24 @@ const Sala = () => {
   return (
     <>
       <Lights />
-      <Physics debug>
-        <KeyboardControls map={keyboardControls}>
-          <Ecctrl animated={true} autoBalance={false}
+      <Physics>
+      <KeyboardControls map={keyboardControls}>
+          <Ecctrl autoBalance={false}
             maxVelLimit={8}
             capsuleRadius={0.35}
-            floatHeight={0.8}
-            capsuleHalfHeight={0.7}
+            floatHeight={0}
+            capsuleHalfHeight={0.91}
             friction={0.2}
             name='alex'
+            animated={true}
           >
             <EcctrlAnimation characterURL={alexURL} animationSet={animationSet}>
-              <Alex_Main position={[0, -1.5, 0]} scale={1.65} />
+              <Alex_Main position={[0, -0.8, 0]} scale={1.65} />
             </EcctrlAnimation>
           </Ecctrl>
         </KeyboardControls>
         <RigidBody colliders={'trimesh'} type="fixed">
-          <mesh position-y={-2} position-x={-2.2} rotation-x={-Math.PI / 2}>
+          <mesh position-y={-2.3} position-x={-2.2} rotation-x={-Math.PI / 2}>
             <planeGeometry attach='geometry' args={[21, 14]} />
             <meshStandardMaterial />
           </mesh>
