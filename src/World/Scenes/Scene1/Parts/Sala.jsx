@@ -21,6 +21,10 @@ const Sala = () => {
   ])
   const { showS1D2 } = dialogues
   const [dialog1Showed, setDialog1Showed] = useState(false)
+  const showConversation = () => {
+    const script = getSceneScript(1, decisionsScene1, 'scriptConversation')
+    setDialogue(script)
+  }
 
   useFrame(() => {
     if (alexRef.current) {
@@ -60,11 +64,6 @@ const Sala = () => {
 
   document.addEventListener('keydown', handleKeyDown)
   document.addEventListener('keyup', handleKeyUp)
-
-  const showConversation = () => {
-    const script = getSceneScript(1, decisionsScene1, 'scriptConversation')
-    setDialogue(script)
-  }
 
   useEffect(() => {
     if (pressed === 'r' && telephone) {

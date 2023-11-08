@@ -20,7 +20,7 @@ const Experience = () => {
         {scene === 1 && <Scene1 />}
         {scene === 0 && <Introduction />}
       </Canvas>
-      {/* <ShowDialogues /> */}
+      <ShowDialogues />
     </>
   )
 }

@@ -32,4 +32,3 @@ export const setPlaceInGame = async (place) => {
     return { type: 'error' }
   }
 }
-
