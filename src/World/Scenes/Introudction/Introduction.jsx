@@ -1,10 +1,10 @@
 import { Html, useTexture } from '@react-three/drei'
 import React from 'react'
-import { getSceneScript } from '../../../assets/script/script'
+import { getSceneScript } from '../../../utils/script';
 import DialoguesIntroduction from '../../../components/DialoguesIntroduction'
 
 const Introduction = () => {
-  const texture = useTexture('/assets/images/background2.jpg')
+  const texture = useTexture('/assets/images/backgrounds/introduction_bg.jpg')
   const script = getSceneScript(0, [], '')
   return (
     <group>

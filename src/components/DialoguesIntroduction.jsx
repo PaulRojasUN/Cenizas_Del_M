@@ -12,7 +12,6 @@ const DialoguesIntroduction = ({ content }) => {
 
   useEffect(() => {
     if (continueKey) {
-      console.log(index, content.length)
       if (index <= content.length) {
         setIndex(index + 1)
         const dialog = content[index]

@@ -28,27 +28,6 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     scene
   })),
 
-  setHasBackpack: (value) => set((state) => ({
-    decisionsScene1: {
-      ...state.decisionsScene1,
-      hasBackpack: value
-    }
-  })),
-
-  setHasFlashlight: (value) => set((state) => ({
-    decisionsScene1: {
-      ...state.decisionsScene1,
-      hasFlashlight: value
-    }
-  })),
-
-  setHasKey: (value) => set((state) => ({
-    decisionsScene1: {
-      ...state.decisionsScene1,
-      hasKey: value
-    }
-  })),
-
   setPlace: (place) => set((state) => ({
     place
   })),
@@ -59,10 +38,6 @@ export const useGameStore = create(devtools(persist((set, get) => ({
 
   removeFromBacklog: (item) => set((state) => ({
     backlog: state.backlog.filter((backlogItem) => backlogItem !== item)
-  })),
-
-  changeIsDialog: (value) => set((state) => ({
-    isDialog: value
   })),
 
   setDecisionScene1: (decision, value) => set((state) => ({
