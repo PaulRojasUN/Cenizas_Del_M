@@ -1,7 +1,7 @@
 import { Html, useTexture } from '@react-three/drei'
 import React from 'react'
-import { getSceneScript } from '../../../utils/script';
-import DialoguesIntroduction from '../../../components/DialoguesIntroduction'
+import ContainerTextIntroduction from '../../../components/design/ContainerTextIntroduction'
+import { getSceneScript } from '../../../utils/script'
 
 const Introduction = () => {
   const texture = useTexture('/assets/images/backgrounds/introduction_bg.jpg')
@@ -14,7 +14,7 @@ const Introduction = () => {
       </mesh>
 
       <Html center position={[-2.5, 0, 0]}>
-        <DialoguesIntroduction content={script} />
+        <ContainerTextIntroduction content={script} />
       </Html>
     </group>
   )

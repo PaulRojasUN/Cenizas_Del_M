@@ -1,7 +1,7 @@
 // import { Theme } from '@radix-ui/themes';
 import { AnimatePresence } from 'framer-motion'
 import { Route, Routes } from 'react-router-dom'
-import LayoutInit from './components/LayoutInit'
+import LayoutInit from './components/layout/LayoutInit'
 import ProtectedRoute from './components/ProtectedRoute'
 import FightClub from './pages/FightClub'
 import Game from './pages/Game'

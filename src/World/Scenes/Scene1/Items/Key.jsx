@@ -1,9 +1,8 @@
+import { useGLTF } from '@react-three/drei'
+import React from 'react'
 
-import React, { useRef } from "react";
-import { useGLTF } from "@react-three/drei";
-
-export function Key(props) {
-  const { nodes, materials } = useGLTF("/assets/models/scene1/Key.glb");
+export function Key (props) {
+  const { nodes, materials } = useGLTF('/assets/models/scene1/Key.glb')
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -15,7 +14,7 @@ export function Key(props) {
         scale={100}
       />
     </group>
-  );
+  )
 }
 
-useGLTF.preload("/assets/models/scene1/Key.glb");
+useGLTF.preload('/assets/models/scene1/Key.glb')

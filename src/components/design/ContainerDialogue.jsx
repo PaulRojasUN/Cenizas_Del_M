@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useKeyboard } from '../hooks/useKeyboard'
-import { useGameStore } from '../store/game'
+import { useKeyboard } from '../../hooks/useKeyboard'
+import { useGameStore } from '../../store/game'
 import { Dialogue } from './Dialogue'
 
-const Dialogues = ({ content }) => {
+const ContainerDialogue = ({ content }) => {
   const { resetDialogue } = useGameStore.getState()
   const { continueKey } = useKeyboard()
   const [index, setIndex] = useState(0)
@@ -40,4 +40,4 @@ const Dialogues = ({ content }) => {
   )
 }
 
-export default Dialogues
+export default ContainerDialogue

@@ -1,4 +1,4 @@
-import '../css/pixel-button.css'
+import '../../css/pixel-button.css'
 
 const PixelButton = ({ text, font, handleFunction }) => {
   const onHandleButton = (e) => {

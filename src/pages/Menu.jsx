@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../api/auth'
-import { InitialTransition } from '../components/InitialTransition'
-import PixelButton from '../components/PixelButton'
+import { InitialTransition } from '../components/design/InitialTransition'
+import PixelButton from '../components/design/PixelButton'
 import { useAuthStore } from '../store/auth'
 import { useGameStore } from '../store/game'
 

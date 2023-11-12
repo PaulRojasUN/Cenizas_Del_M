@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import '../css/layout-init.css'
+import '../../css/layout-init.css'
 
 const LayoutInit = ({ children }) => {
   return (

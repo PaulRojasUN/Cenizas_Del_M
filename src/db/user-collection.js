@@ -66,25 +66,22 @@ const getUserGame = async (userEmail, gameAttribute) => {
     }
 
     const userId = userSnapshot.docs[0].id
-    
+
     const userDocRef = doc(usersCollectionRef, userId)
-  
+
     const gameColRef = collection(userDocRef, 'game')
-  
+
     const scene1DocRef = doc(gameColRef, gameAttribute)
 
     const scene1Snapshot = await getDoc(scene1DocRef)
 
     const scene1Data = scene1Snapshot.data()
 
-    
     return { success: true, data: scene1Data }
   } catch (error) {
     return { success: false, message: 'Error to get the user', error }
   }
 }
-
-
 
 const editUser = async (userEmail, newData) => {
   try {
@@ -114,13 +111,13 @@ const editUserGame = async (userEmail, gameAttribute, newData) => {
     if (userSnapshot.empty) {
       return { success: false, message: 'User not found' }
     }
-    
+
     const userId = userSnapshot.docs[0].id
-    
+
     const userDocRef = doc(usersCollectionRef, userId)
-  
+
     const gameColRef = collection(userDocRef, 'game')
-  
+
     const scene1DocRef = doc(gameColRef, gameAttribute)
 
     await updateDoc(scene1DocRef, newData)
@@ -131,4 +128,4 @@ const editUserGame = async (userEmail, gameAttribute, newData) => {
   }
 }
 
-export { createUser, editUser, getUser }
+export { createUser, editUser, editUserGame, getUser, getUserGame }

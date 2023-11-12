@@ -1,5 +1,5 @@
 import Experience from '../World/Experience'
-import BarMenu from '../components/BarMenu'
+import BarMenu from '../components/design/BarMenu'
 
 const Game = () => {
   return (

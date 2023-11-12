@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF } from '@react-three/drei'
+import React from 'react'
 
-export function Backpack(props) {
-  const { nodes, materials } = useGLTF("/assets/models/scene1/Backpack.glb");
+export function Backpack (props) {
+  const { nodes, materials } = useGLTF('/assets/models/scene1/Backpack.glb')
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -24,7 +24,7 @@ export function Backpack(props) {
         material={materials.Gold}
       />
     </group>
-  );
+  )
 }
 
-useGLTF.preload("/assets/models/scene1/Backpack.glb");
+useGLTF.preload('/assets/models/scene1/Backpack.glb')

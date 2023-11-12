@@ -10,11 +10,6 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   actionsScene1: { showD1: false, showD2: false },
   dialogue: [],
 
-  setGameState: (scene, place) => set((state) => ({
-    scene,
-    place
-  })),
-
   reset: () => set((state) => ({
     scene: 0,
     place: 'Introduction',

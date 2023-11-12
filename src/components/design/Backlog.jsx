@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { getBacklog } from '../api/game'
-import { useGameStore } from '../store/game'
+import { getBacklog } from '../../../api/game'
+// import { useGameStore } from '../store/game'
 
 const Backlog = () => {
-  const [backlog] = useGameStore((state) => [state.backlog])
+  // const [backlog] = useGameStore((state) => [state.backlog])
 
   useEffect(() => {
     const getBacklogFunction = async () => {

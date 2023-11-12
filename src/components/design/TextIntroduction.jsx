@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Typewriter from 'typewriter-effect'
-import '../css/dialogue.css'
+import '../../css/dialogue.css'
 
-export const DialogueIntroduction = ({ keyProp, text }) => {
+export const TextIntroduction = ({ keyProp, text }) => {
   const [key, setKey] = useState(keyProp)
 
   useEffect(() => {
