@@ -12,9 +12,6 @@ const Scene1 = () => {
       if (place === null) {
         await setPlaceInGame('Sala')
       }
-      if (place === 'Calle') {
-        await setPlaceInGame('Calle')
-      }
     }
     consult()
   }, [place])

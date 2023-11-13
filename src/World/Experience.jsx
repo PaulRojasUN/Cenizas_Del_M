@@ -15,12 +15,13 @@ const Experience = () => {
           e.target.requestPointerLock()
         }}
         shadows
+        className='z-0'
         camera={cameraSettings}
       >
         {scene === 1 && <Scene1 />}
         {scene === 0 && <Introduction />}
       </Canvas>
-      <ShowDialogues />
+      <ShowDialogues className='z-50' />
     </>
   )
 }

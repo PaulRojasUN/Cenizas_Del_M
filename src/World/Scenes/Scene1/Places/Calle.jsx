@@ -1,38 +1,45 @@
-import { Html } from '@react-three/drei'
-import React, { useEffect } from 'react'
-import { getSceneScript } from '../../../../utils/script'
-import { useGameStore } from '../../../../store/game'
-import ContainerTextIntroduction from '../../../../components/design/ContainerTextIntroduction'
-import Gif from './Gif'
+import React, { useEffect, useState } from "react";
+import { getSceneScript } from "../../../../utils/script";
+import { useGameStore } from "../../../../store/game";
+import Gif from "../FondoGif";
 
 const Calle = () => {
-  //const scriptNews = getSceneScript(1, [], 'scriptNews')
-  const { setDialogue, setActionsScene1, getActionsScene1 } =
+  const { setDialogue, getActionsScene1 } =
     useGameStore.getState()
 
   useEffect(() => {
     const showFirstDialog = () => {
-      const showD2 = getActionsScene1('showD2')
+      const showD2 = getActionsScene1("showD2");
       if (!showD2) {
         setTimeout(() => {
-          const script = getSceneScript(1, [], 'scriptNews')
+          const script = getSceneScript(1, [], "scriptNews")
           setDialogue(script)
-          setActionsScene1('showD1', true)
         }, 4000)
       }
-    }
+    };
 
-    showFirstDialog()
+    showFirstDialog();
+  }, []);
+
+  const [sound] = useState(() => new Audio("public/assets/sounds/tv.wav"))
+
+  useEffect(() => {
+    console.log('change')
+    sound.currentTime = 0
+    sound.volume = 0.5
+    sound.play()
+    sound.loop = true
+
+    return () => {
+      sound.pause()
+    }
   }, [])
 
   return (
     <>
-      {/* <Html center style={{ zIndex: 100 }} position={[-2.5, 0, 0]}>
-        <ContainerTextIntroduction content={scriptNews} />
-      </Html> */}
-      <Gif url='/assets/images/backgrounds/chaos-streets.gif' />
+      <Gif url="/assets/images/backgrounds/giftreet.gif" />
     </>
-  )
-}
+  );
+};
 
-export default Calle
+export default Calle;

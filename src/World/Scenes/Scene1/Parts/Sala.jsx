@@ -135,7 +135,7 @@ const Sala = () => {
   return (
     <>
       <Lights />
-      <Physics debug>
+      <Physics>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
             autoBalance={false}
