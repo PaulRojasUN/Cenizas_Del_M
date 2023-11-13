@@ -15,7 +15,7 @@ export const loginWithGoogle = async (body) => {
     const res = await signInWithPopup(auth, provider)
     const { email, displayName } = res.user
     loginSuccess({ email, name: displayName })
-    saveDataUser({ email, name: displayName, backpack: [] })
+    saveDataUser({ email, name: displayName})
     return { type: 'success' }
   } catch (err) {
     loginFail()
