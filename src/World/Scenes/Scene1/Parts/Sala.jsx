@@ -19,10 +19,11 @@ import Lights from '../Lights'
 import { House } from '../Places/House'
 import { LivingRoom } from '../Places/LivingRoom'
 import { Telephone } from '../Telephone'
+import { Doorway } from '../Items/Doorway'
 
 const Sala = () => {
   const alexRef = useRef()
-  const { setDialogue, setActionsScene1, setDecisionScene1, getActionsScene1 } = useGameStore.getState()
+  const { setPlace, setDialogue, setActionsScene1, setDecisionScene1, getActionsScene1 } = useGameStore.getState()
   const [decisionsScene1] = useGameStore((state) => [
     state.decisionsScene1
   ])
@@ -68,6 +69,7 @@ const Sala = () => {
   const [backpack, setBackpack] = useState(false)
   const [flashlight, setFlashlight] = useState(false)
   const [key, setKey] = useState(false)
+  const [door, setDoor] = useState(false)
   const [pressed, setPressed] = useState('none')
 
   const handleKeyDown = (e) => {
@@ -123,10 +125,17 @@ const Sala = () => {
     }
   }, [pressed, flashlight])
 
+  useEffect(() => {
+    if (pressed === 'r' && door && decisionsScene1.hasBackpack) {
+      setDecisionScene1('openDoor', true)
+      setPlace('Calle')
+    }
+  }, [pressed, door])
+
   return (
     <>
       <Lights />
-      <Physics>
+      <Physics debug>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
             autoBalance={false}
@@ -211,10 +220,26 @@ const Sala = () => {
           }}
           onCollisionExit={({ manifold, target, other }) => {
             setKey(false)
-          }}
-                                    >
+          }}>
           <Key scale={0.5} position={[2, 0, 3.3]} />
         </RigidBody>}
+
+        {!decisionsScene1.openDoor && <RigidBody
+          type='fixed' colliders='cuboid'
+          onCollisionEnter={({ manifold, target, other }) => {
+            if (other.rigidBodyObject) {
+              if (other.rigidBodyObject.name === 'alex') {
+                setDoor(true)
+              }
+            }
+          }}
+          onCollisionExit={({ manifold, target, other }) => {
+            setDoor(false)
+          }}>                          
+                               {/* izq */}
+          <Doorway scale={3.8} scale-x={4.4} scale-y={4} position={[0.1, -1.8, -7.7]}/>
+        </RigidBody>}
+
         <LivingRoom />
         <RigidBody>
           <mesh position-z={5.6}>
