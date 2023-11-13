@@ -1,13 +1,9 @@
 import { Html } from '@react-three/drei'
-import { useEffect } from 'react'
 
-const Gif = ({url}) => {
-  useEffect(()=>{
-    console.log('entroooooo')
-  },[])
+const Gif = ({ url }) => {
   return (
     <>
-      <Html style={{ zIndex: -100 }} fullscreen>
+      <Html fullscreen>
         <img
           src={url}
           style={{ width: '100%', height: '100%' }}

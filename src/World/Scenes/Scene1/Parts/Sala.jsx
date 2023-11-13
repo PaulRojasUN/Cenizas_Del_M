@@ -23,7 +23,7 @@ import { Doorway } from '../Items/Doorway'
 
 const Sala = () => {
   const alexRef = useRef()
-  const { setPlace, setDialogue, setActionsScene1, setDecisionScene1, getActionsScene1 } = useGameStore.getState()
+  const { setPlace, setDialogue, setActionsScene1, setDecisionScene1, getActionsScene1, resetDialogue } = useGameStore.getState()
   const [decisionsScene1] = useGameStore((state) => [
     state.decisionsScene1
   ])
@@ -129,6 +129,7 @@ const Sala = () => {
     if (pressed === 'r' && door && decisionsScene1.hasBackpack) {
       setDecisionScene1('openDoor', true)
       setPlace('Calle')
+      resetDialogue()
     }
   }, [pressed, door])
 

@@ -1,43 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { getSceneScript } from "../../../../utils/script";
 import { useGameStore } from "../../../../store/game";
-import Gif from "../FondoGif";
+import Gif from "../../../../components/design/FondoGif";
 
 const Calle = () => {
-  const { setDialogue, getActionsScene1 } =
-    useGameStore.getState()
+  const { setDialogue, getActionsScene1 } = useGameStore.getState();
+  const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
+  const [hasPlayed, setHasPlayed] = useState(false);
 
   useEffect(() => {
     const showFirstDialog = () => {
       const showD2 = getActionsScene1("showD2");
       if (!showD2) {
         setTimeout(() => {
-          const script = getSceneScript(1, [], "scriptNews")
+          const script = getSceneScript(1, [], "scriptNews");
           setDialogue(script)
         }, 4000)
       }
     };
 
-    showFirstDialog();
-  }, []);
-
-  const [sound] = useState(() => new Audio("public/assets/sounds/tv.wav"))
+    showFirstDialog()
+  }, [])
 
   useEffect(() => {
-    console.log('change')
-    sound.currentTime = 0
-    sound.volume = 0.5
-    sound.play()
-    sound.loop = true
+    const handleKeyDown = (event) => {
+      if (event.key === 'Enter' && !hasPlayed) {
+        sound.currentTime = 0
+        sound.volume = 0.5
+        sound.play().catch(error => {
+          console.log('Error al reproducir el audio:', error);
+        });
+        sound.loop = true
+        setHasPlayed(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [hasPlayed])
+
+  useEffect(()=>{
+    return ()=>{
       sound.pause()
     }
-  }, [])
+  },[])
 
   return (
     <>
-      <Gif url="/assets/images/backgrounds/giftreet.gif" />
+      <Gif url={"/assets/images/backgrounds/giftreet.gif"} />
     </>
   );
 };
