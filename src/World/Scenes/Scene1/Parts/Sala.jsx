@@ -10,15 +10,12 @@ import { keyboardControls } from '../../../../hooks/useControls'
 import { useGameStore } from '../../../../store/game'
 import { getSceneScript } from '../../../../utils/script'
 import { Alex } from '../../../Characters/Alex'
-import { Alex_Main } from '../../../Characters/Alex_main'
 import { Backpack } from '../Items/Backpack'
 import { Flashlight } from '../Items/Flashlight'
 import { Key } from '../Items/Key'
 import { Phone } from '../Items/Phone'
 import Lights from '../Lights'
-import { House } from '../Places/House'
 import { LivingRoom } from '../Places/LivingRoom'
-import { Telephone } from '../Telephone'
 import { Doorway } from '../Items/Doorway'
 
 const Sala = () => {
@@ -76,6 +73,10 @@ const Sala = () => {
     if (e.code === 'KeyR') {
       setPressed('r')
     }
+  }
+
+  const setDoo = (e) => {
+    console.log('e')
   }
 
   const handleKeyUp = (e) => {
@@ -137,7 +138,7 @@ const Sala = () => {
   return (
     <>
       <Lights />
-      <Physics>
+      <Physics debug>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
             autoBalance={false}
@@ -150,17 +151,17 @@ const Sala = () => {
             animated
           >
             <EcctrlAnimation characterURL={alexURL} animationSet={animationSet}>
-              <Alex_Main position={[0, -0.8, 0]} scale={1.65} />
+              <Alex position={[0, -1.25, 0]} scale={1.65} />
             </EcctrlAnimation>
           </Ecctrl>
         </KeyboardControls>
-        <RigidBody colliders='trimesh' type='fixed'>
+        {/* <RigidBody colliders='trimesh' type='fixed'>
           <mesh position-y={-2.3} position-x={-2.2} rotation-x={-Math.PI / 2}>
             <planeGeometry attach='geometry' args={[21, 14]} />
             <meshStandardMaterial />
           </mesh>
-        </RigidBody>
-        <RigidBody
+        </RigidBody> */}
+        {/* <RigidBody
           type='fixed'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -179,8 +180,8 @@ const Sala = () => {
             </Text>
           )}
           <Phone scale={0.01} position={[0, 0, 3]} rotation-y={1.2} />
-        </RigidBody>
-        {!decisionsScene1.hasBackpack && <RigidBody
+        </RigidBody> */}
+        {/* {!decisionsScene1.hasBackpack && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -194,8 +195,8 @@ const Sala = () => {
           }}
                                          >
           <Backpack scale={0.8} position={[1.8, 0, -4]} rotation-y={1.5 + Math.PI} />
-        </RigidBody>}
-        {!decisionsScene1.hasFlashlight && <RigidBody
+        </RigidBody>} */}
+        {/* {!decisionsScene1.hasFlashlight && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -210,8 +211,8 @@ const Sala = () => {
                                            >
 
           <Flashlight position={[-10.4, 0, 3]} rotation-y={1} />
-        </RigidBody>}
-        {!decisionsScene1.hasKey && <RigidBody
+        </RigidBody>} */}
+        {/* {!decisionsScene1.hasKey && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -224,9 +225,9 @@ const Sala = () => {
             setKey(false)
           }}>
           <Key scale={0.5} position={[2, 0, 3.3]} />
-        </RigidBody>}
+        </RigidBody>} */}
 
-        {!decisionsScene1.openDoor && <RigidBody
+        {/* {!decisionsScene1.openDoor && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -238,12 +239,11 @@ const Sala = () => {
           onCollisionExit={({ manifold, target, other }) => {
             setDoor(false)
           }}>                          
-                               {/* izq */}
           <Doorway scale={3.8} scale-x={4.4} scale-y={4} position={[0.1, -1.8, -7.7]}/>
-        </RigidBody>}
+        </RigidBody>} */}
 
-        <LivingRoom />
-        <RigidBody>
+        <LivingRoom scale={2} position-y={-3}/>
+        {/* <RigidBody>
           <mesh position-z={5.6}>
             <planeGeometry attach='geometry' args={[21, 5]} />
           </mesh>
@@ -262,7 +262,7 @@ const Sala = () => {
           <mesh rotation-y={-Math.PI / 2} position-x={-10.5}>
             <planeGeometry attach='geometry' args={[21, 15]} />
           </mesh>
-        </RigidBody>
+        </RigidBody> */}
       </Physics>
     </>
   )
