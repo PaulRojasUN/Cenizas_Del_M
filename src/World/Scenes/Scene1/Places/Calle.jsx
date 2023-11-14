@@ -15,7 +15,7 @@ const Calle = () => {
         setTimeout(() => {
           const script = getSceneScript(1, [], "scriptNews");
           setDialogue(script)
-        }, 4000)
+        }, 2000)
       }
     };
 

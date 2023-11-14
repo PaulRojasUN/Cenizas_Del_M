@@ -130,6 +130,7 @@ const Sala = () => {
       setDecisionScene1('openDoor', true)
       setPlace('Calle')
       resetDialogue()
+      window.location.reload()
     }
   }, [pressed, door])
 
