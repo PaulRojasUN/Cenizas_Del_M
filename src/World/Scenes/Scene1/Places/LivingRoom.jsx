@@ -3326,18 +3326,7 @@ export function LivingRoom(props) {
         material={materials.LowPolyInterior_MAIN}
         position={[2.5, 0, 5.75]}
       />
-       <RigidBody
-          type='fixed' colliders='cuboid' 
-          onCollisionEnter={({ manifold, target, other }) => {
-            if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setDoo();
-              }
-            }
-          }}
-          onCollisionExit={({ manifold, target, other }) => {
-            setDoor(false)
-          }}>    
+       <RigidBody type='fixed' colliders='cuboid' > 
       <mesh
         castShadow
         receiveShadow

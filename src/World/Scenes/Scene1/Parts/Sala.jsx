@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-import { KeyboardControls, Text } from '@react-three/drei'
+import { KeyboardControls, Text, useHelper } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { Physics, RigidBody } from '@react-three/rapier'
+import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier'
 import Ecctrl, { EcctrlAnimation } from 'ecctrl'
 import { Howl } from 'howler'
 import React, { useEffect, useRef, useState } from 'react'
@@ -19,6 +19,7 @@ import { LivingRoom } from '../Places/LivingRoom'
 import { Doorway } from '../Items/Doorway'
 
 const Sala = () => {
+
   const alexRef = useRef()
   const { setPlace, setDialogue, setActionsScene1, setDecisionScene1, getActionsScene1, resetDialogue } = useGameStore.getState()
   const [decisionsScene1] = useGameStore((state) => [
@@ -59,6 +60,9 @@ const Sala = () => {
     showFirstDialog()
   }, [])
 
+  const [interactionTxtPosition, setinteractionTxtPosition] = useState([-5, -4, 6.2])
+  const [interactionTxt, setinteractionTxt] = useState('Presiona R para abrir')
+
   const telSound = new Howl({
     src: ['/assets/sounds/tel.wav']
   })
@@ -73,10 +77,6 @@ const Sala = () => {
     if (e.code === 'KeyR') {
       setPressed('r')
     }
-  }
-
-  const setDoo = (e) => {
-    console.log('e')
   }
 
   const handleKeyUp = (e) => {
@@ -138,7 +138,7 @@ const Sala = () => {
   return (
     <>
       <Lights />
-      <Physics debug>
+      <Physics>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
             autoBalance={false}
@@ -181,21 +181,6 @@ const Sala = () => {
           )}
           <Phone scale={0.01} position={[0, 0, 3]} rotation-y={1.2} />
         </RigidBody> */}
-        {/* {!decisionsScene1.hasBackpack && <RigidBody
-          type='fixed' colliders='cuboid'
-          onCollisionEnter={({ manifold, target, other }) => {
-            if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setBackpack(true)
-              }
-            }
-          }}
-          onCollisionExit={({ manifold, target, other }) => {
-            setBackpack(false)
-          }}
-                                         >
-          <Backpack scale={0.8} position={[1.8, 0, -4]} rotation-y={1.5 + Math.PI} />
-        </RigidBody>} */}
         {/* {!decisionsScene1.hasFlashlight && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
@@ -227,42 +212,57 @@ const Sala = () => {
           <Key scale={0.5} position={[2, 0, 3.3]} />
         </RigidBody>} */}
 
-        {/* {!decisionsScene1.openDoor && <RigidBody
+        <group>
+          <mesh position={[interactionTxtPosition[0], interactionTxtPosition[1], interactionTxtPosition[2] + 0.01]} rotation-y={-Math.PI}>
+            <planeGeometry attach="geometry" args={[3, 0.6]} />
+            <meshBasicMaterial attach="material" color="white" opacity={0.7} transparent />
+          </mesh>
+          <Text
+            position={interactionTxtPosition}
+            rotation-y={-Math.PI}
+            fontSize={0.25}
+            color="black"
+            anchorX="center"
+            anchorY="middle"
+          >
+            {interactionTxt}
+          </Text>
+        </group>
+
+        <LivingRoom scale={2} position-y={-3} />
+        <RigidBody type='fixed' onCollisionEnter={({ manifold, target, other }) => {
+          if (other.rigidBodyObject && !decisionsScene1.openDoor) {
+            if (other.rigidBodyObject.name === 'alex') {
+              setinteractionTxtPosition([-5, 1, 6.2])
+              setinteractionTxt('Presiona R para abrir')
+              setDoor(true)
+            }
+          }
+        }}
+          onCollisionExit={({ manifold, target, other }) => {
+            setinteractionTxtPosition([-5, -4, 6.2])
+            setDoor(false)
+          }}>
+          <CuboidCollider position={[-5, 0.125, 6.3]} args={[1, 1.5, 0.05]} />
+        </RigidBody>
+        {!decisionsScene1.hasBackpack && <><RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
               if (other.rigidBodyObject.name === 'alex') {
-                setDoor(true)
+                setinteractionTxtPosition([0.5, 1, 5.6])
+                setinteractionTxt('Presiona R para recoger')
+                setBackpack(true)
               }
             }
           }}
           onCollisionExit={({ manifold, target, other }) => {
-            setDoor(false)
-          }}>                          
-          <Doorway scale={3.8} scale-x={4.4} scale-y={4} position={[0.1, -1.8, -7.7]}/>
-        </RigidBody>} */}
-
-        <LivingRoom scale={2} position-y={-3}/>
-        {/* <RigidBody>
-          <mesh position-z={5.6}>
-            <planeGeometry attach='geometry' args={[21, 5]} />
-          </mesh>
+            setinteractionTxtPosition([-5, -4, 6.2])
+            setBackpack(false)
+          }}>
+          <CuboidCollider position={[0.5, -1.2, 5.6]} args={[0.6, 1.5, 0.5]} />
         </RigidBody>
-        <RigidBody>
-          <mesh position-z={-7.6}>
-            <planeGeometry attach='geometry' args={[21, 15]} />
-          </mesh>
-        </RigidBody>
-        <RigidBody colliders='cuboid'>
-          <mesh rotation-y={-Math.PI / 2} position-x={8}>
-            <planeGeometry attach='geometry' args={[21, 15]} />
-          </mesh>
-        </RigidBody>
-        <RigidBody>
-          <mesh rotation-y={-Math.PI / 2} position-x={-10.5}>
-            <planeGeometry attach='geometry' args={[21, 15]} />
-          </mesh>
-        </RigidBody> */}
+          <Backpack scale={0.9} position={[0.5, -1.2, 5.6]} rotation-y={1 + Math.PI} /></>}
       </Physics>
     </>
   )
