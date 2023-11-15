@@ -259,7 +259,7 @@ const Sala = () => {
         position={[-5.83, 2.35, 11.4]}
       />
       <Lights />
-      <Physics debug>
+      <Physics>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
             position={[0, 0, 0]}
