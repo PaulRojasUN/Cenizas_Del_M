@@ -6,16 +6,6 @@ import Calle from './Places/Calle'
 
 const Scene1 = () => {
   const [place] = useGameStore((state) => [state.place])
-
-  useEffect(() => {
-    const consult = async () => {
-      if (place === null) {
-        await setPlaceInGame('Sala')
-      }
-    }
-    consult()
-  }, [place])
-
   return (
     <>
       {place === 'Sala' && <Sala />}

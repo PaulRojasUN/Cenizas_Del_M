@@ -23,10 +23,14 @@ import { Telephone } from '../Telephone'
 
 const Sala = () => {
   const alexRef = useRef()
-  const { setPlace, setDialogue, setActionsScene1, setDecisionScene1, getActionsScene1 } = useGameStore.getState()
-  const [decisionsScene1] = useGameStore((state) => [
-    state.decisionsScene1
-  ])
+  const {
+    setPlace,
+    setDialogue,
+    setActionsScene1,
+    setDecisionScene1,
+    getActionsScene1
+  } = useGameStore.getState()
+  const [decisionsScene1] = useGameStore((state) => [state.decisionsScene1])
 
   const alexURL = '/assets/models/character/alex_main.glb'
 
@@ -94,11 +98,7 @@ const Sala = () => {
         telSound.currentTime = 0
         telSound.volume = 0.2
         telSound.play()
-        const script = getSceneScript(
-          1,
-          decisionsScene1,
-          'scriptConversation'
-        )
+        const script = getSceneScript(1, decisionsScene1, 'scriptConversation')
         setDialogue(script)
         setActionsScene1('showD2', true)
       } else {
@@ -179,69 +179,89 @@ const Sala = () => {
           )}
           <Phone scale={0.01} position={[0, 0, 3]} rotation-y={1.2} />
         </RigidBody>
-        {!decisionsScene1.hasBackpack && <RigidBody
-          type='fixed' colliders='cuboid'
-          onCollisionEnter={({ manifold, target, other }) => {
-            if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setBackpack(true)
+        {!decisionsScene1.hasBackpack && (
+          <RigidBody
+            type='fixed'
+            colliders='cuboid'
+            onCollisionEnter={({ manifold, target, other }) => {
+              if (other.rigidBodyObject) {
+                if (other.rigidBodyObject.name === 'alex') {
+                  setBackpack(true)
+                }
               }
-            }
-          }}
-          onCollisionExit={({ manifold, target, other }) => {
-            setBackpack(false)
-          }}
-                                         >
-          <Backpack scale={0.8} position={[1.8, 0, -4]} rotation-y={1.5 + Math.PI} />
-                                         </RigidBody>}
-        {!decisionsScene1.hasFlashlight && <RigidBody
-          type='fixed' colliders='cuboid'
-          onCollisionEnter={({ manifold, target, other }) => {
-            if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setFlashlight(true)
+            }}
+            onCollisionExit={({ manifold, target, other }) => {
+              setBackpack(false)
+            }}
+          >
+            <Backpack
+              scale={0.8}
+              position={[1.8, 0, -4]}
+              rotation-y={1.5 + Math.PI}
+            />
+          </RigidBody>
+        )}
+        {!decisionsScene1.hasFlashlight && (
+          <RigidBody
+            type='fixed'
+            colliders='cuboid'
+            onCollisionEnter={({ manifold, target, other }) => {
+              if (other.rigidBodyObject) {
+                if (other.rigidBodyObject.name === 'alex') {
+                  setFlashlight(true)
+                }
               }
-            }
-          }}
-          onCollisionExit={({ manifold, target, other }) => {
-            setFlashlight(false)
-          }}
-                                           >
+            }}
+            onCollisionExit={({ manifold, target, other }) => {
+              setFlashlight(false)
+            }}
+          >
+            <Flashlight position={[-10.4, 0, 3]} rotation-y={1} />
+          </RigidBody>
+        )}
+        {!decisionsScene1.hasKey && (
+          <RigidBody
+            type='fixed'
+            colliders='cuboid'
+            onCollisionEnter={({ manifold, target, other }) => {
+              if (other.rigidBodyObject) {
+                if (other.rigidBodyObject.name === 'alex') {
+                  setKey(true)
+                }
+              }
+            }}
+            onCollisionExit={({ manifold, target, other }) => {
+              setKey(false)
+            }}
+          >
+            <Key scale={0.5} position={[2, 0, 3.3]} />
+          </RigidBody>
+        )}
 
-          <Flashlight position={[-10.4, 0, 3]} rotation-y={1} />
-                                           </RigidBody>}
-        {!decisionsScene1.hasKey && <RigidBody
-          type='fixed' colliders='cuboid'
-          onCollisionEnter={({ manifold, target, other }) => {
-            if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setKey(true)
+        {!decisionsScene1.openDoor && (
+          <RigidBody
+            type='fixed'
+            colliders='cuboid'
+            onCollisionEnter={({ manifold, target, other }) => {
+              if (other.rigidBodyObject) {
+                if (other.rigidBodyObject.name === 'alex') {
+                  setDoor(true)
+                }
               }
-            }
-          }}
-          onCollisionExit={({ manifold, target, other }) => {
-            setKey(false)
-          }}
-                                    >
-          <Key scale={0.5} position={[2, 0, 3.3]} />
-                                    </RigidBody>}
-
-        {!decisionsScene1.openDoor && <RigidBody
-          type='fixed' colliders='cuboid'
-          onCollisionEnter={({ manifold, target, other }) => {
-            if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setDoor(true)
-              }
-            }
-          }}
-          onCollisionExit={({ manifold, target, other }) => {
-            setDoor(false)
-          }}
-                                      >
-          {/* izq */}
-          <Doorway scale={3.8} scale-x={4.4} scale-y={4} position={[0.1, -1.8, -7.7]} />
-                                      </RigidBody>}
+            }}
+            onCollisionExit={({ manifold, target, other }) => {
+              setDoor(false)
+            }}
+          >
+            {/* izq */}
+            <Doorway
+              scale={3.8}
+              scale-x={4.4}
+              scale-y={4}
+              position={[0.1, -1.8, -7.7]}
+            />
+          </RigidBody>
+        )}
 
         <LivingRoom />
         <RigidBody>
