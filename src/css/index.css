@@ -48,3 +48,26 @@ canvas{
   left: 94%;
   margin-top: 1.5%;
 }
+
+.bss {
+  top: 0px; 
+  left: 0px; 
+  /* background: #aaa; */
+  /* padding: 8px; */
+  /* border: 3px solid #000; */
+  position: absolute;
+  /* display: flex; */
+  /* gap: 8px; */
+}
+
+
+/* 
+.texture-selector.hidden {
+  display: none;
+}
+
+
+
+.texture-selector img.selected {
+  border-color: red;
+} */

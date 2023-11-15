@@ -6,7 +6,11 @@ const ACTIONS_KEYBOARD_MAP = {
   KeyW: 'moveForward',
   KeyS: 'moveBackward',
   KeyA: 'moveLeft',
-  KeyD: 'moveRight'
+  KeyD: 'moveRight',
+  Digit1: 'd1',
+  Digit2: 'd2',
+  Digit3: 'd3',
+  Digit4: 'd4'
 }
 
 export const useKeyboard = () => {
@@ -16,7 +20,11 @@ export const useKeyboard = () => {
     moveBackward: false,
     moveLeft: false,
     moveRight: false,
-    jump: false
+    jump: false,
+    d1: false,
+    d2: false,
+    d3: false,
+    d4: false
   })
 
   useEffect(() => {

@@ -12,6 +12,7 @@ import { getSceneScript } from '../../../../utils/script'
 import { Alex } from '../../../Characters/Alex'
 import { Alex_Main } from '../../../Characters/Alex_main'
 import { Backpack } from '../Items/Backpack'
+import { Doorway } from '../Items/Doorway'
 import { Flashlight } from '../Items/Flashlight'
 import { Key } from '../Items/Key'
 import { Phone } from '../Items/Phone'
@@ -19,7 +20,6 @@ import Lights from '../Lights'
 import { House } from '../Places/House'
 import { LivingRoom } from '../Places/LivingRoom'
 import { Telephone } from '../Telephone'
-import { Doorway } from '../Items/Doorway'
 
 const Sala = () => {
   const alexRef = useRef()
@@ -110,6 +110,7 @@ const Sala = () => {
   useEffect(() => {
     if (pressed === 'r' && backpack) {
       setDecisionScene1('hasBackpack', true)
+      setActionsScene1('showBacklog', true)
     }
   }, [pressed, backpack])
 
@@ -192,7 +193,7 @@ const Sala = () => {
           }}
                                          >
           <Backpack scale={0.8} position={[1.8, 0, -4]} rotation-y={1.5 + Math.PI} />
-        </RigidBody>}
+                                         </RigidBody>}
         {!decisionsScene1.hasFlashlight && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
@@ -208,7 +209,7 @@ const Sala = () => {
                                            >
 
           <Flashlight position={[-10.4, 0, 3]} rotation-y={1} />
-        </RigidBody>}
+                                           </RigidBody>}
         {!decisionsScene1.hasKey && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
@@ -220,9 +221,10 @@ const Sala = () => {
           }}
           onCollisionExit={({ manifold, target, other }) => {
             setKey(false)
-          }}>
+          }}
+                                    >
           <Key scale={0.5} position={[2, 0, 3.3]} />
-        </RigidBody>}
+                                    </RigidBody>}
 
         {!decisionsScene1.openDoor && <RigidBody
           type='fixed' colliders='cuboid'
@@ -235,10 +237,11 @@ const Sala = () => {
           }}
           onCollisionExit={({ manifold, target, other }) => {
             setDoor(false)
-          }}>                          
-                               {/* izq */}
-          <Doorway scale={3.8} scale-x={4.4} scale-y={4} position={[0.1, -1.8, -7.7]}/>
-        </RigidBody>}
+          }}
+                                      >
+          {/* izq */}
+          <Doorway scale={3.8} scale-x={4.4} scale-y={4} position={[0.1, -1.8, -7.7]} />
+                                      </RigidBody>}
 
         <LivingRoom />
         <RigidBody>

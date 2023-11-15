@@ -4,6 +4,7 @@ import { InitialTransition } from '../components/design/InitialTransition'
 import PixelButton from '../components/design/PixelButton'
 import { useAuthStore } from '../store/auth'
 import { useGameStore } from '../store/game'
+import { useEffect } from 'react'
 
 const Menu = () => {
   const navigate = useNavigate()

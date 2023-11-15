@@ -6,6 +6,7 @@ import { getSceneScript } from '../../../utils/script'
 const Introduction = () => {
   const texture = useTexture('/assets/images/backgrounds/introduction_bg.jpg')
   const script = getSceneScript(0, [], '')
+
   return (
     <group>
       <mesh scale={17}>

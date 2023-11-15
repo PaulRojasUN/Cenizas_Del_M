@@ -7,6 +7,7 @@ import FightClub from './pages/FightClub'
 import Game from './pages/Game'
 import Init from './pages/Init'
 import Menu from './pages/Menu'
+import Backlog from './components/design/Backlog'
 
 const App = () => {
   return (
@@ -33,6 +34,13 @@ const App = () => {
           path='/game' element={
             <ProtectedRoute>
               <Game />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/test' element={
+            <ProtectedRoute>
+              <Backlog />
             </ProtectedRoute>
           }
         />
