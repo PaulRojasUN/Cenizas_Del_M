@@ -29,7 +29,9 @@ const createUser = async (userData) => {
     }
     
     const generalData = {
-      backpack:[]
+      backpack:[],
+      scene:0,
+      place:''
     }
 
     const gameDataDocRef = collection(usersCollectionRef, userDocRef.id, 'game')
