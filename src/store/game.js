@@ -15,7 +15,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     place: 'Introduction',
     backlog: [],
     decisionsScene1: {},
-    actionsScene1: { showD1: false, showD2: false },
+    actionsScene1: { showD1: false, showD2: false, showBacklog: false },
     dialogue: []
   })),
 

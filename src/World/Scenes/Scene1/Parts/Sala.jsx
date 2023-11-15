@@ -17,6 +17,7 @@ import { Phone } from '../Items/Phone';
 import Lights from '../Lights';
 import { LivingRoom } from '../Places/LivingRoom';
 import { Doorway } from '../Items/Doorway';
+import Backlog from '../../../../components/design/Backlog';
 
 const Sala = () => {
   const alexRef = useRef();
@@ -26,6 +27,8 @@ const Sala = () => {
     setActionsScene1,
     setDecisionScene1,
     getActionsScene1,
+    addToBacklog,
+    removetoBacklog,
     resetDialogue,
   } = useGameStore.getState();
   const [decisionsScene1] = useGameStore((state) => [state.decisionsScene1]);
@@ -113,24 +116,28 @@ const Sala = () => {
   useEffect(() => {
     if (pressed === 'r' && backpack) {
       setDecisionScene1('hasBackpack', true);
+      setActionsScene1('showBacklog', true);
     }
   }, [pressed, backpack]);
 
   useEffect(() => {
-    if (pressed === 'r' && flashlight && decisionsScene1.hasBackpack) {
+    if (pressed === 'r' && flashlight && decisionsScene1.hasBackpack && !decisionsScene1.hasFlashlight) {
       setDecisionScene1('hasFlashlight', true);
+      addToBacklog('flashlight');
     }
   }, [pressed, flashlight]);
 
   useEffect(() => {
-    if (pressed === 'r' && key && decisionsScene1.hasBackpack) {
+    if (pressed === 'r' && key && decisionsScene1.hasBackpack && !decisionsScene1.hasKey) {
       setDecisionScene1('hasKey', true);
+      addToBacklog('key');
     }
   }, [pressed, flashlight]);
 
   useEffect(() => {
     if (pressed === 'r' && door && decisionsScene1.hasBackpack) {
       setDecisionScene1('openDoor', true);
+      setActionsScene1('showBacklog', false);
       setPlace('Calle');
       resetDialogue();
       window.location.reload();
@@ -140,7 +147,7 @@ const Sala = () => {
   return (
     <>
       <Lights />
-      <Physics>
+      <Physics debug>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
             autoBalance={false}
@@ -163,7 +170,7 @@ const Sala = () => {
             <meshStandardMaterial />
           </mesh>
         </RigidBody> */}
-        {/* <RigidBody
+        <RigidBody
           type='fixed'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -181,9 +188,9 @@ const Sala = () => {
               Presiona R para interactuar
             </Text>
           )}
-          <Phone scale={0.01} position={[0, 0, 3]} rotation-y={1.2} />
-        </RigidBody> */}
-        {/* {!decisionsScene1.hasFlashlight && <RigidBody
+          <Phone scale={0.01} position={[-6.8, -0.8, 0.8]} rotation-y={0} />
+        </RigidBody>
+        {!decisionsScene1.hasFlashlight && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
@@ -195,25 +202,23 @@ const Sala = () => {
           onCollisionExit={({ manifold, target, other }) => {
             setFlashlight(false)
           }}
-                                           >
-
-          <Flashlight position={[-10.4, 0, 3]} rotation-y={1} />
-        </RigidBody>} */}
-        {/* {!decisionsScene1.hasKey && <RigidBody
+        >
+          <Flashlight position={[6.8, -0.75, 0.8]} scale={0.65} rotation-y={1} />
+        </RigidBody>}
+        {!decisionsScene1.hasKey && <RigidBody
           type='fixed' colliders='cuboid'
           onCollisionEnter={({ manifold, target, other }) => {
             if (other.rigidBodyObject) {
-              if (other.rigidBodyObject.name === 'alex') {
-                setKey(true)
+              if (other.rigidBodyObject.name === 'alex' && !key) {
+                setKey(true);
               }
             }
           }}
           onCollisionExit={({ manifold, target, other }) => {
             setKey(false)
           }}>
-          <Key scale={0.5} position={[2, 0, 3.3]} />
-        </RigidBody>} */}
-
+          <Key scale={0.5} position={[-3.5, -0.7, -2.9]} />
+        </RigidBody>}
         <group>
           <mesh
             position={[
@@ -250,7 +255,9 @@ const Sala = () => {
             if (other.rigidBodyObject && !decisionsScene1.openDoor) {
               if (other.rigidBodyObject.name === 'alex') {
                 setinteractionTxtPosition([-5, 1, 6.2]);
-                setinteractionTxt('Presiona R para abrir');
+                setinteractionTxt(decisionsScene1.hasBackpack ?
+                  'Presiona R para abrir' :
+                  'Falta algo...');
                 setDoor(true);
               }
             }
