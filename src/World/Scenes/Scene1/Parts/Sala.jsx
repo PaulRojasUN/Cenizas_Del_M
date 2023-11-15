@@ -262,6 +262,7 @@ const Sala = () => {
       <Physics debug>
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
+            position={[0, 0, 0]}
             autoBalance={false}
             maxVelLimit={speed}
             capsuleRadius={0.35}
