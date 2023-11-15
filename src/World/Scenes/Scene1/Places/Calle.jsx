@@ -11,12 +11,10 @@ const Calle = () => {
   useEffect(() => {
     const showFirstDialog = () => {
       const showD2 = getActionsScene1("showD2");
-      if (!showD2) {
-        setTimeout(() => {
-          const script = getSceneScript(1, [], "scriptNews");
-          setDialogue(script)
-        }, 2000)
-      }
+      setTimeout(() => {
+        const script = getSceneScript(1, [], "scriptNews");
+        setDialogue(script)
+      }, 2000)
     };
 
     showFirstDialog()

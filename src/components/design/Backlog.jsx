@@ -16,7 +16,7 @@ const Backlog = () => {
           src='/assets/images/backlog/backlog.png'
           alt='Backlog'
           className='mr-2'
-          style={{ height: '160px' }}
+          style={{ height: '120px' }}
         />
       </div>
       <div className='flex'>
