@@ -104,6 +104,74 @@ const ScriptScene1 = (decisions, nameScript) => {
   }
 }
 
+const ScriptScene2 = (decisions, nameScript) => {
+  const { hasFlashlight, hasKey, wantToShare } = decisions
+
+  const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
+
+  const scripMeetingSurvivors = [
+    {
+      author: '<strong>Alex</strong>',
+      text: '(se acerca a un grupo de supervivientes que parecen solidarios. Se presenta y comparte información sobre su situación.) Hola, soy Alex. ¿Cómo están todos aquí? ¿Cómo han estado lidiando con toda esta situación?'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: '(sonriendo) ¡Hola, Alex! Bienvenido al búnker. Estamos todos pasando por lo mismo, ¿verdad chicos?'
+    },
+    {
+      author: '<strong>Superviviente B</strong>',
+      text: '(asiente) Sí, es un desastre afuera. Pero al menos aquí abajo, tenemos una oportunidad.'
+    },
+    {
+      author: '<strong>Superviviente C</strong>',
+      text: 'Perdí contacto con mi familia en los primeros días. No sé si están bien.'
+    },
+    {
+      author: '<strong>Superviviente D</strong>',
+      text: '(serio) Todos hemos perdido algo. Pero ahora estamos aquí, y tenemos que cuidarnos mutuamente.'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Eso es cierto, lo mejor que podemos hacer ahora es reunir las cosas que tenemos y mantener una gestión equitativa de todo.'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Veo que tienes una mochila, ¿hay algo útil que nos pueda servir a todos?'
+    }
+  ]
+
+  // Se cierra al dialogo para presentar el selector de decisión al jugador
+
+  const scriptAnsweringSurvivorsResources = [
+    !hasFlashlight && !hasKey &&
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No, no tengo nada en mi mochila'
+    },
+    (hasFlashlight || hasKey) && !wantToShare &&
+    {
+      author: '<strong>Alex</strong>',
+      text: '(mintiendo) No, no tengo nada en mi mochila'
+    },
+    (hasFlashlight || hasKey) && wantToShare &&
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Sí, tengo una ' + stringSharingResources
+    },
+    ((!hasFlashlight && !hasKey) || !wantToShare) &&
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: '(desconfiado) Mmm, ya veo'
+    },
+    ((hasFlashlight || hasKey) || wantToShare) &&
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Bien, nos será de ayuda'
+    }
+  ]
+}
+
+
 const ScriptIntroduction = () => {
   const script = [
     {
