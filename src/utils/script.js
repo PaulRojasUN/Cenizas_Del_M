@@ -169,6 +169,25 @@ const ScriptScene2 = (decisions, nameScript) => {
       text: 'Bien, nos será de ayuda'
     }
   ]
+
+  // Se presenta una pantalla (como la de la introduccion) que explique un resumen de los sucesos en la ultima semana en el bunker, luego se continua con los eventos de la traicion
+
+  const scriptDiscoverTreason = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Hemos estado perdiendo suministros últimamente. ¿Alguien tiene alguna idea de lo que está sucediendo?'
+    },
+    {
+      author: '<strong>Superviviente E</strong>',
+      text: '¡No puedo creer que alguien de nosotros estaría haciendo esto! ¡Estamos juntos en esto!'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Tranquilos muchachos, lo resolveremos y buscaremos al culpable, por ahora preocupemosnos por abrir la caja fuerte.'
+    }
+
+  ]
+
 }
 
 
