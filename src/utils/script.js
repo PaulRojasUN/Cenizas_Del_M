@@ -105,7 +105,7 @@ const ScriptScene1 = (decisions, nameScript) => {
 }
 
 const ScriptScene2 = (decisions, nameScript) => {
-  const { hasFlashlight, hasKey, wantToShare } = decisions
+  const { hasFlashlight, hasKey, wantToShare, hasCommunicator} = decisions
 
   const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
 
@@ -168,7 +168,86 @@ const ScriptScene2 = (decisions, nameScript) => {
       author: '<strong>Superviviente A</strong>',
       text: 'Bien, nos será de ayuda'
     }
+  ].filter(Boolean)
+
+  const scriptBeforeOpenSafe = [
+    hasKey && !wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Creo que puedo abrir esto sin que nadie se dé cuenta'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: 'Chicos, creo que con esta llave podemos tener  acceso a suministros importantes.'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '¿Qué les parece si abrimos la caja  juntos y compartimos lo que encontramos?.'
+    }
+    
+  ].filter(Boolean)
+
+  const scriptViewingResourcesSafe = [
+    hasKey && !wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Estas cosas me podrían ser de gran utilidad, pero no creo poder llevarlos todos'
+    },
+    hasKey && !wantToShare && hasCommunicator && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Creo saber cómo usar este comunicador...'
+    },
+    hasKey && !wantToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: '...ubicado en las coordenadas 34.567, -78.901.'
+    },
+    hasKey && !wantToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Alex, si estás ahí, espero que  escuches esto.'
+    },
+    hasKey && !wantToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Necesitamos refuerzos y recursos.'
+    },
+    hasKey && !wantToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Si hay alguien escuchando, respondan.'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: 'Muy bien. La caja fuerte está repleta de recursos que nos serán de utilidad'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: 'Podemos tomar cada uno y comenzarlos a distribuir equita...'
+      // Se desata el caso de los demás supervivientes por tomar los recursos
+    }
   ]
+
+  const scriptAfterOpenSafe = [
+    hasKey && !wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(recoge elementos escogidos)'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Los demás enloquecieron por tomar cosas de la caja fuerte...'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Parece que yo no podré tomar nada de allí...'
+    },
+    hasKey && wantToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Será mejor que me retire de este lugar...'
+    }
+  ]
+
+  const scriptPickingAid = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Puedo llevarme esto conmigo'
+    }
+  ]
+
 }
 
 
