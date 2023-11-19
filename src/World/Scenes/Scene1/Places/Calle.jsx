@@ -4,7 +4,7 @@ import { useGameStore } from "../../../../store/game";
 import Gif from "../../../../components/design/FondoGif";
 
 const Calle = () => {
-  const { setDialogue, getActionsScene1 } = useGameStore.getState();
+  const { setDialogue, getActionsScene1, setChoice } = useGameStore.getState();
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
 
@@ -15,6 +15,7 @@ const Calle = () => {
         const script = getSceneScript(1, [], "scriptNews");
         setDialogue(script)
       }, 2000)
+      setChoice([{text:'hola a todos'}, {text:'hola a todos'}, {text:'hola a todos'}])
     };
 
     showFirstDialog()

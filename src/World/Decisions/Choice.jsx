@@ -1,8 +1,10 @@
+
 import ChoicesContainer from "../../components/design/ChoicesContainer"
 
 
-const Choice = ({ options, results, params }) => {
-    return <ChoicesContainer options={ options }/>
+
+const Choice = ({ content }) => {
+    return <ChoicesContainer />
 }
 
 export default Choice

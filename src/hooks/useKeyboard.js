@@ -10,7 +10,9 @@ const ACTIONS_KEYBOARD_MAP = {
   Digit1: 'd1',
   Digit2: 'd2',
   Digit3: 'd3',
-  Digit4: 'd4'
+  Digit4: 'd4',
+  ArrowUp: 'up',
+  ArrowDown: 'down',
 }
 
 export const useKeyboard = () => {
@@ -24,7 +26,9 @@ export const useKeyboard = () => {
     d1: false,
     d2: false,
     d3: false,
-    d4: false
+    d4: false,
+    up: false,
+    down: false
   })
 
   useEffect(() => {
