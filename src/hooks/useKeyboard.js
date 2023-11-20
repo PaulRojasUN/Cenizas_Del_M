@@ -12,7 +12,7 @@ const ACTIONS_KEYBOARD_MAP = {
   Digit3: 'd3',
   Digit4: 'd4',
   ArrowUp: 'up',
-  ArrowDown: 'down',
+  ArrowDown: 'down'
 }
 
 export const useKeyboard = () => {

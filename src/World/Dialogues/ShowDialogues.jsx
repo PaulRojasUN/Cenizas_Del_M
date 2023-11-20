@@ -8,10 +8,9 @@ const ShowDialogues = () => {
 
   return (
     <>
-      {(dialogue.length > 0) ?
-        <ContainerDialogue
-          content={dialogue}
-        /> : (choice.length > 0) ? <ChoicesContainer props={{options:choice}} /> : <></>}
+      {(dialogue.length > 0)
+        ? <ContainerDialogue content={dialogue} />
+        : (choice.length > 0) ? <ChoicesContainer props={{ options: choice }} /> : <></>}
     </>
   )
 }

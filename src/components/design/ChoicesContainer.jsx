@@ -1,14 +1,17 @@
 import ChoiceOption from './ChoiceOption'
 import { useKeyboard } from '../../hooks/useKeyboard'
+import { useGameStore } from '../../store/game'
 import '../../css/choice.css'
 import { useState, useEffect } from 'react'
 
 const ChoicesContainer = ({ props }) => {
-  const [selectedOption, setSelectedOption] = useState(0)
-
   const options = props.options
 
-  const { up, down } = useKeyboard()
+  const [selectedOption, setSelectedOption] = useState(options.length - 1)
+
+  const { up, down, continueKey } = useKeyboard()
+
+  const { setChoice } = useGameStore.getState()
 
   useEffect(() => {
     if (up) {
@@ -29,6 +32,15 @@ const ChoicesContainer = ({ props }) => {
       }
     }
   }, [down])
+
+  useEffect(() => {
+    if (continueKey) {
+      const effect = options[selectedOption].effect
+      console.log(options[selectedOption])
+      effect()
+      setChoice([])
+    }
+  }, [continueKey])
 
   return (
     <div className='choice-container'>

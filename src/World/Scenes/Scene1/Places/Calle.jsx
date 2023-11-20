@@ -4,18 +4,34 @@ import { useGameStore } from "../../../../store/game";
 import Gif from "../../../../components/design/FondoGif";
 
 const Calle = () => {
-  const { setDialogue, getActionsScene1, setChoice } = useGameStore.getState();
+  const { setDialogue, getActionsScene1, setChoice, setDecisionScene1 } = useGameStore.getState();
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
+
+  
+
+  const goToBunkerEffect = () => {
+    setDecisionScene1('followedCrowd', true)
+    setDecisionScene1('continueGirlfriendSearch', false)
+  }
+
+  const goForGirlfriendEffect = () => {
+    setDecisionScene1('continueGirlfriendSearch', true)
+    setDecisionScene1('followedCrowd', false)
+  }
 
   useEffect(() => {
     const showFirstDialog = () => {
       const showD2 = getActionsScene1("showD2");
+      setChoice([])
       setTimeout(() => {
         const script = getSceneScript(1, [], "scriptNews");
         setDialogue(script)
+        setChoice([
+          { text: 'Ingresar al bunker', effect: goToBunkerEffect },
+          { text: 'Ir a buscar a sofía', effect: goForGirlfriendEffect }
+        ])
       }, 2000)
-      setChoice([{text:'hola a todos'}, {text:'hola a todos'}, {text:'hola a todos'}])
     };
 
     showFirstDialog()
