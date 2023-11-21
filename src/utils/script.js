@@ -121,6 +121,171 @@ const ScriptScene1 = (decisions, nameScript) => {
   }
 }
 
+const ScriptScene2 = (decisions, nameScript) => {
+  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator} = decisions
+
+  const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
+
+  const scripMeetingSurvivors = [
+    {
+      author: '<strong>Alex</strong>',
+      text: '(se acerca a un grupo de supervivientes que parecen solidarios. Se presenta y comparte información sobre su situación.) Hola, soy Alex. ¿Cómo están todos aquí? ¿Cómo han estado lidiando con toda esta situación?'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: '(sonriendo) ¡Hola, Alex! Bienvenido al búnker. Estamos todos pasando por lo mismo, ¿verdad chicos?'
+    },
+    {
+      author: '<strong>Superviviente B</strong>',
+      text: '(asiente) Sí, es un desastre afuera. Pero al menos aquí abajo, tenemos una oportunidad.'
+    },
+    {
+      author: '<strong>Superviviente C</strong>',
+      text: 'Perdí contacto con mi familia en los primeros días. No sé si están bien.'
+    },
+    {
+      author: '<strong>Superviviente D</strong>',
+      text: '(serio) Todos hemos perdido algo. Pero ahora estamos aquí, y tenemos que cuidarnos mutuamente.'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Eso es cierto, lo mejor que podemos hacer ahora es reunir las cosas que tenemos y mantener una gestión equitativa de todo.'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Veo que tienes una mochila, ¿hay algo útil que nos pueda servir a todos?'
+    }
+  ]
+
+  // Se cierra al dialogo para presentar el selector de decisión al jugador
+
+  const scriptAnsweringSurvivorsResources = [
+    !hasFlashlight && !hasKey &&
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No, no tengo nada en mi mochila'
+    },
+    (hasFlashlight || hasKey) && !wantsToShare &&
+    {
+      author: '<strong>Alex</strong>',
+      text: '(mintiendo) No, no tengo nada en mi mochila'
+    },
+    (hasFlashlight || hasKey) && wantsToShare &&
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Sí, tengo una ' + stringSharingResources
+    },
+    ((!hasFlashlight && !hasKey) || !wantsToShare) &&
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: '(desconfiado) Mmm, ya veo'
+    },
+    ((hasFlashlight || hasKey) || wantsToShare) &&
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Bien, nos será de ayuda'
+    }
+  ].filter(Boolean)
+
+  // Dialogo antes de abrir la caja fuerte
+  const scriptBeforeOpenSafe = [
+    hasKey && !wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Creo que puedo abrir esto sin que nadie se dé cuenta'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: 'Chicos, creo que con esta llave podemos tener  acceso a suministros importantes.'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '¿Qué les parece si abrimos la caja  juntos y compartimos lo que encontramos?.'
+    }
+  ].filter(Boolean)
+
+  // Dialogo de justo despues de ver los recursos dentro de la caja fuerte
+  const scriptViewingResourcesSafe = [
+    hasKey && !wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Estas cosas me podrían ser de gran utilidad, pero no creo poder llevarlos todos'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: 'Muy bien. La caja fuerte está repleta de recursos que nos serán de utilidad'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: 'Podemos tomar cada uno y comenzarlos a distribuir equita...'
+      // Se desata el caso de los demás supervivientes por tomar los recursos
+    }
+  ].filter(Boolean)
+
+  // Dialogos despues de haber visualizado los recursos disponibles en la caja fuerte (cuando estos son sacados ya sea por Alex o los demas supervivientes)
+  const scriptAfterOpenSafe = [
+    hasKey && !wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(recoge elementos escogidos)'
+    },
+    hasKey && !wantsToShare && hasCommunicator && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Creo saber cómo usar este comunicador...'
+    },
+    hasKey && !wantsToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: '...ubicado en las coordenadas 34.567, -78.901.'
+    },
+    hasKey && !wantsToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Alex, si estás ahí, espero que  escuches esto.'
+    },
+    hasKey && !wantsToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Necesitamos refuerzos y recursos.'
+    },
+    hasKey && !wantsToShare && hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Si hay alguien escuchando, respondan.'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Los demás enloquecieron por tomar cosas de la caja fuerte...'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Parece que yo no podré tomar nada de allí...'
+    },
+    hasKey && wantsToShare && {
+      author: '<strong>Alex</strong>',
+      text: '(comentando mentalmente) Será mejor que me retire de este lugar...'
+    }
+  ].filter(Boolean)
+
+  // Dialogo despues de encontrar el botiquin en el bunker
+  const scriptPickingAid = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Puedo llevarme esto conmigo'
+    }
+  ].filter(Boolean)
+
+
+  const scriptDiscoverTreason = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Hemos estado perdiendo suministros últimamente. ¿Alguien tiene alguna idea de lo que está sucediendo?'
+    },
+    {
+      author: '<strong>Superviviente E</strong>',
+      text: '¡No puedo creer que alguien de nosotros estaría haciendo esto! ¡Estamos juntos en esto!'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Tranquilos muchachos, lo resolveremos y buscaremos al culpable, por ahora preocupemosnos por abrir la caja fuerte.'
+    }
+  ].filter(Boolean)
+}
+
+
 const ScriptIntroduction = () => {
   const script = [
     {
