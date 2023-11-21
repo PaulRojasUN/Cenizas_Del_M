@@ -6,12 +6,13 @@ import { useState, useEffect } from 'react'
 
 const ChoicesContainer = ({ props }) => {
   const options = props.options
+  const nameChoice = props.nameChoice
 
   const [selectedOption, setSelectedOption] = useState(options.length - 1)
 
   const { up, down, continueKey } = useKeyboard()
 
-  const { setChoice , setIsChoice, setDialogue} = useGameStore.getState()
+  const { setChoice , setIsChoice, setDialogue, setActionsGame} = useGameStore.getState()
 
   useEffect(() => {
     if (up) {
@@ -41,6 +42,7 @@ const ChoicesContainer = ({ props }) => {
       setChoice([])
       setDialogue([])
       setIsChoice(false)
+      setActionsGame(nameChoice, true)
     }
   }, [continueKey])
 

@@ -16,7 +16,7 @@ const ACTIONS_KEYBOARD_MAP = {
 }
 
 export const useKeyboard = () => {
-  const [actions, setActions] = useState({
+  const [actionsGame, setActionsGame] = useState({
     continue: false,
     moveForward: false,
     moveBackward: false,
@@ -37,9 +37,9 @@ export const useKeyboard = () => {
       const action = ACTIONS_KEYBOARD_MAP[code]
 
       if (action) {
-        // if (actions[action]) return
+        // if (actionsGame[action]) return
 
-        setActions(prevActions => ({
+        setActionsGame(prevActions => ({
           ...prevActions,
           [action]: true
         }))
@@ -51,9 +51,9 @@ export const useKeyboard = () => {
       const action = ACTIONS_KEYBOARD_MAP[code]
 
       if (action) {
-        // if (!actions[action]) return
+        // if (!actionsGame[action]) return
 
-        setActions(prevActions => ({
+        setActionsGame(prevActions => ({
           ...prevActions,
           [action]: false
         }))
@@ -69,5 +69,5 @@ export const useKeyboard = () => {
     }
   }, [])
 
-  return actions
+  return actionsGame
 }

@@ -16,10 +16,7 @@ const ScriptScene1 = (decisions, nameScript) => {
     {
       author: '<strong>Madre</strong>',
       text: '¡Alex, cariño! Estoy bien. Pero he estado viendo las noticias, y estoy preocupada. ¿Todo está bien allí en <strong>Nueva Éireann?</strong>'
-    }
-  ]
-
-  const scriptConversation2 = [
+    },
     sonarTranquilo && {
       author: '<strong>Alex</strong>',
       text: '(intentando sonar tranquilo) Sí, mamá, todo está... un poco agitado. ¿Has estado viendo las noticias otra vez?'
@@ -107,6 +104,32 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 
+  const scriptGoToBunker = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Sí, será mejor buscar refugio. No puedo arriesgarme a ir a otro lugar.'
+    }
+  ]
+
+  const scriptGoToSofia = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Sí, iré a buscar a Sofia. Ella es lo más importante para mí.'
+    },
+    {
+      author: '<strong>...</strong>',
+      text: '[Los edificios colapsaron enfrente tuyo, la calle se llenó de escombros y no te dejaron seguir. Aún así, encontraste una llave en el suelo que puede ser de utilidad]'
+    },
+    {
+      author: '<strong>...</strong>',
+      text: '[Aunque tu objetivo sigue siendo encontrar a Sofia, la destrucción a tu alrededor te obliga a reconsiderar. El único lugar seguro parece ser el bunker al que todos corren]'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '¡Maldición! No puedo llegar a Sofia. Tendré que buscar refugio en el bunker.'
+    }
+  ]
+
   if (nameScript === 'scriptFirstDialog') {
     return scriptFirstDialog
   } else if (nameScript === 'scriptConversation1') {
@@ -115,6 +138,12 @@ const ScriptScene1 = (decisions, nameScript) => {
     return scriptConversation2
   } else if (nameScript === 'scriptNews') {
     return scriptNews
+  }
+  else if (nameScript === 'scriptGoToBunker') {
+    return scriptGoToBunker
+  }
+  else if (nameScript === 'scriptGoToSofia') {
+    return scriptGoToSofia
   }
 }
 

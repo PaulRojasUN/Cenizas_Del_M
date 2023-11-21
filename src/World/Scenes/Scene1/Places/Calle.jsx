@@ -4,10 +4,15 @@ import { useGameStore } from '../../../../store/game';
 import { getSceneScript } from '../../../../utils/script';
 
 const Calle = () => {
-  const { setDialogue, getActionsScene1, setChoice, setDecisionScene1 } =
+  const { setDialogue, setChoice, setDecisionScene1, setScene } =
     useGameStore.getState();
   const [sound] = useState(() => new Audio('/assets/sounds/tv.wav'));
   const [hasPlayed, setHasPlayed] = useState(false);
+  const [actionsGame, decisionsScene1, dialogue] = useGameStore((state) => [
+    state.actionsGame,
+    state.decisionsScene1,
+    state.dialogue,
+  ]);
 
   const goToBunkerEffect = () => {
     setDecisionScene1('followedCrowd', true);
@@ -24,16 +29,37 @@ const Calle = () => {
       setChoice([]);
       setTimeout(() => {
         const script = getSceneScript(1, [], 'scriptNews');
-        setDialogue(script);
-        setChoice([
-          { text: 'Ingresar al bunker', effect: goToBunkerEffect },
-          { text: 'Ir a buscar a sofía', effect: goForGirlfriendEffect },
-        ]);
+        setDialogue({ script });
+        setChoice({
+          content: [
+            { text: 'Ingresar al bunker', effect: goToBunkerEffect },
+            { text: 'Ir a buscar a sofía', effect: goForGirlfriendEffect },
+          ],
+          nameChoice: 'choiceBunkerOrSofia',
+        });
       }, 2000);
     };
 
     showFirstDialog();
   }, []);
+
+  useEffect(() => {
+    if (actionsGame.choiceBunkerOrSofia) {
+      if (decisionsScene1.followedCrowd) {
+        const script = getSceneScript(1, [], 'scriptGoToBunker');
+        const action = () => {
+          setScene(2);
+        };
+        setDialogue({ script, action });
+      } else if (decisionsScene1.continueGirlfriendSearch) {
+        const script = getSceneScript(1, [], 'scriptGoToSofia');
+        const action = () => {
+          setScene(2);
+        };
+        setDialogue({ script, action });
+      }
+    }
+  }, [actionsGame]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {

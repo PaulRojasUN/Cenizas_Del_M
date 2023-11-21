@@ -3,7 +3,7 @@ import { useKeyboard } from '../../hooks/useKeyboard';
 import { useGameStore } from '../../store/game';
 import { Dialogue } from './Dialogue';
 
-const ContainerDialogue = ({ content }) => {
+const ContainerDialogue = ({ content, action }) => {
   const { resetDialogue, setIsChoice } = useGameStore.getState();
   const { continueKey } = useKeyboard();
   const [index, setIndex] = useState(0);
@@ -31,14 +31,22 @@ const ContainerDialogue = ({ content }) => {
             setIsChoice(false);
           }
           if (dialog) {
-            console.log("setando")
+            console.log('setando');
             setAuthor(dialog.author);
             setText(dialog.text);
           } else {
+            resetDialogue();
             setFinish(true);
+            if (action) {
+              action();
+            }
           }
-        }else{
+        } else {
+          resetDialogue();
           setFinish(true);
+          if (action) {
+            action();
+          }
         }
       }
     }
@@ -48,6 +56,9 @@ const ContainerDialogue = ({ content }) => {
     if (index >= content.length) {
       resetDialogue();
       setFinish(true);
+      if (action) {
+        action();
+      }
     }
   }, [index]);
 
