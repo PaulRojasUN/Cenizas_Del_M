@@ -8,8 +8,6 @@ const Calle = () => {
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
 
-  
-
   const goToBunkerEffect = () => {
     setDecisionScene1('followedCrowd', true)
     setDecisionScene1('continueGirlfriendSearch', false)

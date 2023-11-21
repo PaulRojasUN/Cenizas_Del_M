@@ -37,10 +37,6 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     backlog: state.backlog.filter((backlogItem) => backlogItem !== item)
   })),
 
-  setDecisionsScene1: (decisions) => set((state) => ({
-    decisionsScene1: decisions
-  })),
-
   setDecisionScene1: (decision, value) => set((state) => ({
     decisionsScene1: {
       ...state.decisionsScene1,
@@ -59,6 +55,9 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   resetDialogue: () => set((state) => ({
     dialogue: []
   })),
+  resetChoice: () => set((state) => ({
+    choice: []
+  })),
 
   setActionsScene1: (action, value) => set((state) => ({
     actionsScene1: {
@@ -67,7 +66,10 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     }
   })),
 
+  getDecisionsScene1: () => get().decisionsScene1,
+
   getActionsScene1: (action) => get().actionsScene1[action]
 }), {
   name: 'game'
-})))
+}
+)))

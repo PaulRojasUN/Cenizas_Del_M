@@ -1,5 +1,5 @@
 const ScriptScene1 = (decisions, nameScript) => {
-  const { examinoPeriodicoDigital, tieneMochila } = decisions
+  const { examinoPeriodicoDigital, tieneMochila, sonarTranquilo } = decisions
 
   const scriptFirstDialog = [
     {
@@ -8,7 +8,7 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ]
 
-  const scriptConversation = [
+  const scriptConversation1 = [
     {
       author: '<strong>Alex</strong>',
       text: '¡Hola, mamá! ¿Cómo estás?'
@@ -16,10 +16,18 @@ const ScriptScene1 = (decisions, nameScript) => {
     {
       author: '<strong>Madre</strong>',
       text: '¡Alex, cariño! Estoy bien. Pero he estado viendo las noticias, y estoy preocupada. ¿Todo está bien allí en <strong>Nueva Éireann?</strong>'
-    },
-    {
+    }
+  ]
+
+
+  const scriptConversation2 = [
+    sonarTranquilo && {
       author: '<strong>Alex</strong>',
       text: '(intentando sonar tranquilo) Sí, mamá, todo está... un poco agitado. ¿Has estado viendo las noticias otra vez?'
+    },
+    !sonarTranquilo && {
+      author: '<strong>Alex</strong>',
+      text: '(agitado) No. Esa cuestión me tiene bastante preocupado. ¿Te enteraste en las noticias?'
     },
     {
       author: '<strong>Madre</strong>',
@@ -97,8 +105,10 @@ const ScriptScene1 = (decisions, nameScript) => {
 
   if (nameScript === 'scriptFirstDialog') {
     return scriptFirstDialog
-  } else if (nameScript === 'scriptConversation') {
-    return scriptConversation
+  } else if (nameScript === 'scriptConversation1') {
+    return scriptConversation1
+  } else if (nameScript === 'scriptConversation2') {
+    return scriptConversation2
   } else if (nameScript === 'scriptNews') {
     return scriptNews
   }

@@ -25,9 +25,11 @@ const Sala = () => {
   const {
     setPlace,
     setDialogue,
+    setChoice,
     setActionsScene1,
     setDecisionScene1,
     getActionsScene1,
+    getDecisionsScene1,
     addToBacklog,
     removetoBacklog,
     resetDialogue,
@@ -112,8 +114,27 @@ const Sala = () => {
         telSound.currentTime = 0;
         telSound.volume = 0.2;
         telSound.play();
-        const script = getSceneScript(1, decisionsScene1, "scriptConversation");
-        setDialogue(script);
+        const decisions = getDecisionsScene1()
+        console.log(decisions)
+        const script1 = getSceneScript(1, decisions, 'scriptConversation1');
+        const soundRelaxedChoice = [
+          {
+            text: 'Intentar sonar tranquilo',
+            effect: () => {
+              setDecisionScene1('sonarTranquilo', true)
+              setDialogue(getSceneScript(1, decisions, 'scriptConversation2'))
+            }
+          },
+          {
+            text: 'No ocultar preocupación',
+            effect: () => {
+              setDecisionScene1('sonarTranquilo', false)
+              setDialogue(getSceneScript(1, decisions, 'scriptConversation2'))
+            }
+          }
+        ]
+        setDialogue(script1);
+        setChoice(soundRelaxedChoice)
         setActionsScene1("showD2", true);
       } else {
         console.log("Ya llame a mi madre");
