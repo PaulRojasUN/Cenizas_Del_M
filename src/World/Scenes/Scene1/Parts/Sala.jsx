@@ -353,22 +353,22 @@ const Sala = () => {
           <RigidBody
             type="fixed"
             colliders="cuboid"
-            onCollisionEnter={({ manifold, target, other }) => {
-              if (other.rigidBodyObject) {
-                if (other.rigidBodyObject.name === 'alex' && !key) {
-                  setKey(true);
-                  setinteractionTxtPosition([-3.5, 0.6, -2.6]);
-                  setinteractionTxtBackgroundPosition([-3.5, 0.6, -2.601]);
-                  setinteractionTxt('Presiona R para recoger');
-                  setinteractionTxtRotation(0);
-                }
-              }
-            }}
-            onCollisionExit={({ manifold, target, other }) => {
-              setKey(false);
-              setinteractionTxtPosition([-5, -4, 6.2]);
-              setinteractionTxtBackgroundPosition([-5, -4, 6.2]);
-            }}
+            // onCollisionEnter={({ manifold, target, other }) => {
+            //   if (other.rigidBodyObject) {
+            //     if (other.rigidBodyObject.name === 'alex' && !key) {
+            //       setKey(true);
+            //       setinteractionTxtPosition([-3.5, 0.6, -2.6]);
+            //       setinteractionTxtBackgroundPosition([-3.5, 0.6, -2.601]);
+            //       setinteractionTxt('Presiona R para recoger');
+            //       setinteractionTxtRotation(0);
+            //     }
+            //   }
+            // }}
+            // onCollisionExit={({ manifold, target, other }) => {
+            //   setKey(false);
+            //   setinteractionTxtPosition([-5, -4, 6.2]);
+            //   setinteractionTxtBackgroundPosition([-5, -4, 6.2]);
+            // }}
           >
             <Key scale={0.5} position={[-3.5, -0.7, -2.9]} />
           </RigidBody>

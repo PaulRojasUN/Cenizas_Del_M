@@ -49,12 +49,14 @@ const Calle = () => {
         const script = getSceneScript(1, [], 'scriptGoToBunker');
         const action = () => {
           setScene(2);
+          setDecisionScene1('hazKey',false)
         };
         setDialogue({ script, action });
       } else if (decisionsScene1.continueGirlfriendSearch) {
         const script = getSceneScript(1, [], 'scriptGoToSofia');
         const action = () => {
           setScene(2);
+          setDecisionScene1('hazKey',true)
         };
         setDialogue({ script, action });
       }
