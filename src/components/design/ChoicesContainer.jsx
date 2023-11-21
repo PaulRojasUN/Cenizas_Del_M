@@ -11,14 +11,14 @@ const ChoicesContainer = ({ props }) => {
 
   const { up, down, continueKey } = useKeyboard()
 
-  const { setChoice } = useGameStore.getState()
+  const { setChoice , setIsChoice, setDialogue} = useGameStore.getState()
 
   useEffect(() => {
     if (up) {
       if (selectedOption < options.length - 1) {
         setSelectedOption(selectedOption + 1)
-        console.log(selectedOption)
-        console.log('ARRIBA')
+        // console.log(selectedOption)
+        // console.log('ARRIBA')
       }
     }
   }, [up])
@@ -26,8 +26,8 @@ const ChoicesContainer = ({ props }) => {
   useEffect(() => {
     if (down) {
       if (selectedOption > 0) {
-        console.log('ABAJO')
-        console.log(selectedOption)
+        // console.log('ABAJO')
+        // console.log(selectedOption)
         setSelectedOption(selectedOption - 1)
       }
     }
@@ -39,12 +39,18 @@ const ChoicesContainer = ({ props }) => {
       console.log(options[selectedOption])
       effect()
       setChoice([])
+      setDialogue([])
+      setIsChoice(false)
     }
   }, [continueKey])
 
+  useEffect(() => {
+    console.log(selectedOption)
+  },[selectedOption])
+
   return (
-    <div className='choice-container'>
-      {options.map((e, i) => <ChoiceOption key={i} props={{ selected: i === selectedOption, text: e.text }} />)}
+    <div className='choice-container flex gap-5'>
+      {options.map((e, i) => <ChoiceOption key={i} props={{ selected: i === selectedOption, text: e.text, index:i}} setSelectedOption={setSelectedOption} />)}
     </div>
   )
 }

@@ -19,7 +19,6 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ]
 
-
   const scriptConversation2 = [
     sonarTranquilo && {
       author: '<strong>Alex</strong>',
@@ -58,30 +57,30 @@ const ScriptScene1 = (decisions, nameScript) => {
       text: '(pensativa) Entiendo. ¿Y qué estás pensando hacer?'
     },
     !examinoPeriodicoDigital &&
-      {
-        author: '<strong>Alex</strong>',
-        text: '(indeciso) No lo sé. Parece que las cosas se están poniendo feas. No tengo idea de qué va a pasar.'
-      },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(indeciso) No lo sé. Parece que las cosas se están poniendo feas. No tengo idea de qué va a pasar.'
+    },
     examinoPeriodicoDigital &&
-      {
-        author: '<strong>Alex</strong>',
-        text: '(decidido) Estoy considerando buscar refugio en otro lugar junto a Sofia. Hay áreas marcadas en el mapa con mayor conflicto. Necesitamos estar a salvo.'
-      },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(decidido) Estoy considerando buscar refugio en otro lugar junto a Sofia. Hay áreas marcadas en el mapa con mayor conflicto. Necesitamos estar a salvo.'
+    },
     tieneMochila &&
-      {
-        author: '<strong>ALex</strong>',
-        text: 'Por cierto, mamá, he preparado una mochila con algunas cosas útiles. Solo quiero estar listo por si acaso.'
-      },
+    {
+      author: '<strong>ALex</strong>',
+      text: 'Por cierto, mamá, he preparado una mochila con algunas cosas útiles. Solo quiero estar listo por si acaso.'
+    },
     tieneMochila &&
-      {
-        author: '<strong>Madre</strong>',
-        text: 'Eso está bien, cariño. Prioriza tu seguridad. Te llamaremos pronto.'
-      },
+    {
+      author: '<strong>Madre</strong>',
+      text: 'Eso está bien, cariño. Prioriza tu seguridad. Te llamaremos pronto.'
+    },
     !tieneMochila &&
-      {
-        author: '<strong>Madre</strong>',
-        text: ' Asegúrate de estar preparado, hijo. Mira a tu  alrededor y reúne algunas cosas esenciales.La familia estará rezando  por ti. ¡Llámame cuando puedas!'
-      }
+    {
+      author: '<strong>Madre</strong>',
+      text: ' Asegúrate de estar preparado, hijo. Mira a tu  alrededor y reúne algunas cosas esenciales.La familia estará rezando  por ti. ¡Llámame cuando puedas!'
+    }
   ].filter(Boolean)
 
   const scriptNews = [
@@ -99,7 +98,12 @@ const ScriptScene1 = (decisions, nameScript) => {
     },
     {
       author: '<strong>Noticiero</strong>',
-      text: '(Conexión interrumpida)'
+      text: '(Conexión interrumpida)',
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Esa multitud parece ir a un lugar seguro, parece un bunker. ¿Debería seguir con ellos y buscar refugio, o intentar ir a donde mi novia?',
+      choice: true
     }
   ].filter(Boolean)
 
@@ -115,7 +119,7 @@ const ScriptScene1 = (decisions, nameScript) => {
 }
 
 const ScriptScene2 = (decisions, nameScript) => {
-  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator} = decisions
+  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator } = decisions
 
   const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
 
@@ -261,7 +265,6 @@ const ScriptScene2 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 
-
   const scriptDiscoverTreason = [
     {
       author: '<strong>Alex</strong>',
@@ -277,7 +280,6 @@ const ScriptScene2 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 }
-
 
 const ScriptIntroduction = () => {
   const script = [

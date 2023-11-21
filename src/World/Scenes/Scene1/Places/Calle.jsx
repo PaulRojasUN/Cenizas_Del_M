@@ -1,49 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { getSceneScript } from "../../../../utils/script";
-import { useGameStore } from "../../../../store/game";
-import Gif from "../../../../components/design/FondoGif";
+import React, { useEffect, useState } from 'react';
+import Gif from '../../../../components/design/FondoGif';
+import { useGameStore } from '../../../../store/game';
+import { getSceneScript } from '../../../../utils/script';
 
 const Calle = () => {
-  const { setDialogue, getActionsScene1, setChoice, setDecisionScene1 } = useGameStore.getState();
-  const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
+  const { setDialogue, getActionsScene1, setChoice, setDecisionScene1 } =
+    useGameStore.getState();
+  const [sound] = useState(() => new Audio('/assets/sounds/tv.wav'));
   const [hasPlayed, setHasPlayed] = useState(false);
 
   const goToBunkerEffect = () => {
-    setDecisionScene1('followedCrowd', true)
-    setDecisionScene1('continueGirlfriendSearch', false)
-  }
+    setDecisionScene1('followedCrowd', true);
+    setDecisionScene1('continueGirlfriendSearch', false);
+  };
 
   const goForGirlfriendEffect = () => {
-    setDecisionScene1('continueGirlfriendSearch', true)
-    setDecisionScene1('followedCrowd', false)
-  }
+    setDecisionScene1('continueGirlfriendSearch', true);
+    setDecisionScene1('followedCrowd', false);
+  };
 
   useEffect(() => {
     const showFirstDialog = () => {
-      const showD2 = getActionsScene1("showD2");
-      setChoice([])
+      setChoice([]);
       setTimeout(() => {
-        const script = getSceneScript(1, [], "scriptNews");
-        setDialogue(script)
+        const script = getSceneScript(1, [], 'scriptNews');
+        setDialogue(script);
         setChoice([
           { text: 'Ingresar al bunker', effect: goToBunkerEffect },
-          { text: 'Ir a buscar a sofía', effect: goForGirlfriendEffect }
-        ])
-      }, 2000)
+          { text: 'Ir a buscar a sofía', effect: goForGirlfriendEffect },
+        ]);
+      }, 2000);
     };
 
-    showFirstDialog()
-  }, [])
+    showFirstDialog();
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && !hasPlayed) {
-        sound.currentTime = 0
-        sound.volume = 0.5
-        sound.play().catch(error => {
+        sound.currentTime = 0;
+        sound.volume = 0.5;
+        sound.play().catch((error) => {
           console.log('Error al reproducir el audio:', error);
         });
-        sound.loop = true
+        sound.loop = true;
         setHasPlayed(true);
       }
     };
@@ -52,18 +52,18 @@ const Calle = () => {
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [hasPlayed])
+    };
+  }, [hasPlayed]);
 
-  useEffect(()=>{
-    return ()=>{
-      sound.pause()
-    }
-  },[])
+  useEffect(() => {
+    return () => {
+      sound.pause();
+    };
+  }, []);
 
   return (
     <>
-      <Gif url={"/assets/images/backgrounds/giftreet.gif"} />
+      <Gif url="/assets/images/backgrounds/giftreet.gif" />
     </>
   );
 };

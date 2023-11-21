@@ -10,6 +10,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   actionsScene1: { showD1: false, showD2: false, showBacklog: false },
   dialogue: [],
   choice: [],
+  isChoice: false,
 
   reset: () => set((state) => ({
     scene: 0,
@@ -18,7 +19,8 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     decisionsScene1: {},
     actionsScene1: { showD1: false, showD2: false, showBacklog: false },
     dialogue: [],
-    choice: []
+    choice: [],
+    isChoice: false
   })),
 
   setScene: (scene) => set((state) => ({
@@ -68,7 +70,11 @@ export const useGameStore = create(devtools(persist((set, get) => ({
 
   getDecisionsScene1: () => get().decisionsScene1,
 
-  getActionsScene1: (action) => get().actionsScene1[action]
+  getActionsScene1: (action) => get().actionsScene1[action],
+
+  setIsChoice: (isChoice) => set((state) => ({
+    isChoice
+  })),
 }), {
   name: 'game'
 }
