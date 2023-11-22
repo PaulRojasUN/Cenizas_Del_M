@@ -34,7 +34,10 @@ const Sala = () => {
     removetoBacklog,
     resetDialogue,
   } = useGameStore.getState();
-  const [decisionsScene1] = useGameStore((state) => [state.decisionsScene1]);
+  const [decisionsScene1, actionsGame] = useGameStore((state) => [
+    state.decisionsScene1,
+    state.actionsGame,
+  ]);
 
   const alexURL = '/assets/models/character/alex_main.glb';
 
@@ -49,11 +52,6 @@ const Sala = () => {
     action1: 'pickup',
   };
 
-  useFrame(() => {
-    if (alexRef.current) {
-      console.log('Alex Position:', alexRef.current.position.toArray());
-    }
-  });
 
   useEffect(() => {
     const showFirstDialog = () => {
@@ -116,7 +114,6 @@ const Sala = () => {
         telSound.volume = 0.2;
         telSound.play();
         const decisions = getDecisionsScene1();
-        console.log(decisions);
         const script = getSceneScript(1, decisions, 'scriptConversation1');
         // const soundRelaxedChoice = [
         //   {
@@ -151,14 +148,29 @@ const Sala = () => {
   }, [pressed, backpack]);
 
   useEffect(() => {
+    console.log(pressed==='r')
+    console.log()
+    if (
+      pressed === 'r' &&
+      flashlight &&
+      !decisionsScene1.hasBackpack &&
+      !decisionsScene1.flashlight
+    ) {
+      const script = getSceneScript(1, [], 'warningsSala');
+      const auxScript = [];
+      auxScript.push(script[0]);
+      console.log(auxScript);
+      console.log({script: auxScript});
+      setDialogue({script: auxScript});
+    }
     if (
       pressed === 'r' &&
       flashlight &&
       decisionsScene1.hasBackpack &&
-      !decisionsScene1.hasFlashlight
+      !decisionsScene1.flashlight
     ) {
-      setDecisionScene1('hasFlashlight', true);
-      addToBacklog('flashlight');
+      setDecisionScene1('hasFlaslight', true);
+      addToBacklog('flash-light');
     }
   }, [pressed, flashlight]);
 
@@ -172,10 +184,30 @@ const Sala = () => {
       setDecisionScene1('hasKey', true);
       addToBacklog('key');
     }
-  }, [pressed, flashlight]);
+  }, [pressed, key]);
 
   useEffect(() => {
-    if (pressed === 'r' && door && decisionsScene1.hasBackpack) {
+    if (pressed === 'r' && door && !actionsGame.showD2) {
+      const script = getSceneScript(1, [], 'warningsSala');
+      const auxScript = [];
+      auxScript.push(script[2]);
+      setDialogue({script: auxScript});
+      return;
+    }
+
+    if (pressed === 'r' && door && !decisionsScene1.hasBackpack) {
+      const script = getSceneScript(1, [], 'warningsSala');
+      const auxScript = [];
+      auxScript.push(script[1]);
+      setDialogue({script: auxScript});
+      return;
+    }
+    if (
+      pressed === 'r' &&
+      door &&
+      decisionsScene1.hasBackpack &&
+      actionsGame.showD2
+    ) {
       setDecisionScene1('openDoor', true);
       setPlace('Calle');
       setActionsGame('showBacklog', false);

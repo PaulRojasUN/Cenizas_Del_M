@@ -7,7 +7,6 @@ const Backlog = () => {
   const showBacklog = getActionsGame('showBacklog');
 
   if (!showBacklog) return null;
-  console.log(backlog.length);
 
   return (
     <div className="flex bss items-center justify-center  ">

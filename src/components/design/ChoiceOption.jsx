@@ -5,8 +5,6 @@ const ChoiceOption = ({ props, setSelectedOption }) => {
   const text = props.text;
 
   const onHandleClick = () => {
-    console.log("sss")
-    console.log(props.index);
     setSelectedOption(props.index);
   }
 

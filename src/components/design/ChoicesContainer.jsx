@@ -37,7 +37,6 @@ const ChoicesContainer = ({ props }) => {
   useEffect(() => {
     if (continueKey) {
       const effect = options[selectedOption].effect
-      console.log(options[selectedOption])
       effect()
       setChoice([])
       setDialogue([])
@@ -46,9 +45,6 @@ const ChoicesContainer = ({ props }) => {
     }
   }, [continueKey])
 
-  useEffect(() => {
-    console.log(selectedOption)
-  },[selectedOption])
 
   return (
     <div className='choice-container flex gap-5'>

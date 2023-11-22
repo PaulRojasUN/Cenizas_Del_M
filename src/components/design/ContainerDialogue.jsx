@@ -15,14 +15,10 @@ const ContainerDialogue = ({ content, action }) => {
   useEffect(() => {
     if (continueKey) {
       if (index < content.length && !tempIsChoise) {
-        console.log(index);
         const indexAux = index + 1;
         setIndex(indexAux);
-        console.log(content.length);
-        console.log(indexAux);
         if (indexAux < content.length) {
           const dialog = content[indexAux];
-          console.log(dialog);
           if (dialog.choice) {
             tempSetIsChoise(true);
             setIsChoice(true);
@@ -31,7 +27,6 @@ const ContainerDialogue = ({ content, action }) => {
             setIsChoice(false);
           }
           if (dialog) {
-            console.log('setando');
             setAuthor(dialog.author);
             setText(dialog.text);
           } else {

@@ -130,6 +130,21 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ]
 
+  const warningsSala = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Necesitaría algo para llevar este objeto'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No puedo irme sin la mochila'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No puedo irme sin llamar a mi madre'
+    }
+  ]
+
   if (nameScript === 'scriptFirstDialog') {
     return scriptFirstDialog
   } else if (nameScript === 'scriptConversation1') {
@@ -144,6 +159,9 @@ const ScriptScene1 = (decisions, nameScript) => {
   }
   else if (nameScript === 'scriptGoToSofia') {
     return scriptGoToSofia
+  }
+  else if (nameScript === 'warningsSala') {
+    return warningsSala
   }
 }
 
