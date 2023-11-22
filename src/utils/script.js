@@ -95,12 +95,29 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 
+  const warningsSala = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No puedo irme antes de llamar a mi madre. Debo asegurarme de que esté bien.'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No puedo irme. Debería explorar un poco más.'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Necestiraria algo para llevar esto. Debería buscar una mochila.'
+    }
+  ]
+
   if (nameScript === 'scriptFirstDialog') {
     return scriptFirstDialog
   } else if (nameScript === 'scriptConversation') {
     return scriptConversation
   } else if (nameScript === 'scriptNews') {
     return scriptNews
+  } else if (nameScript === 'warningsSala') {
+    return warningsSala
   }
 }
 

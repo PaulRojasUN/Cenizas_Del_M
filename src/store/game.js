@@ -61,7 +61,9 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     }
   })),
 
-  getActionsScene1: (action) => get().actionsScene1[action]
+  getActionsScene1: (action) => get().actionsScene1[action],
+
+  getDecisionsScene1: (action) => get().decisionsScene1[action]
 }), {
   name: 'game'
 })))
