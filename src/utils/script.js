@@ -1,5 +1,5 @@
 const ScriptScene1 = (decisions, nameScript) => {
-  const { examinoPeriodicoDigital, tieneMochila } = decisions
+  const { examinoPeriodicoDigital, tieneMochila, sonarTranquilo } = decisions
 
   const scriptFirstDialog = [
     {
@@ -8,7 +8,7 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ]
 
-  const scriptConversation = [
+  const scriptConversation1 = [
     {
       author: '<strong>Alex</strong>',
       text: '¡Hola, mamá! ¿Cómo estás?'
@@ -17,9 +17,13 @@ const ScriptScene1 = (decisions, nameScript) => {
       author: '<strong>Madre</strong>',
       text: '¡Alex, cariño! Estoy bien. Pero he estado viendo las noticias, y estoy preocupada. ¿Todo está bien allí en <strong>Nueva Éireann?</strong>'
     },
-    {
+    sonarTranquilo && {
       author: '<strong>Alex</strong>',
       text: '(intentando sonar tranquilo) Sí, mamá, todo está... un poco agitado. ¿Has estado viendo las noticias otra vez?'
+    },
+    !sonarTranquilo && {
+      author: '<strong>Alex</strong>',
+      text: '(agitado) No. Esa cuestión me tiene bastante preocupado. ¿Te enteraste en las noticias?'
     },
     {
       author: '<strong>Madre</strong>',
@@ -50,30 +54,30 @@ const ScriptScene1 = (decisions, nameScript) => {
       text: '(pensativa) Entiendo. ¿Y qué estás pensando hacer?'
     },
     !examinoPeriodicoDigital &&
-      {
-        author: '<strong>Alex</strong>',
-        text: '(indeciso) No lo sé. Parece que las cosas se están poniendo feas. No tengo idea de qué va a pasar.'
-      },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(indeciso) No lo sé. Parece que las cosas se están poniendo feas. No tengo idea de qué va a pasar.'
+    },
     examinoPeriodicoDigital &&
-      {
-        author: '<strong>Alex</strong>',
-        text: '(decidido) Estoy considerando buscar refugio en otro lugar junto a Sofia. Hay áreas marcadas en el mapa con mayor conflicto. Necesitamos estar a salvo.'
-      },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(decidido) Estoy considerando buscar refugio en otro lugar junto a Sofia. Hay áreas marcadas en el mapa con mayor conflicto. Necesitamos estar a salvo.'
+    },
     tieneMochila &&
-      {
-        author: '<strong>ALex</strong>',
-        text: 'Por cierto, mamá, he preparado una mochila con algunas cosas útiles. Solo quiero estar listo por si acaso.'
-      },
+    {
+      author: '<strong>ALex</strong>',
+      text: 'Por cierto, mamá, he preparado una mochila con algunas cosas útiles. Solo quiero estar listo por si acaso.'
+    },
     tieneMochila &&
-      {
-        author: '<strong>Madre</strong>',
-        text: 'Eso está bien, cariño. Prioriza tu seguridad. Te llamaremos pronto.'
-      },
+    {
+      author: '<strong>Madre</strong>',
+      text: 'Eso está bien, cariño. Prioriza tu seguridad. Te llamaremos pronto.'
+    },
     !tieneMochila &&
-      {
-        author: '<strong>Madre</strong>',
-        text: ' Asegúrate de estar preparado, hijo. Mira a tu  alrededor y reúne algunas cosas esenciales.La familia estará rezando  por ti. ¡Llámame cuando puedas!'
-      }
+    {
+      author: '<strong>Madre</strong>',
+      text: ' Asegúrate de estar preparado, hijo. Mira a tu  alrededor y reúne algunas cosas esenciales.La familia estará rezando  por ti. ¡Llámame cuando puedas!'
+    }
   ].filter(Boolean)
 
   const scriptNews = [
@@ -91,38 +95,60 @@ const ScriptScene1 = (decisions, nameScript) => {
     },
     {
       author: '<strong>Noticiero</strong>',
-      text: '(Conexión interrumpida)'
+      text: '(Conexión interrumpida)',
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Esa multitud parece ir a un lugar seguro, parece un bunker. ¿Debería seguir con ellos y buscar refugio, o intentar ir a donde mi novia?',
+      choice: true
     }
   ].filter(Boolean)
 
-  const warningsSala = [
+  const scriptGoToBunker = [
     {
       author: '<strong>Alex</strong>',
-      text: 'No puedo irme antes de llamar a mi madre. Debo asegurarme de que esté bien.'
+      text: 'Sí, será mejor buscar refugio. No puedo arriesgarme a ir a otro lugar.'
+    }
+  ]
+
+  const scriptGoToSofia = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Sí, iré a buscar a Sofia. Ella es lo más importante para mí.'
+    },
+    {
+      author: '<strong>...</strong>',
+      text: '[Los edificios colapsaron enfrente tuyo, la calle se llenó de escombros y no te dejaron seguir. Aún así, encontraste una llave en el suelo que puede ser de utilidad]'
+    },
+    {
+      author: '<strong>...</strong>',
+      text: '[Aunque tu objetivo sigue siendo encontrar a Sofia, la destrucción a tu alrededor te obliga a reconsiderar. El único lugar seguro parece ser el bunker al que todos corren]'
     },
     {
       author: '<strong>Alex</strong>',
-      text: 'No puedo irme. Debería explorar un poco más.'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: 'Necestiraria algo para llevar esto. Debería buscar una mochila.'
+      text: '¡Maldición! No puedo llegar a Sofia. Tendré que buscar refugio en el bunker.'
     }
   ]
 
   if (nameScript === 'scriptFirstDialog') {
     return scriptFirstDialog
-  } else if (nameScript === 'scriptConversation') {
-    return scriptConversation
+  } else if (nameScript === 'scriptConversation1') {
+    return scriptConversation1
+  } else if (nameScript === 'scriptConversation2') {
+    return scriptConversation2
   } else if (nameScript === 'scriptNews') {
     return scriptNews
-  } else if (nameScript === 'warningsSala') {
-    return warningsSala
+  }
+  else if (nameScript === 'scriptGoToBunker') {
+    return scriptGoToBunker
+  }
+  else if (nameScript === 'scriptGoToSofia') {
+    return scriptGoToSofia
   }
 }
 
 const ScriptScene2 = (decisions, nameScript) => {
-  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator} = decisions
+  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator } = decisions
 
   const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
 
@@ -268,7 +294,6 @@ const ScriptScene2 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 
-
   const scriptDiscoverTreason = [
     {
       author: '<strong>Alex</strong>',
@@ -284,7 +309,6 @@ const ScriptScene2 = (decisions, nameScript) => {
     }
   ].filter(Boolean)
 }
-
 
 const ScriptIntroduction = () => {
   const script = [
