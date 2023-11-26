@@ -1,26 +1,5 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
-<<<<<<< HEAD
-import { KeyboardControls, Text, useGLTF } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier'
-import Ecctrl, { EcctrlAnimation } from 'ecctrl'
-import { Howl } from 'howler'
-import React, { useEffect, useRef, useState } from 'react'
-import Backlog from '../../../../components/design/Backlog'
-import { keyboardControls } from '../../../../hooks/useControls'
-import { useGameStore } from '../../../../store/game'
-import { getSceneScript } from '../../../../utils/script'
-import { Alex } from '../../../Characters/Alex'
-import { Backpack } from '../Items/Backpack'
-import { Flashlight } from '../Items/Flashlight'
-import { Key } from '../Items/Key'
-import { Phone } from '../Items/Phone'
-import Lights from '../Lights'
-import { LivingRoom } from '../Places/LivingRoom'
-import Door from './Door'
-import { Boy } from '../../scene3/characters/Boy'
-=======
 import { KeyboardControls, Text, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
@@ -39,7 +18,6 @@ import { Phone } from '../Items/Phone';
 import Lights from '../Lights';
 import { LivingRoom } from '../Places/LivingRoom';
 import Door from './Door';
->>>>>>> 008f737e6e0a7013e6025ff87d8aa50f512f5694
 
 const Sala = () => {
   const alexRef = useRef();
@@ -216,10 +194,6 @@ const Sala = () => {
       setDialogue({script: auxScript});
       return;
     }
-<<<<<<< HEAD
-  }, [pressed, door]);
-=======
->>>>>>> 008f737e6e0a7013e6025ff87d8aa50f512f5694
 
     if (pressed === 'r' && door && !decisionsScene1.hasBackpack) {
       const script = getSceneScript(1, [], 'warningsSala');
