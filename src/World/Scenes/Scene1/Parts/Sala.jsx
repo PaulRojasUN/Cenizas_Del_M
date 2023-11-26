@@ -18,8 +18,22 @@ import { Phone } from '../Items/Phone';
 import Lights from '../Lights';
 import { LivingRoom } from '../Places/LivingRoom';
 import Door from './Door';
+import Loader from '../../../../components/design/Loader';
 
 const Sala = () => {
+
+  const handleLoad = () => {
+    console.log('Componente cargado');
+  };
+
+  const handleError = () => {
+    console.log('Error al cargar el componente');
+  };
+
+  const handleProgress = () => {
+    console.log('Cargando...');
+  };
+
   const alexRef = useRef();
   const [showTransition, setShowTransition] = useState(false);
   const {
@@ -269,7 +283,7 @@ const Sala = () => {
   }, [pressed]);
 
   return (
-    <>
+    <Loader onLoad={handleLoad} onError={handleError} onProgress={handleProgress}>
       <Door
         doorRef={livingRoomDoorRef}
         isOpen={livingRoomDoorOpened}
@@ -765,7 +779,7 @@ const Sala = () => {
           </>
         )}
       </Physics>
-    </>
+    </Loader>
   );
 };
 
