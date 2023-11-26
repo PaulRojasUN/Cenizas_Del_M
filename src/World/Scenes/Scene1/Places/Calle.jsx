@@ -1,34 +1,77 @@
-import React, { useEffect, useState } from "react";
-import { getSceneScript } from "../../../../utils/script";
-import { useGameStore } from "../../../../store/game";
-import Gif from "../../../../components/design/FondoGif";
+import React, { useEffect, useState } from 'react';
+import Gif from '../../../../components/design/FondoGif';
+import { useGameStore } from '../../../../store/game';
+import { getSceneScript } from '../../../../utils/script';
 
 const Calle = () => {
-  const { setDialogue, getActionsScene1 } = useGameStore.getState();
-  const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
+  const { setDialogue, setChoice, setDecisionScene1, setScene } =
+    useGameStore.getState();
+  const [sound] = useState(() => new Audio('/assets/sounds/tv.wav'));
   const [hasPlayed, setHasPlayed] = useState(false);
+  const [actionsGame, decisionsScene1, dialogue] = useGameStore((state) => [
+    state.actionsGame,
+    state.decisionsScene1,
+    state.dialogue,
+  ]);
+
+  const goToBunkerEffect = () => {
+    setDecisionScene1('followedCrowd', true);
+    setDecisionScene1('continueGirlfriendSearch', false);
+  };
+
+  const goForGirlfriendEffect = () => {
+    setDecisionScene1('continueGirlfriendSearch', true);
+    setDecisionScene1('followedCrowd', false);
+  };
 
   useEffect(() => {
     const showFirstDialog = () => {
-      const showD2 = getActionsScene1("showD2");
+      setChoice([]);
       setTimeout(() => {
-        const script = getSceneScript(1, [], "scriptNews");
-        setDialogue(script)
-      }, 2000)
+        const script = getSceneScript(1, [], 'scriptNews');
+        setDialogue({ script });
+        setChoice({
+          content: [
+            { text: 'Ingresar al bunker', effect: goToBunkerEffect },
+            { text: 'Ir a buscar a sofía', effect: goForGirlfriendEffect },
+          ],
+          nameChoice: 'choiceBunkerOrSofia',
+        });
+      }, 2000);
     };
 
-    showFirstDialog()
-  }, [])
+    showFirstDialog();
+  }, []);
+
+  useEffect(() => {
+    if (actionsGame.choiceBunkerOrSofia) {
+      if (decisionsScene1.followedCrowd) {
+        const script = getSceneScript(1, [], 'scriptGoToBunker');
+        const action = () => {
+          setScene(2);
+          setDecisionScene1('hazKey',false)
+        };
+        setDialogue({ script, action });
+      } else if (decisionsScene1.continueGirlfriendSearch) {
+        const script = getSceneScript(1, [], 'scriptGoToSofia');
+        const action = () => {
+          setScene(2);
+          setDecisionScene1('hazKey',true)
+        };
+        setDialogue({ script, action });
+      }
+    }
+  }, [actionsGame]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && !hasPlayed) {
-        sound.currentTime = 0
-        sound.volume = 0.5
-        sound.play().catch(error => {
+        sound.currentTime = 0;
+        sound.volume = 0.5;
+        sound.play().catch((error) => {
           console.log('Error al reproducir el audio:', error);
         });
-        sound.loop = true
+        sound.loop = true;
         setHasPlayed(true);
       }
     };
@@ -37,18 +80,18 @@ const Calle = () => {
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [hasPlayed])
+    };
+  }, [hasPlayed]);
 
-  useEffect(()=>{
-    return ()=>{
-      sound.pause()
-    }
-  },[])
+  useEffect(() => {
+    return () => {
+      sound.pause();
+    };
+  }, []);
 
   return (
     <>
-      <Gif url={"/assets/images/backgrounds/giftreet.gif"} />
+      <Gif url="/assets/images/backgrounds/giftreet.gif" />
     </>
   );
 };
