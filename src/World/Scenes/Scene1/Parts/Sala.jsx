@@ -18,6 +18,7 @@ import { Phone } from '../Items/Phone'
 import Lights from '../Lights'
 import { LivingRoom } from '../Places/LivingRoom'
 import Door from './Door'
+import { Boy } from '../../scene3/characters/Boy'
 
 const Sala = () => {
   const alexRef = useRef()
@@ -287,6 +288,7 @@ const Sala = () => {
           >
             <EcctrlAnimation characterURL={alexURL} animationSet={animationSet}>
               <Alex position={[0, -1.25, 0]} scale={1.65} />
+              <Boy position={[0, -1.25, 0]} scale={1.65} />
             </EcctrlAnimation>
           </Ecctrl>
         </KeyboardControls>
