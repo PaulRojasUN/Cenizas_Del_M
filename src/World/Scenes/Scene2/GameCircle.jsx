@@ -3,26 +3,42 @@ import { useFrame } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import { MathUtils } from 'three';
 import { useCircleGameStore } from '../../../store/circle-game';
+import { useGameStore } from '../../../store/game';
+import { getSceneScript } from '../../../utils/script';
 import { ArrowGame } from './ArrowGame';
 import CircleGame from './Circle';
 import LineGame from './Line';
 
 const GameCircle = ({ setRequestPointerLock }) => {
+  const { setColoredParts, setLevel, setIsPlaying, setWin } =
+    useCircleGameStore.getState();
+  const { setDialogue } = useGameStore.getState();
+
   useEffect(() => {
-    setRequestPointerLock(false);
+    const pointerFunction = () => {
+      setRequestPointerLock(false);
+    };
+    pointerFunction();
+
+    const showIninitScript = () => {
+      const script = getSceneScript(2, [], 'scriptCircleGameInit', '');
+      const action = () => {
+        setIsPlaying(true);
+      };
+      setDialogue({ script, action });
+    };
+    showIninitScript();
   }, []);
 
-  const [level, lives, win, parts, coloredParts] =
-    useCircleGameStore((state) => [
+  const [level, lives, win, parts, coloredParts] = useCircleGameStore(
+    (state) => [
       state.level,
       state.lives,
       state.win,
       state.parts,
       state.coloredParts,
-    ]);
-
-  const { setColoredParts, setLevel, setIsPlaying, setWin } =
-    useCircleGameStore.getState();
+    ]
+  );
 
   const [circleScale, setCircleScale] = useState();
   const [lineScale, setLineScale] = useState({});
@@ -34,10 +50,13 @@ const GameCircle = ({ setRequestPointerLock }) => {
       state.camera.position.x = MathUtils.lerp(state.camera.position.x, 1, 0.1);
       state.camera.position.z = MathUtils.lerp(state.camera.position.z, 5, 0.1);
     } else if (level === 1) {
-      state.camera.position.x = MathUtils.lerp(state.camera.position.x, -1, 0.1);
+      state.camera.position.x = MathUtils.lerp(
+        state.camera.position.x,
+        -1,
+        0.1
+      );
       state.camera.position.z = MathUtils.lerp(state.camera.position.z, 4, 0.1);
-    }
-    else if (level === 2) {
+    } else if (level === 2) {
       state.camera.position.x = MathUtils.lerp(state.camera.position.x, 2, 0.1);
       state.camera.position.z = MathUtils.lerp(state.camera.position.z, 5, 0.1);
     }
@@ -108,7 +127,7 @@ const GameCircle = ({ setRequestPointerLock }) => {
       setColoredParts([1, 5, 7]);
       setLevel(1);
     } else if ((level === 1) & (coloredParts.length === 0)) {
-      setColoredParts([4,7,2]);
+      setColoredParts([4, 7, 2]);
       setLevel(2);
     } else if ((level === 2) & (coloredParts.length === 0)) {
       setWin(true);
@@ -127,11 +146,24 @@ const GameCircle = ({ setRequestPointerLock }) => {
     const consultWin = () => {
       if (lives === 0 && win === false) {
         setIsPlaying(false);
-        console.log('perdio');
-      }
-      else if (win === true) {
-        setIsPlaying(false)
-        console.log('gano');
+        const showScript = () => {
+          const script = getSceneScript(2, [], 'scriptCircleGameLose', '');
+          const action = () => {
+            console.log('me fui');
+          };
+          setDialogue({ script, action });
+        };
+        showScript();
+      } else if (win === true) {
+        setIsPlaying(false);
+        const showScript = () => {
+          const script = getSceneScript(2, [], 'scriptCircleGameWin', '');
+          const action = () => {
+            console.log('me fui');
+          };
+          setDialogue({ script, action });
+        };
+        showScript();
       }
     };
     consultWin();

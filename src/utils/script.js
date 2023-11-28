@@ -145,27 +145,19 @@ const ScriptScene1 = (decisions, nameScript) => {
     }
   ]
 
-  if (nameScript === 'scriptFirstDialog') {
-    return scriptFirstDialog
-  } else if (nameScript === 'scriptConversation1') {
-    return scriptConversation1
-  } else if (nameScript === 'scriptConversation2') {
-    return scriptConversation2
-  } else if (nameScript === 'scriptNews') {
-    return scriptNews
-  }
-  else if (nameScript === 'scriptGoToBunker') {
-    return scriptGoToBunker
-  }
-  else if (nameScript === 'scriptGoToSofia') {
-    return scriptGoToSofia
-  }
-  else if (nameScript === 'warningsSala') {
-    return warningsSala
-  }
+  const scripts = {
+    scriptFirstDialog,
+    scriptConversation1,
+    scriptNews,
+    scriptGoToBunker,
+    scriptGoToSofia,
+    warningsSala
+  };
+
+  return scripts[nameScript];
 }
 
-const ScriptScene2 = (decisions, nameScript) => {
+const ScriptScene2 = (decisions, nameScript, auxiliary) => {
   const { hasFlashlight, hasKey, wantsToShare, hasCommunicator, hasMedkit } = decisions
 
   const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
@@ -455,32 +447,65 @@ const ScriptScene2 = (decisions, nameScript) => {
   // Despues de los 15 dias sucede el evento con el traidor
   const scriptDays = [
     {
+      author: '<strong> ... </strong>',
       text: '15 días después'
     }
   ] 
 
+  const scriptCircleGameInit = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Vale, vamos a ver.... Necesito abrir la caja fuerte. Pero, ¿como funciona este minijuego?'
+    },
+    {
+      author: '<strong>...</strong>',
+      text: 'El juego es simple, tienes que dar a la tecla <strong>ENTER</strong> cuando la flecha este apuntando a un circulo remarcado'
+    },
+    {
+      author: '<strong>...</strong>',
+      text: 'Pero recuerda, tienes solamente 3 vidas... ¡No las pierdas!'
+    }
+  ]
 
-  if (nameScript === 'scripMeetingSurvivors') {
-    return scripMeetingSurvivors
-  } else if (nameScript === 'scriptAnsweringSurvivorsResources') {
-    return scriptAnsweringSurvivorsResources
-  } else if (nameScript === 'scriptTraitorFound') {
-    return scriptTraitorFound
-  } else if (nameScript === 'scriptTraitorFoundConclusionAloneKey') {
-    return scriptTraitorFoundConclusionAloneKey
-  } else if (nameScript === 'scriptViewPickedResourcesAloneKey') {
-    return scriptViewPickedResourcesAloneKey
-  } else if (nameScript === 'scriptTraitorFoundConclusionGroup') {
-    return scriptTraitorFoundConclusionGroup
-  } else if (nameScript === 'scriptViewResourcesGroup') {
-    return scriptViewResourcesGroup
-  } else if (nameScript === 'scriptTraitorFoundConclusionAloneNoKey') {
-    return scriptTraitorFoundConclusionAloneNoKey
-  } else if (nameScript === 'scriptDays') {
-    return scriptDays
-  } 
+  const scriptCircleGameLives = [
+    {
+      author: '<strong>...</strong>',
+      text: '¡Oh no! ¡Perdiste una vida!. Te quedan ' + auxiliary.lives + ' vidas'
+    }
+  ]
+
+  const scriptCircleGameWin = [
+    {
+      author: '<strong>...</strong>',
+      text: '¡Felicidades! ¡Ganaste! Veamos que pasara con tu destino...'
+    }
+  ]
+
+  const scriptCircleGameLose = [
+    {
+      author: '<strong>...</strong>',
+      text: '¡Oh no! ¡Perdiste! Veamos que pasara con tu destino...'
+    }
+  ]
 
 
+  const scripts = {
+    scripMeetingSurvivors,
+    scriptAnsweringSurvivorsResources,
+    scriptTraitorFound,
+    scriptTraitorFoundConclusionAloneKey,
+    scriptViewPickedResourcesAloneKey,
+    scriptTraitorFoundConclusionGroup,
+    scriptViewResourcesGroup,
+    scriptTraitorFoundConclusionAloneNoKey,
+    scriptDays,
+    scriptCircleGameInit,
+    scriptCircleGameLives,
+    scriptCircleGameWin,
+    scriptCircleGameLose
+  };
+
+  return scripts[nameScript];
 }
 
 
@@ -503,14 +528,14 @@ const ScriptIntroduction = () => {
   return script
 }
 
-export const getSceneScript = (scene, decisions, nameScript) => {
+export const getSceneScript = (scene, decisions, nameScript, auxiliary)=> {
   switch (scene) {
     case 0:
       return ScriptIntroduction()
     case 1:
       return ScriptScene1(decisions, nameScript)
     case 2:
-      return ScriptScene2(decisions, nameScript)
+      return ScriptScene2(decisions, nameScript,auxiliary)
     default:
       return {}
   }

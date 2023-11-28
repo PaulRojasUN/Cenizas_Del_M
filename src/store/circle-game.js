@@ -7,7 +7,7 @@ export const useCircleGameStore = create(devtools((set, get) => ({
   lives: 3,
   win: false,
   parts: 8,
-  coloredParts:[0,3,6,2],
+  coloredParts:[0,3,6,5],
   isPlaying: false,
 
   reset: () => set((state) => ({
