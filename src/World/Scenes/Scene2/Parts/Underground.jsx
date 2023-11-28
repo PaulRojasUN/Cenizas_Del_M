@@ -139,6 +139,50 @@ const Underground = () => {
                     />
                   </mesh>
                 </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-4.4, -2, -15.5]} rotation={[Math.PI,0,0]}>
+                    <planeGeometry attach="geometry" args={[120, 4]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-4.4, -2, 13.4]} rotation={[0,0,0]}>
+                    <CuboidCollider args={[2.8,1,3.4]} position={[24.5,0,-3.2]}/>
+                    <planeGeometry attach="geometry" args={[65.8, 4]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[40, 0, 0]} rotation={[0,0,0]}>
+                    <CuboidCollider args={[3.5,10,16]} position={[20,0,0]}/>
+                    <CuboidCollider args={[9,1.5,1]} position={[13.5,-2,2]}/>
+                    <CuboidCollider args={[9,1.5,1]} position={[13.5,-2,-4.6]}/>
+                    <CuboidCollider args={[0.7,1.3,1.8]} position={[5.2,-2,-6]}/>
+                    <CuboidCollider args={[0.7,1.3,2.9]} position={[5.2,-2,5.9]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[0, 0, 0]} rotation={[0,0,0]}>
+                    <CuboidCollider args={[0.7,1.3,2.9]} position={[3,-2,3.6]}/>
+                    <CuboidCollider args={[0.7,1.3,2.9]} position={[3,-2,-6]}/>
+                    <CuboidCollider args={[16.5,1.3,0.8]} position={[20.4,-2,-8.4]}/>
+                    <CuboidCollider args={[17,1.3,0.8]} position={[19.5,-2,6]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
             </Physics>
         </>
     )
