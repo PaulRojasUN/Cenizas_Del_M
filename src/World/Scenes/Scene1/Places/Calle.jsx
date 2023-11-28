@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Gif from "../../../../components/design/FondoGif";
 import { useGameStore } from "../../../../store/game";
 import { getSceneScript } from "../../../../utils/script";
-import Loader from "../../../../components/design/Loader";
+import withLoading from "../../../../components/design/WithLoading";
 
 const Calle = () => {
   const { setDialogue, setChoice, setDecisionScene1, setScene } =
@@ -12,18 +12,6 @@ const Calle = () => {
   const [actionsGame, decisionsScene1, dialogue, resetDialogue] = useGameStore(
     (state) => [state.actionsGame, state.decisionsScene1, state.dialogue]
   );
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const temporizador = setTimeout(() => {
-      setLoaded(true);
-    }, 2500);
-
-    return () => {
-      clearTimeout(temporizador);
-      // resetDialogue();
-    };
-  }, []);
 
   const goToBunkerEffect = () => {
     setDecisionScene1("followedCrowd", true);
@@ -102,11 +90,9 @@ const Calle = () => {
 
   return (
     <>
-      <Loader isReady={loaded}>
-        <Gif url="/assets/images/backgrounds/giftreet.gif" />
-      </Loader>
+      <Gif url="/assets/images/backgrounds/giftreet.gif" />
     </>
   );
 };
 
-export default Calle;
+export default withLoading(Calle);

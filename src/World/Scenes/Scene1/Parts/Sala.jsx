@@ -18,10 +18,9 @@ import { Phone } from '../Items/Phone';
 import Lights from '../Lights';
 import { LivingRoom } from '../Places/LivingRoom';
 import Door from './Door';
-import Loader from '../../../../components/design/Loader';
+import withLoading from "../../../../components/design/WithLoading";
 
 const Sala = () => {
-  const [loaded, setLoaded] = useState(false);
   const alexRef = useRef();
   const [showTransition, setShowTransition] = useState(false);
   const {
@@ -53,16 +52,6 @@ const Sala = () => {
     fall: 'idle', // This is for falling from high sky
     action1: 'pickup',
   };
-
-  useEffect(() => {
-    const temporizador = setTimeout(() => {
-    setLoaded(true);
-    }, 2500); 
-    return () => {
-      clearTimeout(temporizador);
-      resetDialogue();
-    };
-  }, []);
 
   useEffect(() => {
     const showFirstDialog = () => {
@@ -279,7 +268,7 @@ const Sala = () => {
   }, [pressed]);
 
   return (
-    <Loader isReady={loaded}>
+    <>
       <Door
         doorRef={livingRoomDoorRef}
         isOpen={livingRoomDoorOpened}
@@ -774,8 +763,8 @@ const Sala = () => {
           </>
         )}
       </Physics>
-    </Loader>  
+    </>  
   );
 };
 
-export default Sala;
+export default withLoading(Sala);

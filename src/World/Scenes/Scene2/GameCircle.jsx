@@ -9,6 +9,7 @@ import { ArrowGame } from './ArrowGame';
 import CircleGame from './Circle';
 import LineGame from './Line';
 import EnvironmentGame from './EnvironmentGame';
+import withLoading from '../../../components/design/WithLoading';
 
 const GameCircle = ({ setRequestPointerLock }) => {
   const { setColoredParts, setLevel, setIsPlaying, setWin } =
@@ -189,4 +190,4 @@ const GameCircle = ({ setRequestPointerLock }) => {
   );
 };
 
-export default GameCircle;
+export default withLoading(GameCircle);
