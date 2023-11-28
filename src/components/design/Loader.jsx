@@ -1,29 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from "react";
+import { Html } from "@react-three/drei";
+import "../../css/progress-bar.css";
 
-function Loader({ onLoad, onError, onProgress, children }) {
-  const [loaded, setLoaded] = useState(false);
+function Loading({ load }) {
+  const [progress, setProgress] = React.useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoaded(true);
-      onLoad();
-    }, 3000);
+    const timer = setInterval(() => {
+      setProgress((progress) => progress + 5);
+    }, 100);
+    return () => clearInterval(timer);
+  }, []);
 
-    const progressInterval = setInterval(() => {
-      onProgress();
-    }, 3000);
+  useEffect(() => {
+    if (load) {
+      console.log(load);
+      setProgress(100);
+    }
+  }, [load]);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(progressInterval);
-    };
-  }, [onLoad, onProgress]);
+  return (
+    <Html>
+      <div className="container">
+        <progress
+          className="nes-progress is-pattern bar"
+          value={progress}
+          max="100"
+        ></progress>
+        <h1 className="etiquetaH1 font-pixelcraft">Cargando...</h1>
+      </div>
+    </Html>
+  );
+}
 
-  if (!loaded) {
-    return <div>Cargando...</div>;
-  }
-
-  return children;
+function Loader({ isReady, children }) {
+  return <>{isReady ? children : <Loading load={isReady} />}</>;
 }
 
 export default Loader;

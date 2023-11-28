@@ -20,7 +20,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     actionsGame: { showD1: false, showD2: false, showBacklog: false },
     dialogue: [],
     choice: [],
-    isChoice: false
+    isChoice: true
   })),
 
   setScene: (scene) => set((state) => ({

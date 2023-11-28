@@ -5,7 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
 import Ecctrl, { EcctrlAnimation } from 'ecctrl';
 import { Howl } from 'howler';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import Backlog from '../../../../components/design/Backlog';
 import { keyboardControls } from '../../../../hooks/useControls';
 import { useGameStore } from '../../../../store/game';
@@ -21,19 +21,7 @@ import Door from './Door';
 import Loader from '../../../../components/design/Loader';
 
 const Sala = () => {
-
-  const handleLoad = () => {
-    console.log('Componente cargado');
-  };
-
-  const handleError = () => {
-    console.log('Error al cargar el componente');
-  };
-
-  const handleProgress = () => {
-    console.log('Cargando...');
-  };
-
+  const [loaded, setLoaded] = useState(false);
   const alexRef = useRef();
   const [showTransition, setShowTransition] = useState(false);
   const {
@@ -66,6 +54,15 @@ const Sala = () => {
     action1: 'pickup',
   };
 
+  useEffect(() => {
+    const temporizador = setTimeout(() => {
+    setLoaded(true);
+    }, 2500); 
+    return () => {
+      clearTimeout(temporizador);
+      resetDialogue();
+    };
+  }, []);
 
   useEffect(() => {
     const showFirstDialog = () => {
@@ -75,7 +72,7 @@ const Sala = () => {
           const script = getSceneScript(1, [], 'scriptFirstDialog');
           setDialogue({ script });
           setActionsGame('showD1', true);
-        }, 4000);
+        }, 6000);
       }
     };
 
@@ -283,7 +280,7 @@ const Sala = () => {
   }, [pressed]);
 
   return (
-    <Loader onLoad={handleLoad} onError={handleError} onProgress={handleProgress}>
+    <Loader isReady={loaded}>
       <Door
         doorRef={livingRoomDoorRef}
         isOpen={livingRoomDoorOpened}
@@ -342,7 +339,6 @@ const Sala = () => {
           >
             <EcctrlAnimation characterURL={alexURL} animationSet={animationSet}>
               <Alex position={[0, -1.25, 0]} scale={1.65} />
-              <Boy position={[0, -1.25, 0]} scale={1.65} />
             </EcctrlAnimation>
           </Ecctrl>
         </KeyboardControls>
@@ -779,7 +775,7 @@ const Sala = () => {
           </>
         )}
       </Physics>
-    </Loader>
+    </Loader>  
   );
 };
 
