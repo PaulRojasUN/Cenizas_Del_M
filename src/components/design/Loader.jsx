@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Html } from "@react-three/drei";
 import "../../css/progress-bar.css";
 
-function Loading({ load }) {
+function Loading() {
   const [progress, setProgress] = React.useState(0);
 
   useEffect(() => {
@@ -11,13 +11,6 @@ function Loading({ load }) {
     }, 100);
     return () => clearInterval(timer);
   }, []);
-
-  useEffect(() => {
-    if (load) {
-      console.log(load);
-      setProgress(100);
-    }
-  }, [load]);
 
   return (
     <Html>
@@ -34,7 +27,7 @@ function Loading({ load }) {
 }
 
 function Loader({ isReady, children }) {
-  return <>{isReady ? children : <Loading load={isReady} />}</>;
+  return <>{isReady ? children : <Loading />}</>;
 }
 
 export default Loader;
