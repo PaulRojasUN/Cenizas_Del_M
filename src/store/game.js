@@ -6,8 +6,9 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   scene: 0,
   place: 'Introduction',
   backlog: [],
-  decisionsScene1: {},
-  actionsGame: { showD1: false, showD2: false, showBacklog: false },
+  decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
+  decisionsScene2: { openSafeAlone: false, openSafeInGroup: false },
+  actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
   dialogue: [],
   choice: [],
   isChoice: false,
@@ -16,11 +17,12 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     scene: 0,
     place: 'Introduction',
     backlog: [],
-    decisionsScene1: {},
-    actionsGame: { showD1: false, showD2: false, showBacklog: false },
+    decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
+    decisionsScene2: { openSafeAlone: false, openSafeInGroup: false },
+    actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
     dialogue: [],
     choice: [],
-    isChoice: true
+    isChoice: false,
   })),
 
   setScene: (scene) => set((state) => ({

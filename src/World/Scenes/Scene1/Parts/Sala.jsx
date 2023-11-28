@@ -219,7 +219,6 @@ const Sala = () => {
       decisionsScene1.hasBackpack &&
       actionsGame.showD2
     ) {
-      setDecisionScene1('openDoor', true);
       setPlace('Calle');
       setActionsGame('showBacklog', false);
       resetDialogue();

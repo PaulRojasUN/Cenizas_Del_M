@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 const Experience = () => {
   const [scene] = useGameStore((state) => [state.scene]);
-  const [requestPointerLock, setRequestPointerLock] = useState(false);
+  const [requestPointerLock, setRequestPointerLock] = useState(true);
   return (
     <>
       <Canvas

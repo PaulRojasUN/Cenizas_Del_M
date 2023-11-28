@@ -1,4 +1,4 @@
-import { OrbitControls } from '@react-three/drei';
+import { Environment, OrbitControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import { MathUtils } from 'three';
@@ -8,11 +8,13 @@ import { getSceneScript } from '../../../utils/script';
 import { ArrowGame } from './ArrowGame';
 import CircleGame from './Circle';
 import LineGame from './Line';
+import EnvironmentGame from './EnvironmentGame';
 
 const GameCircle = ({ setRequestPointerLock }) => {
   const { setColoredParts, setLevel, setIsPlaying, setWin } =
     useCircleGameStore.getState();
-  const { setDialogue } = useGameStore.getState();
+  const { setDialogue, setDecisionsScene2, setActionsGame, setPlace } =
+    useGameStore.getState();
 
   useEffect(() => {
     const pointerFunction = () => {
@@ -150,6 +152,8 @@ const GameCircle = ({ setRequestPointerLock }) => {
           const script = getSceneScript(2, [], 'scriptCircleGameLose', '');
           const action = () => {
             console.log('me fui');
+            setActionsGame('winMiniGame', false);
+            // setPlace('algo')
           };
           setDialogue({ script, action });
         };
@@ -160,6 +164,7 @@ const GameCircle = ({ setRequestPointerLock }) => {
           const script = getSceneScript(2, [], 'scriptCircleGameWin', '');
           const action = () => {
             console.log('me fui');
+            setActionsGame('winMiniGame', true);
           };
           setDialogue({ script, action });
         };
@@ -172,13 +177,13 @@ const GameCircle = ({ setRequestPointerLock }) => {
   return (
     <>
       <OrbitControls enableZoom={false} />
+      <EnvironmentGame />
       <CircleGame scale={circleScale} />
       <LineGame
         size={lineScale}
         lengthArray={lengthArray}
         velocity={velocity}
       />
-      {/* AÑADAMOS UN AMBIENTAL-LIGHT: */}
       <ambientLight intensity={0.5} />
     </>
   );
