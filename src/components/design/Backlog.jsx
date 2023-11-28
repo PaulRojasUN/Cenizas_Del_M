@@ -5,7 +5,6 @@ const Backlog = () => {
   const [backlog] = useGameStore((state) => [state.backlog]);
   const { getActionsGame } = useGameStore.getState();
   const showBacklog = getActionsGame('showBacklog');
-
   if (!showBacklog) return null;
 
   return (

@@ -37,6 +37,10 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     backlog: state.backlog.length < 4 ? [...state.backlog, item] : state.backlog
   })),
 
+  resetBacklog: () => set((state) => ({
+    backlog: []
+  })),
+
   removeFromBacklog: (item) => set((state) => ({
     backlog: state.backlog.filter((backlogItem) => backlogItem !== item)
   })),
