@@ -16,7 +16,6 @@ const EnvironmentGame = () => {
         exposure={0.1}
       />
       <Sparkles
-        color="rose"
         count={100}
         size={10}
         fade={true}
