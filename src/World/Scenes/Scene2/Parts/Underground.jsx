@@ -1,4 +1,4 @@
-import { KeyboardControls, Text, useGLTF } from "@react-three/drei";
+import { KeyboardControls, Sky, Text, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier";
 import Ecctrl, { EcctrlAnimation } from "ecctrl";
@@ -28,11 +28,22 @@ const Underground = () => {
 
     return (
         <>
-            <Physics debug>
+            <Physics>
                 <Lights />
+                <Sky
+                sunPosition={[0, 0, 0]} 
+                inclination={0}       
+                azimuth={180}  
+                mieCoefficient={1}  
+                elevation={5}          
+                mieDirectionalG={0}   
+                rayleigh={0.1}       
+                turbidity={10}        
+                exposure={0.1}
+              />
                 <KeyboardControls map={keyboardControls}>
                     <Ecctrl
-                        position={[30, -1, 20]}
+                        position={[0, 0, 0]}
                         autoBalance={false}
                         maxVelLimit={5}
                         capsuleRadius={0.35}
