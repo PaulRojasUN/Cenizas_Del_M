@@ -5,7 +5,7 @@ import { getSceneScript } from "../../../../utils/script";
 import withLoading from "../../../../components/design/WithLoading";
 
 const Calle = () => {
-  const { setDialogue, setChoice, setDecision, setScene } =
+  const { setDialogue, setChoice, setDecision, setScene, setIsChoice } =
     useGameStore.getState();
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
@@ -28,7 +28,10 @@ const Calle = () => {
       setChoice([]);
       setTimeout(() => {
         const script = getSceneScript(1, [], "scriptNews");
-        setDialogue({ script });
+            const action = () => {
+              // setIsChoice(true)
+            };
+        setDialogue({ script, action });
         setChoice({
           content: [
             { text: "Ingresar al bunker", effect: goToBunkerEffect },

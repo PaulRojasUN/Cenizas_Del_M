@@ -8,6 +8,7 @@ import { Howl } from 'howler';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import Backlog from '../../../../components/design/Backlog';
 import Loader from '../../../../components/design/Loader';
+import withLoading from '../../../../components/design/WithLoading';
 import { keyboardControls } from '../../../../hooks/useControls';
 import { useGameStore } from '../../../../store/game';
 import { getSceneScript } from '../../../../utils/script';
@@ -19,7 +20,6 @@ import { Phone } from '../Items/Phone';
 import Lights from '../Lights';
 import { LivingRoom } from '../Places/LivingRoom';
 import Door from './Door';
-import withLoading from "../../../../components/design/WithLoading";
 
 const Sala = () => {
   const alexRef = useRef();
@@ -58,11 +58,11 @@ const Sala = () => {
     const showFirstDialog = () => {
       const showD2 = getActionsGame('showD2');
       if (!showD2) {
-        setTimeout(() => {
           const script = getSceneScript(1, [], 'scriptFirstDialog');
-          setDialogue({ script });
-          setActionsGame('showD1', true);
-        }, 6000);
+          const action = () => {
+            setActionsGame('showD1', true);
+          }
+          setDialogue({ script, action });
       }
     };
 
@@ -116,25 +116,10 @@ const Sala = () => {
         telSound.play();
         const decisions = getDecisions();
         const script = getSceneScript(1, decisions, 'scriptConversation1');
-        // const soundRelaxedChoice = [
-        //   {
-        //     text: 'Intentar sonar tranquilo',
-        //     effect: () => {
-        //       setDecision('sonarTranquilo', true)
-        //       setDialogue(getSceneScript(1, decisions, 'scriptConversation2'))
-        //     }
-        //   },
-        //   {
-        //     text: 'No ocultar preocupación',
-        //     effect: () => {
-        //       setDecision('sonarTranquilo', false)
-        //       setDialogue(getSceneScript(1, decisions, 'scriptConversation2'))
-        //     }
-        //   }
-        // ]
-        setDialogue({ script });
-        // setChoice(soundRelaxedChoice)
-        setActionsGame('showD2', true);
+        const action = () => {
+          setActionsGame('showD2', true);
+        }
+        setDialogue({ script , action});
       } else {
         console.log('Ya llame a mi madre');
       }
@@ -174,12 +159,7 @@ const Sala = () => {
   }, [pressed, flashlight]);
 
   useEffect(() => {
-    if (
-      pressed === 'r' &&
-      key &&
-      decisions.hasBackpack &&
-      !decisions.hasKey
-    ) {
+    if (pressed === 'r' && key && decisions.hasBackpack && !decisions.hasKey) {
       setDecision('hasKey', true);
       addToBacklog('key');
     }
@@ -762,7 +742,7 @@ const Sala = () => {
           </>
         )}
       </Physics>
-    </>  
+    </>
   );
 };
 
