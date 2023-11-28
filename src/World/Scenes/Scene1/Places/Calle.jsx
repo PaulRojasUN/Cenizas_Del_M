@@ -9,17 +9,15 @@ const Calle = () => {
     useGameStore.getState();
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
-  const [actionsGame, decisionsScene1, dialogue, resetDialogue] = useGameStore((state) => [
-    state.actionsGame,
-    state.decisionsScene1,
-    state.dialogue,
-  ]);
+  const [actionsGame, decisionsScene1, dialogue, resetDialogue] = useGameStore(
+    (state) => [state.actionsGame, state.decisionsScene1, state.dialogue]
+  );
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const temporizador = setTimeout(() => {
-    setLoaded(true);
-    }, 2500); 
+      setLoaded(true);
+    }, 2500);
 
     return () => {
       clearTimeout(temporizador);
@@ -28,13 +26,13 @@ const Calle = () => {
   }, []);
 
   const goToBunkerEffect = () => {
-    setDecisionScene1('followedCrowd', true);
-    setDecisionScene1('continueGirlfriendSearch', false);
+    setDecisionScene1("followedCrowd", true);
+    setDecisionScene1("continueGirlfriendSearch", false);
   };
 
   const goForGirlfriendEffect = () => {
-    setDecisionScene1('continueGirlfriendSearch', true);
-    setDecisionScene1('followedCrowd', false);
+    setDecisionScene1("continueGirlfriendSearch", true);
+    setDecisionScene1("followedCrowd", false);
   };
 
   useEffect(() => {
