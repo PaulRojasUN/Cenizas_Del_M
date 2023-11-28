@@ -30,18 +30,16 @@ const Underground = () => {
         <>
             <Physics debug>
                 <Lights />
-                <RigidBody type="fixed">
-                    <Bunker  position={[0,0,0]} scale={3}/>
-                </RigidBody>
                 <KeyboardControls map={keyboardControls}>
                     <Ecctrl
-                        position={[0,1,0]}
+                        position={[0, -2, 0]}
                         autoBalance={false}
-                        maxVelLimit={1}
+                        maxVelLimit={5}
                         capsuleRadius={0.35}
                         floatHeight={0}
                         capsuleHalfHeight={0.91}
                         friction={0.2}
+                        
                         name="alex"
                         animated
                     >
@@ -50,6 +48,97 @@ const Underground = () => {
                         </EcctrlAnimation>
                     </Ecctrl>
                 </KeyboardControls>
+                <Bunker position={[22, 0, 0]} scale={2.1} />
+                <RigidBody type="fixed" >
+                  <mesh position={[-6.7, -4, 0]} rotation={[Math.PI/2,0,0]}>
+                    <planeGeometry attach="geometry" args={[20, 33]}/>
+                    <meshStandardMaterial
+                      transparent={true}
+                      opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-6.7, -4, 22.5]} rotation={[Math.PI/2,0,0]}>
+                    <planeGeometry attach="geometry" args={[103, 33]}/>
+                    <meshStandardMaterial
+                      transparent={true}
+                      opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-6.7, -4, -24]} rotation={[Math.PI/2,0,0]}>
+                    <planeGeometry attach="geometry" args={[103, 32]}/>
+                    <meshStandardMaterial
+                      transparent={true}
+                      opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[40, -4, 0]} rotation={[Math.PI/2,0,0]}>
+                    <planeGeometry attach="geometry" args={[10, 33]}/>
+                    <meshStandardMaterial
+                      transparent={true}
+                      opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[50, -4, -1]} rotation={[Math.PI/2,0,0]}>
+                    <planeGeometry attach="geometry" args={[30, 7]}/>
+                    <meshStandardMaterial
+                      transparent={true}
+                      opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-12.5, -4, -1]} rotation={[0,Math.PI/2,0]}>
+                    <planeGeometry attach="geometry" args={[15, 12]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-12.5, -4, -7.3]} rotation={[0,0,0]}>
+                    <planeGeometry attach="geometry" args={[16, 15]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-12.5, -4, 5]} rotation={[0,0,0]}>
+                    <planeGeometry attach="geometry" args={[16, 15]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-4.3, 0, -12]} rotation={[0,Math.PI/2,0]}>
+                    <planeGeometry attach="geometry" args={[9, 8]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
+                <RigidBody type="fixed" >
+                  <mesh position={[-4.4, 0, 9.5]} rotation={[0,Math.PI/2,0]}>
+                    <planeGeometry attach="geometry" args={[9, 8]}/>
+                    <meshStandardMaterial
+                        transparent={true}
+                        opacity={0}
+                    />
+                  </mesh>
+                </RigidBody>
             </Physics>
         </>
     )

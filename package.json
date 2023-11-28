@@ -16,7 +16,7 @@
     "@react-three/fiber": "8.15.9",
     "@react-three/flex": "1.0.1",
     "@react-three/rapier": "1.1.2",
-    "ecctrl": "^1.0.38",
+    "ecctrl": "^1.0.48",
     "firebase": "10.5.2",
     "framer-motion": "10.16.4",
     "howler": "2.2.4",
