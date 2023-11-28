@@ -11,6 +11,8 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   dialogue: [],
   choice: [],
   isChoice: false,
+  isLoading: false,
+
 
   reset: () => set((state) => ({
     scene: 0,
@@ -21,6 +23,11 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     dialogue: [],
     choice: [],
     isChoice: false,
+    isLoading:false,
+  })),
+
+  setIsLoading: (isLoading) => set((state) => ({
+    isLoading
   })),
 
   setScene: (scene) => set((state) => ({
