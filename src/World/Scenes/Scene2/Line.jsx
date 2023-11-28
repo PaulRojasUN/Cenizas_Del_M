@@ -5,8 +5,21 @@ import { useKeyboard } from '../../../hooks/useKeyboard';
 import { useCircleGameStore } from '../../../store/circle-game';
 import { useGameStore } from '../../../store/game';
 import { getSceneScript } from '../../../utils/script';
+import { useLoader } from '@react-three/fiber';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 const LineGame = ({ size, lengthArray, velocity }) => {
+  const dirColored = 'assets/textures/circleGame/coloredCircle/';
+
+  const mapC = useLoader(TextureLoader, dirColored + 'mapTiles.jpg');
+  const aoMapC = useLoader(TextureLoader, dirColored + 'aoMapTiles.jpg');
+  const roughnessMapC = useLoader(
+    TextureLoader,
+    dirColored + 'roughnessTiles.jpg'
+  );
+  const normalMapC = useLoader(TextureLoader, dirColored + 'normalTiles.jpg');
+  const heightMapC = useLoader(TextureLoader, dirColored + 'heightTiles.jpg');
+
   const [parts, coloredParts, lives, isPlaying] = useCircleGameStore(
     (state) => [state.parts, state.coloredParts, state.lives, state.isPlaying]
   );
@@ -34,8 +47,13 @@ const LineGame = ({ size, lengthArray, velocity }) => {
   const { width, height, depth } = size;
 
   const lineGeometry = new THREE.BoxGeometry(width, height, depth);
-  const lineMaterial = new THREE.MeshBasicMaterial({
-    color: 0xff0000,
+  const lineMaterial = new THREE.MeshStandardMaterial({
+    map: mapC,
+    aoMap: aoMapC,
+    roughnessMap: roughnessMapC,
+    normalMap: normalMapC,
+    displacementMap: heightMapC,
+    displacementScale: 0.01,
     side: THREE.DoubleSide,
   });
   const line = new THREE.Mesh(lineGeometry, lineMaterial);
@@ -43,7 +61,7 @@ const LineGame = ({ size, lengthArray, velocity }) => {
   const dir = new THREE.Vector3(1, 0, 0);
   const origin = new THREE.Vector3(0, 0, 0);
   const length = lengthArray;
-  const color = 0xff0000;
+  const color = 0x51473C;
   const arrow = new THREE.ArrowHelper(dir, origin, length, color);
   line.add(arrow);
 

@@ -178,6 +178,8 @@ const GameCircle = ({ setRequestPointerLock }) => {
         lengthArray={lengthArray}
         velocity={velocity}
       />
+      {/* AÑADAMOS UN AMBIENTAL-LIGHT: */}
+      <ambientLight intensity={0.5} />
     </>
   );
 };
