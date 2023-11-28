@@ -7,6 +7,7 @@ import Ecctrl, { EcctrlAnimation } from 'ecctrl';
 import { Howl } from 'howler';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import Backlog from '../../../../components/design/Backlog';
+import Loader from '../../../../components/design/Loader';
 import { keyboardControls } from '../../../../hooks/useControls';
 import { useGameStore } from '../../../../store/game';
 import { getSceneScript } from '../../../../utils/script';
@@ -18,7 +19,6 @@ import { Phone } from '../Items/Phone';
 import Lights from '../Lights';
 import { LivingRoom } from '../Places/LivingRoom';
 import Door from './Door';
-import Loader from '../../../../components/design/Loader';
 
 const Sala = () => {
   const [loaded, setLoaded] = useState(false);
@@ -29,15 +29,15 @@ const Sala = () => {
     setDialogue,
     setChoice,
     setActionsGame,
-    setDecisionScene1,
+    setDecision,
     getActionsGame,
-    getDecisionsScene1,
+    getDecisions,
     addToBacklog,
     removetoBacklog,
     resetDialogue,
   } = useGameStore.getState();
-  const [decisionsScene1, actionsGame] = useGameStore((state) => [
-    state.decisionsScene1,
+  const [decisions, actionsGame] = useGameStore((state) => [
+    state.decisions,
     state.actionsGame,
   ]);
 
@@ -56,8 +56,8 @@ const Sala = () => {
 
   useEffect(() => {
     const temporizador = setTimeout(() => {
-    setLoaded(true);
-    }, 2500); 
+      setLoaded(true);
+    }, 2500);
     return () => {
       clearTimeout(temporizador);
       resetDialogue();
@@ -124,20 +124,20 @@ const Sala = () => {
         telSound.currentTime = 0;
         telSound.volume = 0.2;
         telSound.play();
-        const decisions = getDecisionsScene1();
+        const decisions = getDecisions();
         const script = getSceneScript(1, decisions, 'scriptConversation1');
         // const soundRelaxedChoice = [
         //   {
         //     text: 'Intentar sonar tranquilo',
         //     effect: () => {
-        //       setDecisionScene1('sonarTranquilo', true)
+        //       setDecision('sonarTranquilo', true)
         //       setDialogue(getSceneScript(1, decisions, 'scriptConversation2'))
         //     }
         //   },
         //   {
         //     text: 'No ocultar preocupación',
         //     effect: () => {
-        //       setDecisionScene1('sonarTranquilo', false)
+        //       setDecision('sonarTranquilo', false)
         //       setDialogue(getSceneScript(1, decisions, 'scriptConversation2'))
         //     }
         //   }
@@ -153,34 +153,32 @@ const Sala = () => {
 
   useEffect(() => {
     if (pressed === 'r' && backpack) {
-      setDecisionScene1('hasBackpack', true);
+      setDecision('hasBackpack', true);
       setActionsGame('showBacklog', true);
     }
   }, [pressed, backpack]);
 
   useEffect(() => {
-    console.log(pressed==='r')
-    console.log()
+    console.log(pressed === 'r');
+    console.log();
     if (
       pressed === 'r' &&
       flashlight &&
-      !decisionsScene1.hasBackpack &&
-      !decisionsScene1.flashlight
+      !decisions.hasBackpack &&
+      !decisions.flashlight
     ) {
       const script = getSceneScript(1, [], 'warningsSala');
       const auxScript = [];
       auxScript.push(script[0]);
-      console.log(auxScript);
-      console.log({script: auxScript});
-      setDialogue({script: auxScript});
+      setDialogue({ script: auxScript });
     }
     if (
       pressed === 'r' &&
       flashlight &&
-      decisionsScene1.hasBackpack &&
-      !decisionsScene1.flashlight
+      decisions.hasBackpack &&
+      !decisions.flashlight
     ) {
-      setDecisionScene1('hasFlaslight', true);
+      setDecision('hasFlaslight', true);
       addToBacklog('flash-light');
     }
   }, [pressed, flashlight]);
@@ -189,10 +187,10 @@ const Sala = () => {
     if (
       pressed === 'r' &&
       key &&
-      decisionsScene1.hasBackpack &&
-      !decisionsScene1.hasKey
+      decisions.hasBackpack &&
+      !decisions.hasKey
     ) {
-      setDecisionScene1('hasKey', true);
+      setDecision('hasKey', true);
       addToBacklog('key');
     }
   }, [pressed, key]);
@@ -202,21 +200,21 @@ const Sala = () => {
       const script = getSceneScript(1, [], 'warningsSala');
       const auxScript = [];
       auxScript.push(script[2]);
-      setDialogue({script: auxScript});
+      setDialogue({ script: auxScript });
       return;
     }
 
-    if (pressed === 'r' && door && !decisionsScene1.hasBackpack) {
+    if (pressed === 'r' && door && !decisions.hasBackpack) {
       const script = getSceneScript(1, [], 'warningsSala');
       const auxScript = [];
       auxScript.push(script[1]);
-      setDialogue({script: auxScript});
+      setDialogue({ script: auxScript });
       return;
     }
     if (
       pressed === 'r' &&
       door &&
-      decisionsScene1.hasBackpack &&
+      decisions.hasBackpack &&
       actionsGame.showD2
     ) {
       setPlace('Calle');
@@ -363,7 +361,7 @@ const Sala = () => {
         >
           <Phone scale={0.01} position={[-6.8, -0.8, 0.8]} rotation-y={0} />
         </RigidBody>
-        {!decisionsScene1.hasFlashlight && (
+        {!decisions.hasFlashlight && (
           <RigidBody
             type="fixed"
             colliders="cuboid"
@@ -391,7 +389,7 @@ const Sala = () => {
             />
           </RigidBody>
         )}
-        {!decisionsScene1.hasKey && (
+        {!decisions.hasKey && (
           <RigidBody
             type="fixed"
             colliders="cuboid"
@@ -505,7 +503,7 @@ const Sala = () => {
                   setinteractionTxtPosition([-7.1, 1, 9]);
                   setinteractionTxtBackgroundPosition([-7.11, 1, 9]);
                   setinteractionTxtRotation(Math.PI / 2);
-                  if (decisionsScene1.hasBackpack) {
+                  if (decisions.hasBackpack) {
                     setinteractionTxt('Presiona R para abrir');
                     setDoor(true);
                   } else {
@@ -719,7 +717,7 @@ const Sala = () => {
             />{' '}
           </RigidBody>
         )}
-        {!decisionsScene1.hasBackpack && (
+        {!decisions.hasBackpack && (
           <>
             <RigidBody
               type="fixed"
@@ -774,7 +772,7 @@ const Sala = () => {
           </>
         )}
       </Physics>
-    </Loader>  
+    </Loader>
   );
 };
 

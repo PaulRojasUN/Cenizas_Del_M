@@ -6,8 +6,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   scene: 0,
   place: 'Introduction',
   backlog: [],
-  decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
-  decisionsScene2: { openSafeAlone: false, openSafeInGroup: false },
+  decisions: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false, hasComunicator: false, openSafeAlone: false, openSafeInGroup: false },
   actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
   dialogue: [],
   choice: [],
@@ -17,8 +16,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     scene: 0,
     place: 'Introduction',
     backlog: [],
-    decisionsScene1: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false },
-    decisionsScene2: { openSafeAlone: false, openSafeInGroup: false },
+    decisions: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false, hasComunicator: false, openSafeAlone: false, openSafeInGroup: false },
     actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
     dialogue: [],
     choice: [],
@@ -45,9 +43,9 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     backlog: state.backlog.filter((backlogItem) => backlogItem !== item)
   })),
 
-  setDecisionScene1: (decision, value) => set((state) => ({
-    decisionsScene1: {
-      ...state.decisionsScene1,
+  setDecision: (decision, value) => set((state) => ({
+    decisions: {
+      ...state.decisions,
       [decision]: value
     }
   })),
@@ -76,7 +74,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
 
   getActionsGame: (action) => get().actionsGame[action],
 
-  getDecisionsScene1: () => get().decisionsScene1,
+  getDecisions: () => get().decisions,
 
   setIsChoice: (isChoice) => set((state) => ({
     isChoice

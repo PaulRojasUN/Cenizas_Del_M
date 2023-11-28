@@ -5,12 +5,12 @@ import { getSceneScript } from "../../../../utils/script";
 import Loader from "../../../../components/design/Loader";
 
 const Calle = () => {
-  const { setDialogue, setChoice, setDecisionScene1, setScene } =
+  const { setDialogue, setChoice, setDecision, setScene } =
     useGameStore.getState();
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
-  const [actionsGame, decisionsScene1, dialogue, resetDialogue] = useGameStore(
-    (state) => [state.actionsGame, state.decisionsScene1, state.dialogue]
+  const [actionsGame, decisions, dialogue, resetDialogue] = useGameStore(
+    (state) => [state.actionsGame, state.decisions, state.dialogue]
   );
   const [loaded, setLoaded] = useState(false);
 
@@ -26,13 +26,13 @@ const Calle = () => {
   }, []);
 
   const goToBunkerEffect = () => {
-    setDecisionScene1("followedCrowd", true);
-    setDecisionScene1("continueGirlfriendSearch", false);
+    setDecision("followedCrowd", true);
+    setDecision("continueGirlfriendSearch", false);
   };
 
   const goForGirlfriendEffect = () => {
-    setDecisionScene1("continueGirlfriendSearch", true);
-    setDecisionScene1("followedCrowd", false);
+    setDecision("continueGirlfriendSearch", true);
+    setDecision("followedCrowd", false);
   };
 
   useEffect(() => {
@@ -56,18 +56,18 @@ const Calle = () => {
 
   useEffect(() => {
     if (actionsGame.choiceBunkerOrSofia) {
-      if (decisionsScene1.followedCrowd) {
+      if (decisions.followedCrowd) {
         const script = getSceneScript(1, [], "scriptGoToBunker");
         const action = () => {
           setScene(2);
-          setDecisionScene1("hazKey", false);
+          setDecision("hazKey", false);
         };
         setDialogue({ script, action });
-      } else if (decisionsScene1.continueGirlfriendSearch) {
+      } else if (decisions.continueGirlfriendSearch) {
         const script = getSceneScript(1, [], "scriptGoToSofia");
         const action = () => {
           setScene(2);
-          setDecisionScene1("hazKey", true);
+          setDecision("hazKey", true);
         };
         setDialogue({ script, action });
       }

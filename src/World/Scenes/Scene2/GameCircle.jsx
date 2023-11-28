@@ -13,7 +13,7 @@ import EnvironmentGame from './EnvironmentGame';
 const GameCircle = ({ setRequestPointerLock }) => {
   const { setColoredParts, setLevel, setIsPlaying, setWin } =
     useCircleGameStore.getState();
-  const { setDialogue, setDecisionsScene2, setActionsGame, setPlace } =
+  const { setDialogue, setActionsGame, setPlace } =
     useGameStore.getState();
 
   useEffect(() => {
