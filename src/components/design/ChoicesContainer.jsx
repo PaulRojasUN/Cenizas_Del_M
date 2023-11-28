@@ -18,8 +18,6 @@ const ChoicesContainer = ({ props }) => {
     if (up) {
       if (selectedOption < options.length - 1) {
         setSelectedOption(selectedOption + 1)
-        // console.log(selectedOption)
-        // console.log('ARRIBA')
       }
     }
   }, [up])
@@ -27,8 +25,6 @@ const ChoicesContainer = ({ props }) => {
   useEffect(() => {
     if (down) {
       if (selectedOption > 0) {
-        // console.log('ABAJO')
-        // console.log(selectedOption)
         setSelectedOption(selectedOption - 1)
       }
     }

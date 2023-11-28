@@ -8,6 +8,7 @@ const Test = () => {
     setActionsGame('showBacklog',true)
     resetBacklog()
     addToBacklog('key')
+    addToBacklog('wokiToki');
   },[])
   return (
     <Backlog/>
