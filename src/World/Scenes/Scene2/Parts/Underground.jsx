@@ -10,7 +10,9 @@ import { getSceneScript } from "../../../../utils/script";
 import { Alex } from "../../../Characters/Alex";;
 import Backlog from "../../../../components/design/Backlog";
 import { Bunker } from "../Places/Bunker";
+import { BunkerTecho } from "../Places/BunkerTecho";
 import Lights from "../Places/Lights";
+import { Lamp } from "../Places/Lamp";
 
 const Underground = () => {
   const alexURL = "/assets/models/character/alex_main.glb";
@@ -29,6 +31,27 @@ const Underground = () => {
 
   return (
     <>
+      <Lamp position={[-6, 1, -1]} scale={0.05} rotation-y={-Math.PI/2} />
+      <Lamp position={[2, 1, -1]} scale={0.05} rotation-y={-Math.PI/2} />
+      <Lamp position={[2, 1, -12]} scale={0.05} />
+      <Lamp position={[2, 1, 12]} scale={0.05} />
+      <Lamp position={[17, 1, 12]} scale={0.05} />
+      <Lamp position={[17, 1, -12]} scale={0.05} />
+      <Lamp position={[32, 1, -12]} scale={0.05} />
+      <Lamp position={[32, 1, 12]} scale={0.05} />
+      <Lamp position={[52, 1, 12]} scale={0.05} />
+      <Lamp position={[52, 1, -12]} scale={0.05} />
+      <Lamp position={[2, -5.3, -12]} scale={0.05} />
+      <Lamp position={[2, -5.3, 12]} scale={0.05} />
+      <Lamp position={[17, -5.3, 12]} scale={0.05} />
+      <Lamp position={[17, -5.3, -12]} scale={0.05} />
+      <Lamp position={[32, -5.3, -12]} scale={0.05} />
+      <Lamp position={[32, -5.3, 12]} scale={0.05} />
+      <Lamp position={[55, -5.3, -1]} scale={0.05} rotation-y={-Math.PI/2} />
+      <Lamp position={[46, -5.3, -1]} scale={0.05} rotation-y={-Math.PI/2} />
+      <Lamp position={[42, -5.3, 12]} scale={0.05} />
+      <Lamp position={[42, -5.3, -12]} scale={0.05} />
+      <Lamp position={[-4, -5.3, -1]} scale={0.05} rotation-y={-Math.PI/2} />
       <Physics>
         <Lights />
         <Sky
@@ -60,7 +83,7 @@ const Underground = () => {
             </EcctrlAnimation>
           </Ecctrl>
         </KeyboardControls>
-        <Bunker position={[22, 0, 0]} scale={2.1} />
+        <BunkerTecho position={[22, 0, 0]} scale={2.1} />
         //Escaleras
         <RigidBody
           type="fixed"
