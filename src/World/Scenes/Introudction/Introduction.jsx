@@ -24,4 +24,4 @@ const Introduction = () => {
   );
 };
 
-export default withLoading(Introduction);
+export default withLoading(Introduction,2500);

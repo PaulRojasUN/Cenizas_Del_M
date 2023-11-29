@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useGameStore } from '../../store/game';
 import Loader from './Loader';
 
-const withLoading = (Component) => {
+const withLoading = (Component, speed) => {
   return (props) => {
     const [loaded, setLoaded] = useState(false);
     const {setIsLoading} = useGameStore.getState();
@@ -15,7 +15,7 @@ const withLoading = (Component) => {
         setTimeout(() => {
           setIsLoading(false);
         },2000);
-      }, 2500);
+      }, speed);
       return () => {
         clearTimeout(timer);
       };

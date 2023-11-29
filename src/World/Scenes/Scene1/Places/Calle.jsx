@@ -100,4 +100,4 @@ const Calle = () => {
   );
 };
 
-export default withLoading(Calle);
+export default withLoading(Calle,2500);

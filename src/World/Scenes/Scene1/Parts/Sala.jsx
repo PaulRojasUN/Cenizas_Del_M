@@ -746,4 +746,4 @@ const Sala = () => {
   );
 };
 
-export default withLoading(Sala);
+export default withLoading(Sala,2500);
