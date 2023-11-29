@@ -2,10 +2,10 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
-import { useKeyboard } from '../../../../hooks/useKeyboard';
-import { useCircleGameStore } from '../../../../store/circle-game';
-import { useGameStore } from '../../../../store/game';
-import { getSceneScript } from '../../../../utils/script';
+import { useKeyboard } from '../../../../../hooks/useKeyboard';
+import { useCircleGameStore } from '../../../../../store/circle-game';
+import { useGameStore } from '../../../../../store/game';
+import { getSceneScript } from '../../../../../utils/script';
 
 const LineGame = ({ size, lengthArray, velocity }) => {
   const dirColored = 'assets/textures/circleGame/coloredCircle/';
