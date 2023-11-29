@@ -60,7 +60,7 @@ const Underground = () => {
       <Lamp position={[42, -5.3, 12]} scale={0.05} />
       <Lamp position={[42, -5.3, -12]} scale={0.05} />
       <Lamp position={[-4, -5.3, -1]} scale={0.05} rotation-y={-Math.PI/2} />
-      <Physics debug>
+      <Physics>
         <Lights />
         <Sky
           sunPosition={[0, 0, 0]}
@@ -364,15 +364,25 @@ const Underground = () => {
           </mesh>
         </RigidBody>
         <RigidBody type="fixed">
-          <Survivor1 position={[42,-10.2,11]} rotation-y={Math.PI} scale={1.55}/>
-          <Survivor2 position={[39,-10.2,10]} rotation-y={2.2} scale={1.65}/>
-          <Survivor3 position={[44,-10.2,9]} rotation-y={1.5+Math.PI} scale={1.65}/>
-          <Survivor4 position={[25,-3.8,-15.5]} rotation-y={Math.PI} scale={1.65}/>
-          <Survivor6 position={[24,-3.8,12]} rotation-y={1.2+Math.PI} scale={1.75}/>
-          <Survivor5 position={[39,-10.2,7]} rotation-y={1.2} scale={1.65}/>
-          <Survivor7 position={[43.6,-10.2,7]} rotation-y={1.7+Math.PI} scale={1.65}/>
-          <Survivor8 position={[15.5,-10.2,-16]} scale={1.65}/>
+          
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[42, -10.2, 11]} />
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[39, -10.2, 10]} />
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[44, -10.2, 9]} />
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[25, -3.8, -15.5]} />
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[24, -3.8, 12]} />
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[39, -10.2, 7]} />
+          <CuboidCollider args={[0.8, 2.5, 0.8]} position={[43.6, -10.2, 7]} />
+          <CuboidCollider args={[1, 2.3, 1]} position={[15.5, -10.2, -16]} />
+          
         </RigidBody>
+        <Survivor1 position={[42,-10.2,11]} rotation-y={Math.PI} scale={1.55}/>
+        <Survivor2 position={[39,-10.2,10]} rotation-y={2.2} scale={1.65}/>
+        <Survivor3 position={[44,-10.2,9]} rotation-y={1.5+Math.PI} scale={1.65}/>
+        <Survivor4 position={[25,-3.8,-15.5]} rotation-y={Math.PI} scale={1.65}/>
+        <Survivor6 position={[24,-3.8,12]} rotation-y={1.2+Math.PI} scale={1.75}/>
+        <Survivor5 position={[39,-10.2,7]} rotation-y={1.2} scale={1.65}/>
+        <Survivor7 position={[43.6,-10.2,7]} rotation-y={1.7+Math.PI} scale={1.65}/>
+        <Survivor8 position={[15.5,-10.2,-16]} scale={1.65}/>
       </Physics>
     </>
   )
