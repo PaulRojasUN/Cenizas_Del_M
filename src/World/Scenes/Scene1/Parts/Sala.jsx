@@ -9,7 +9,7 @@ import React, { Suspense, useEffect, useRef, useState } from 'react';
 import Backlog from '../../../../components/design/Backlog';
 import Loader from '../../../../components/design/Loader';
 import withLoading from '../../../../components/design/WithLoading';
-import { keyboardControls } from '../../../../hooks/useControls';
+import { blockControls, keyboardControls } from '../../../../hooks/useControls';
 import { useGameStore } from '../../../../store/game';
 import { getSceneScript } from '../../../../utils/script';
 import { Alex } from '../../../Characters/Alex';
@@ -36,9 +36,10 @@ const Sala = () => {
     removetoBacklog,
     resetDialogue,
   } = useGameStore.getState();
-  const [decisions, actionsGame] = useGameStore((state) => [
+  const [decisions, actionsGame, dialogue] = useGameStore((state) => [
     state.decisions,
     state.actionsGame,
+    state.dialogue,
   ]);
 
   const alexURL = '/assets/models/character/alex_main.glb';
@@ -217,6 +218,17 @@ const Sala = () => {
   const [bathroom2DoorOpened, setBathroom2DoorOpened] = useState(false);
   const [speed, setSpeed] = useState(8);
 
+  const [keyboardState,setKeyboardState] = useState(keyboardControls);
+
+  useEffect(() => {
+    console.log();
+    if(dialogue.length == 0){
+      setKeyboardState(keyboardControls);
+    }else {
+      setKeyboardState(blockControls);
+    }
+  },[dialogue]);
+
   useEffect(() => {
     if (pressed === 'r') {
       if (livingRoomDoorTouch && !livingRoomDoorOpened) {
@@ -292,7 +304,7 @@ const Sala = () => {
       />
       <Lights />
       <Physics>
-        <KeyboardControls map={keyboardControls}>
+        <KeyboardControls map={keyboardState}>
           <Ecctrl
             position={[0, 0, 0]}
             autoBalance={false}
