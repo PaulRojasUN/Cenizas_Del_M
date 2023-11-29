@@ -158,9 +158,9 @@ const ScriptScene1 = (decisions, nameScript) => {
 }
 
 const ScriptScene2 = (decisions, nameScript, auxiliary) => {
-  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator, hasMedkit } = decisions
+  const { hasFlashlight, hasKey, wantsToShare, hasCommunicator, hasMedkit, wantsToShareKey, wantsToShareFlashlight } = decisions
 
-  const stringSharingResources = hasFlashlight && hasKey ? 'linterna y una llave' : hasFlashlight ? 'linterna' : 'llave'
+  const stringSharingResources = wantsToShareFlashlight && wantsToShareKey ? 'linterna y una llave' : wantsToShareFlashlight ? 'linterna' : 'llave'
 
   const scripMeetingSurvivors = [
     {
@@ -203,29 +203,41 @@ const ScriptScene2 = (decisions, nameScript, auxiliary) => {
       author: '<strong>Alex</strong>',
       text: 'No, no tengo nada en mi mochila'
     },
-    (hasFlashlight || hasKey) && !wantsToShare &&
+    (hasFlashlight || hasKey) && !wantsToShareKey && !wantsToShareFlashlight &&
     {
       author: '<strong>Alex</strong>',
       text: '(mintiendo) No, no tengo nada en mi mochila'
     },
-    (hasFlashlight || hasKey) && wantsToShare &&
+    (hasFlashlight || hasKey) && (wantsToShareKey || wantsToShareFlashlight) &&
     {
       author: '<strong>Alex</strong>',
       text: 'Sí, tengo una ' + stringSharingResources
     },
-    ((!hasFlashlight && !hasKey) || !wantsToShare) &&
+    ((!hasFlashlight && !hasKey) || (!wantsToShareKey && !wantsToShareFlashlight))  &&
     {
       author: '<strong>Superviviente A</strong>',
       text: '(desconfiado) Mmm, ya veo'
     },
-    ((hasFlashlight || hasKey) || wantsToShare) &&
+    (hasKey && wantsToShareKey) && {
+      author: '<strong>Superviviente B</strong>',
+      text: '¿Dónde encontraste esa llave?'
+    },
+    (hasKey && wantsToShareKey) && {
+      author: '<strong>Alex</strong>',
+      text: 'Mientras, corría hacía aquí la encontré en el piso'
+    },
+    (hasKey && wantsToShareKey) && {
+      author: '<strong>Superviviente B</strong>',
+      text: 'Parece ser la llave de la caja fuerte del Bunker. El responsable de ella la dejo caer.'
+    },
+    ((hasFlashlight || hasKey) && (wantsToShareKey || wantsToShareFlashlight) ) &&
     {
       author: '<strong>Superviviente A</strong>',
       text: 'Bien, nos será de ayuda'
-    }
+    },
   ].filter(Boolean)
 
-
+  
   const scriptTraitorFound = [
     {
       author: '<strong>Alex</strong>',
@@ -242,203 +254,224 @@ const ScriptScene2 = (decisions, nameScript, auxiliary) => {
   ]
   
 
-    // Do not want to share the key
-
-    const scriptTraitorFoundConclusionAloneKey = [
-      {
-        author: '<strong> ... </strong>',
-        text: 'Todos, incluyendo a Alex, se alejan por la tensión de la discusión'
-      },
-      {
-        author: '<strong>Alex</strong>',
-        text: '(pensamiento) No puede ser, ahora, con menos recursos la convivencia y supervivencia en el bunker será más complicada'
-      },
-      {
-        author: '<strong> ... </strong>',
-        text: 'Alex se acerca a la caja fuerte del bunker'
-      },
-      {
-        author: '<strong>Alex</strong>',
-        text: '(pensamiento) Esta caja fuerte debería estar llena de recursos pero está protegida con un candado y ninguno sabe dónde está la llave'
-      },
-      {
-        author: '<strong> ... </strong>',
-        text: '[Alex recuerda algo]'
-      },
-      {
-        author: '<strong>Alex</strong>',
-        text: '(pensamiento) La llave que encontré... parece coincidir con la forma de la ranura del candado'
-      },
-      {
-        author: '<strong>Alex</strong>',
-        text: '(pensamiento) Creo que puedo abrirla sin que nadie se dé cuenta'
-      },
-      {
-        author: '<strong> ... </strong>',
-        text: 'Alex abre la caja fuerte silenciosamente'
-      },
-      {
-        author: '<strong>Alex</strong>',
-        text: '(pensamiento) Estas cosas me podrían ser de gran utilidad, pero no creo poder llevarlos todos'
-      },
-      
-    ]
-
-    const scriptViewPickedResourcesAloneKey = [
-      {
-        author: '<strong> ... </strong>',
-        text: '[Alex toma los elementos escogidos]'
-      },
-      hasCommunicator && {
-        author: '<strong>Alex</strong>',
-        text: '(comentando mentalmente) Creo saber cómo usar este comunicador...'
-      },
-      hasCommunicator && {
-        author: '<strong>Comunicador</strong>',
-        text: '...ubicado en las coordenadas 34.567, -78.901.'
-      },
-      hasCommunicator && {
-        author: '<strong>Comunicador</strong>',
-        text: 'Alex, si estás ahí, espero que  escuches esto.'
-      },
-      hasCommunicator && {
-        author: '<strong>Comunicador</strong>',
-        text: 'Necesitamos refuerzos y recursos.'
-      },
-      hasCommunicator && {
-        author: '<strong>Comunicador</strong>',
-        text: 'Si hay alguien escuchando, respondan.'
-      },
-      hasCommunicator && {
-        author: '<strong>Alex</strong>',
-        text: 'Sofía...'
-      },
-      hasCommunicator && {
-        author: '<strong>Alex</strong>',
-        text: 'Debo ir a buscarla; me iré de este lugar'
-      },
-      !hasCommunicator && {
-        author: '<strong>Alex</strong>',
-        text: 'Será mejor que me retiré antes de que alguien me descubra'
-      },
-      !hasMedkit && {
-        author: '<strong>Alex</strong>',
-        text: '(pensamiento) Me llevaré este botiquín'
-      },
-      !hasMedkit && {
-        author: '<strong> ... </strong>',
-        text: '[Alex toma el botiquín...]'
-      },
-      {
-        author: '<strong> ... </strong>',
-        text: '[Alex se retirá del bunker con esperanzas de hallar mejores oportunidades fuera del bunker]'
-      }
-    ].filter(Boolean)
-  
-
-
-    // Wants to share the key
-
-    const scriptTraitorFoundConclusionGroup = [{
-      author: '<strong>Superviviente B</strong>',
-      text: 'Sí, pero nuestros recursos ya son muy escasos; a duras penas tenemos suficientes para el resto del día de hoy'
-    },
-    {
-      author: '<strong>Superviviente E</strong>',
-      text: 'Intentemos abrir la caja fuerte'
-    },
-    {
-      author: '<strong>Superviviente B</strong>',
-      text: '¿Hay una caja fuerte?'
-    },
-    {
-      author: '<strong>Superviviente E</strong>',
-      text: 'Sí, pero, está protegida por un candado y no sabemos dónde está la llave'
-    },
-    {
-      author: '<strong>Superviviente A</strong>',
-      text: 'Alex encontró una llave. Quizá coincida con la del candado'
-    },
-    {
-      author: '<strong>Superviviente E</strong>',
-      text: 'Tendremos que probarla'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: 'De acuerdo'
-    },
-  ]
-
-  const scriptViewResourcesGroup = [
-    {
-      author: '<strong>Alex</strong>',
-      text: 'Intentaré insertar la llave en la caja fuerte'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: 'Creo que coincide... la caja fuerte acaba de desbloquearse. La abriré.'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: '(abriendo la caja fuerte) Muy bien. La caja fuerte está repleta de recursos que nos serán de utilidad'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: 'Podemos tomar cada uno y comenzarlos a distribuir equita...'
-    },
+  const scriptAfterTraitorFound = [
     {
       author: '<strong>...</strong>',
-      text: '[Se arma un caos por todos intentando tomar los recursos de la caja fuerte]'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: '(pensamiento) No lo puedo creer. Todos enloquecieron y  comenzaron a pelearse por los recursos para ellos mismos. Qué desastre.'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: '(pensamiento) ... y no logré tomar nada de ahí'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: '(pensamiento) Supongo que no tiene sentido continuar aquí si no hay recursos. Me retiraré.'
-    },
-    {
-      author: '<strong>Alex</strong>',
-      text: '(pensamiento) Debería llevarme el botiquín de primeros auxilios del bunker mientras todos están distraidos'
-    },
-    {
-      author: '<strong> ...</strong>',
-      text: 'Alex toma el botiquín y se marcha del bunker con esperanzas de hallar mejores oportunidades fuera de este'
-    },
-  ]
-
-
-  // Do not have the key
-
-  const scriptTraitorFoundConclusionAloneNoKey = [
-    {
-      author: '<strong> ... </strong>',
       text: 'Todos, incluyendo a Alex, se alejan por la tensión de la discusión'
     },
     {
       author: '<strong>Alex</strong>',
-      text: '(pensamiento) No puede ser, ahora, con menos recursos la convivencia y supervivencia en el bunker será más complicada'
+      text: '(pensamiento) No puede ser. Ahora, con menos recursos la convivencia y supervivencia en el bunker serán más complicada'
+    },
+    hasKey && {
+      author: '<strong>Alex</strong>',
+      text: '(pensamiento) ¿Qué debería hacer ahora?'
+    },
+    hasKey && !wantsToShareKey && {
+      author: '<strong>Alex</strong>',
+      text: '(pensamiento) Sospecho que la llave que encontré abre la caja fuerte del bunker. ¿Debería decirle a los demás?'
+    },
+    hasKey && wantsToShareKey && {
+      author: '<strong>Alex</strong>',
+      text: '(pensamiento) La llave que abre la caja fuerte está en una posición vulnerable...'
+    },
+    hasKey && wantsToShareKey && {
+      author: '<strong>Alex</strong>',
+      text: '(pensamiento) ... podría tomarla sin que nadie me viera ...'
+    },
+    !hasKey && {
+      author: '<strong>Alex</strong>',
+      text: '(pensamiento) La única esperanza que nos queda es la caja fuerte del bunker'
+    },
+    !hasKey && {
+      author: '<strong>Alex</strong>',
+      text: '(pensamiento) Supongo que tendré que esperar que la tensión disminuya y que el grupo quiera abrir la caja fuerte'
+    },
+  ].filter(Boolean)
+
+  const scriptOpenSafeAlone = [
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Intentaré abrirla por mi cuenta'
+    }
+  ]
+
+  const scriptOpenSafeGroup = [
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Será mejor que espere que la tensión disminuya y abrir la caja fuerte junto a los demás'
     },
     {
       author: '<strong>Alex</strong>',
-      text: '(pensamiento) Esto no parece tener futuro... me iré de aquí'
+      text: '(pensando) Mejor evitar mal entendidos'
+    }
+  ]
+  
+  const scriptLostSafeMinigameAlone = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No puede ser. No logro abrirla.'
     },
     {
       author: '<strong>Alex</strong>',
-      text: '(pensamiento) Me llevaré el botiquín de primeros auxilios del bunker discretamente. Me podría ser útil'
+      text: 'Tendré que dejarlo o los demás comenzarán a sospechar'
+    }
+  ]
+
+  const scriptWinSafeMinigameAlone = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Genial. ¡La caja fuerte está desbloqueada!'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Hay muchas cosas aquí. ¿Qué debería llevarme?'
+    },
+  ]
+
+  const scriptPickedItemsSafeAlone = [
+    {
+      author: '<strong> ... </strong>',
+      text: '[Alex toma los elementos escogidos]'
+    },
+    hasCommunicator && {
+      author: '<strong>Alex</strong>',
+      text: 'Creo saber cómo usar este comunicador...'
+    },
+    hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: '...ubicado en las coordenadas 34.567, -78.901.'
+    },
+    hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Alex, si estás ahí, espero que  escuches esto.'
+    },
+    hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Necesitamos refuerzos y recursos.'
+    },
+    hasCommunicator && {
+      author: '<strong>Comunicador</strong>',
+      text: 'Si hay alguien escuchando, respondan.'
+    },
+    hasCommunicator && {
+      author: '<strong>Alex</strong>',
+      text: 'Esa es la voz de Sofía...'
+    },
+    hasCommunicator && {
+      author: '<strong>Alex</strong>',
+      text: 'Debo ir a buscarla; me iré de este lugar'
+    },
+    !hasCommunicator && {
+      author: '<strong>Alex</strong>',
+      text: 'Será mejor que me retiré antes de que alguien me descubra'
     },
     {
       author: '<strong> ... </strong>',
-      text: '[Alex toma el botiquín...]'
+      text: '[Alex se retirá del bunker con esperanzas de hallar mejores oportunidades fuera de él]'
+    }
+  ]
+
+  const scriptLostSafeMinigameGroup = [
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: '¿Qué pasa Alex, está atorada la puerta de la caja fuerte?'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No... es que no la logro abrir...'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Mmm, dejame intentarlo'
     },
     {
       author: '<strong> ... </strong>',
-      text: '[Alex se retirá del bunker con esperanzas de hallar mejores oportunidades fuera de este]'
+      text: '[Supervivienta A intenta abrir la caja fuerte con la llave. Después de 5 segundos logra abrirla]'
+    },
+    {
+      author: '<strong>Superviviente A</strong>',
+      text: 'Ya está abierta.'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Bien. Ahora podemos tomar cada uno de los recursos y repartirlos equita...'
+    },
+    {
+      author: '<strong> ... </strong>',
+      text: '[Los demás supervivientes comienzan a tomar los recursos de la caja fuerte de forma descontrolada]'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '¿?'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) No voy a poder tomar nada de la caja fuerte en este desorden'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Supongo que así son las cosas...'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Mejor me retiraré de aquí. Este lugar no tiene futuro...'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) ...por lo menos, para mí'
+    },
+    {
+      author: '<strong> ... </strong>',
+      text: '[Alex se retirá del bunker con esperanzas de hallar mejores oportunidades fuera de él]'
+    }
+    
+  ]
+
+  const scriptWinSafeMinigameGroup = [
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Bien, parece que la he logrado abrir'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'Ahora podemos tomar cada uno de los recursos y repartirlos equita...'
+    },
+    {
+      author: '<strong> ... </strong>',
+      text: '[Los demás supervivientes comienzan a tomar los recursos de la caja fuerte de forma descontrolada]'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '¿?'
+    },
+    {
+      author: '<strong> ... </strong>',
+      text: '[Alex con un movimiento rápido alcanza un suministro médico antes de ser apartado de la caja fuerte]'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: 'No puedo creerlo. Se supone que deberíamos repartirnos los recursos equitactivamente.'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) No voy a poder tomar nada más de la caja fuerte en este desorden'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Supongo que así son las cosas...'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Mejor me retiraré de aquí antes de que las cosas empeoren'
+    },
+    {
+      author: '<strong>Alex</strong>',
+      text: '(pensando) Por lo menos, logré tomar este suministro médico'
+    },
+    {
+      author: '<strong> ... </strong>',
+      text: '[Alex se retirá del bunker con esperanzas de hallar mejores oportunidades fuera de él]'
     }
   ]
 
@@ -493,11 +526,14 @@ const ScriptScene2 = (decisions, nameScript, auxiliary) => {
     scripMeetingSurvivors,
     scriptAnsweringSurvivorsResources,
     scriptTraitorFound,
-    scriptTraitorFoundConclusionAloneKey,
-    scriptViewPickedResourcesAloneKey,
-    scriptTraitorFoundConclusionGroup,
-    scriptViewResourcesGroup,
-    scriptTraitorFoundConclusionAloneNoKey,
+    scriptAfterTraitorFound,
+    scriptOpenSafeAlone,
+    scriptOpenSafeGroup,
+    scriptLostSafeMinigameAlone,
+    scriptWinSafeMinigameAlone,
+    scriptPickedItemsSafeAlone,
+    scriptLostSafeMinigameGroup,
+    scriptWinSafeMinigameGroup,
     scriptDays,
     scriptCircleGameInit,
     scriptCircleGameLives,
