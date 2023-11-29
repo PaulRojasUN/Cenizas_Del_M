@@ -2,7 +2,7 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-export const useCircleGameStore = create(devtools((set, get) => ({
+export const useCircleGameStore = create(devtools(persist((set, get) => ({
   level: 0,
   lives: 3,
   win: false,
@@ -46,4 +46,4 @@ export const useCircleGameStore = create(devtools((set, get) => ({
 }), {
   name: 'circle-game'
 }
-))
+)))

@@ -1,6 +1,6 @@
 import '../../css/choice.css';
 
-const ChoiceOption = ({ props, setSelectedOption }) => {
+const ChoiceOption = ({ props, setSelectedOptio }) => {
   const selected = props.selected;
   const text = props.text;
 

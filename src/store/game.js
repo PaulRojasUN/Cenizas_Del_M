@@ -19,7 +19,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     place: 'Introduction',
     backlog: [],
     decisions: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false, openSafeAlone: false, openSafeInGroup: false, deliveredKey: false, hasComunicator: false, hasMedicalSuply: false,knowsAboutSofia:false},
-    actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
+    actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false , showOverlay:false},
     dialogue: [],
     choice: [],
     isChoice: false,
@@ -39,7 +39,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   })),
 
   addToBacklog: (item) => set((state) => ({
-    backlog: state.backlog.length < 4 ? [...state.backlog, item] : state.backlog
+    backlog: state.backlog.length < 4 && !state.backlog.includes(item) ? [...state.backlog, item] : state.backlog
   })),
 
   resetBacklog: () => set((state) => ({

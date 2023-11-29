@@ -2,26 +2,20 @@ import { Environment, OrbitControls } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import { MathUtils } from 'three';
-import { useCircleGameStore } from '../../../store/circle-game';
-import { useGameStore } from '../../../store/game';
-import { getSceneScript } from '../../../utils/script';
-import { ArrowGame } from './ArrowGame';
+import withLoading from '../../../../components/design/WithLoading';
+import { useCircleGameStore } from '../../../../store/circle-game';
+import { useGameStore } from '../../../../store/game';
+import { getSceneScript } from '../../../../utils/script';
 import CircleGame from './Circle';
-import LineGame from './Line';
 import EnvironmentGame from './EnvironmentGame';
-import withLoading from '../../../components/design/WithLoading';
+import LineGame from './Line';
 
-const GameCircle = ({ setRequestPointerLock }) => {
+const GameCircle = () => {
   const { setColoredParts, setLevel, setIsPlaying, setWin } =
     useCircleGameStore.getState();
-  const { setDialogue, setActionsGame, setPlace } =
-    useGameStore.getState();
+  const { setDialogue, setActionsGame, setPlace } = useGameStore.getState();
 
   useEffect(() => {
-    const pointerFunction = () => {
-      setRequestPointerLock(false);
-    };
-    pointerFunction();
 
     const showIninitScript = () => {
       const script = getSceneScript(2, [], 'scriptCircleGameInit', '');

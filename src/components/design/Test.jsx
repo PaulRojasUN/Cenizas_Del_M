@@ -4,14 +4,10 @@ import { useGameStore } from '../../store/game'
 
 const Test = () => {
   const {setActionsGame,addToBacklog,resetBacklog} = useGameStore.getState()
-  useEffect(() => {
-    setActionsGame('showBacklog',true)
-    resetBacklog()
-    addToBacklog('key')
-    addToBacklog('wokiToki');
-  },[])
+  
   return (
-    <Backlog/>
+    <>
+    </>
   )
 }
 
