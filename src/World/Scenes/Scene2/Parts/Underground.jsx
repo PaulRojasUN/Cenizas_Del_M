@@ -363,7 +363,7 @@ const Underground = () => {
             />
           </mesh>
         </RigidBody>
-        <RigidBody type="fixed" colliders="cuboid">
+        <RigidBody type="fixed">
           <Survivor1 position={[42,-10.2,11]} rotation-y={Math.PI} scale={1.55}/>
           <Survivor2 position={[39,-10.2,10]} rotation-y={2.2} scale={1.65}/>
           <Survivor3 position={[44,-10.2,9]} rotation-y={1.5+Math.PI} scale={1.65}/>
