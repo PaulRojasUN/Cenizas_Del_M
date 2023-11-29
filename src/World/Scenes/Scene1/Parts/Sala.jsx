@@ -154,7 +154,7 @@ const Sala = () => {
       !decisions.flashlight
     ) {
       setDecision('hasFlaslight', true);
-      addToBacklog('flash-light');
+      addToBacklog('flashlight');
     }
   }, [pressed, flashlight]);
 
