@@ -1,26 +1,156 @@
-import { useRef } from 'react'
-
 const Lights = () => {
-  const directionalLightRef = useRef()
-
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        ref={directionalLightRef}
-        position={[10, 10, 5]}
-        intensity={4}
-        color='white'
-        castShadow
-        shadow-mapSize={[1024, 1024]}
-        shadow-camera-far={32}
-        shadow-camera-left={-8}
-        shadow-camera-right={8}
-        shadow-camera-top={8}
-        shadow-camera-bottom={-8}
+      <ambientLight intensity={0.1} />
+
+      <pointLight
+        position={[-6, 0, -1]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[2, 0, -1]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[2, 0, -12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[2, 0, 12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[17, 0, 12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[17, 0, -12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[32, 0, 12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[32, 0, -12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[52, 0, 12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[52, 0, -12]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[2, -5.3, -12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[2, -5.3, 12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[17, -5.3, 12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[17, -5.3, -12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[32, -5.3, 12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[32, -5.3, -12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[55, -5.3, -1]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[46, -5.3, -1]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[42, -5.3, 12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[42, -5.3, -12]}
+        intensity={20}
+        distance={14}
+        color={0xd0a676}
+      />
+
+      <pointLight
+        position={[-4, -5.3, -1]}
+        intensity={15}
+        distance={12}
+        color={0xd0a676}
       />
     </>
-  )
-}
+  );
+};
 
-export default Lights
+export default Lights;
