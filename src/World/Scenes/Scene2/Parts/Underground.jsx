@@ -44,7 +44,7 @@ const Underground = () => {
         />
         <KeyboardControls map={keyboardControls}>
           <Ecctrl
-            position={[52, -8, 0]}
+            position={[0, 0, 0]}
             autoBalance={false}
             maxVelLimit={speed}
             capsuleRadius={0.35}
