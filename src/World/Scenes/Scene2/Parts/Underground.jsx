@@ -21,6 +21,7 @@ import { Survivor5 } from "../../../Characters/Survivor5";
 import { Survivor6 } from "../../../Characters/Survivor6";
 import { Survivor7 } from "../../../Characters/Survivor7";
 import { Survivor8 } from "../../../Characters/Survivor8";
+import withLoading from "../../../../components/design/WithLoading";
 
 const Underground = () => {
   const alexURL = "/assets/models/character/alex_main.glb";
@@ -388,4 +389,4 @@ const Underground = () => {
   )
 };
 
-export default Underground;
+export default withLoading(Underground,2600);
