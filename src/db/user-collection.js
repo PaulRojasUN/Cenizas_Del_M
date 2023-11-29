@@ -39,6 +39,10 @@ const createUser = async (userData) => {
 
     await setDoc(doc(gameDataDocRef, 'scene1'), scene1Data)
 
+    await setDoc(doc(gameDataDocRef, 'scene2'), {test:true})
+
+    await setDoc(doc(gameDataDocRef, 'scene3'), {test:true})
+
     await setDoc(doc(gameDataDocRef, 'general'), generalData)
 
     return { success: true, data: userDocRef }
@@ -136,6 +140,59 @@ const editUserGame = async (userEmail, gameAttribute, newData) => {
   }
 }
 
+const resetUserGame = async (userEmail) => {
+  try {
+    const userSnapshot = await getDocs(
+      query(usersCollectionRef, where('email', '==', userEmail))
+    )
+
+    if (userSnapshot.empty) {
+      return { success: false, message: 'User not found' }
+    }
+
+    const userId = userSnapshot.docs[0].id
+
+    const userDocRef = doc(usersCollectionRef, userId)
+
+    const gameColRef = collection(userDocRef, 'game')
+
+    const generalDocRef = doc(gameColRef, 'general')
+
+    const res1 = await updateDoc(generalDocRef, {
+      backpack:[],
+      scene:0,
+      place:''
+    })
+
+    const scene1DocRef = doc(gameColRef, 'scene1')
+
+    const res2 = await updateDoc(scene1DocRef, {
+      checkedNews: false,
+      hasFlashlight: false,
+      hasBackpack: false,
+      followedCrowd: false,
+      continueGirlfriendSearch: false,
+      hasKey: false
+    })
+
+    const scene2DocRef = doc(gameColRef, 'scene2')
+
+    const res3 = await updateDoc(scene2DocRef, {test:true})
+
+    const scene3DocRef = doc(gameColRef, 'scene3')
+
+    const res4 = await updateDoc(scene3DocRef, {test:true})
+
+    if (res1 && res2 && res3 && res4) {
+      return { success: true, message: 'User updated successfully' }
+    } else {
+      return { success: false, message: 'An error has ocurred'}
+    }
+
+  } catch (error) {
+    return { success: false, message: 'An error has ocurred', error }
+  }
+}
 
 const inBackpack = async (userEmail, item) => {
   try {
@@ -226,4 +283,4 @@ const removeFromBackpack = async (userEmail, item) => {
 }
 
 
-export { createUser, editUser, editUserGame, getUser, getUserGame }
+export { createUser, editUser, editUserGame, getUser, getUserGame, resetUserGame}

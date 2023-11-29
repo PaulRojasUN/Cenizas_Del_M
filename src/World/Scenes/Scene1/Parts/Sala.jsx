@@ -20,7 +20,7 @@ import { Phone } from "../Items/Phone";
 import Lights from "../Lights";
 import { LivingRoom } from "../Places/LivingRoom";
 import Door from "./Door";
-import { setPlaceFirebase, setSceneFireplace } from "../../../../api/game";
+import { setPlaceFirebase, setSceneFireplace, resetGame } from "../../../../api/game";
 
 const updateFirebase = async () => {
   await setPlaceFirebase("Calle")

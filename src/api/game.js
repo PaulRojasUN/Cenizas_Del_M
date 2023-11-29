@@ -1,4 +1,4 @@
-import { editUserGame, getUserGame } from '../db/user-collection'
+import { editUserGame, getUserGame, resetUserGame} from '../db/user-collection'
 import { useAuthStore } from '../store/auth'
 import { useGameStore } from '../store/game'
 const { setScene, setPlace, setDecisions } = useGameStore.getState()
@@ -84,7 +84,7 @@ export const setPlaceFirebase = async (place) => {
     const res = await editUserGame(email, 'general', { place })
 
     if (res.success == true) {
-      console.log('An error has ocurred')
+      console.log('Updated successfully')
     } else {
       console.log(res)
     }
@@ -92,5 +92,23 @@ export const setPlaceFirebase = async (place) => {
   } catch (err) {
     console.log(err)
     return { type: 'error' }
+  }
+}
+
+export const resetGame = async () => {
+
+  try {
+    const { email } = useAuthStore.getState().userLogged
+
+    const res = await resetUserGame(email)
+
+    if (res.success) {
+      console.log("Updated successfully")
+    } else {
+      console.log("An error has ocurred")
+    }
+
+  } catch (err) {
+    console.log(err)
   }
 }
