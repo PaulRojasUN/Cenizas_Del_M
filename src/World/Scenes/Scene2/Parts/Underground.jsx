@@ -13,6 +13,14 @@ import { Bunker } from "../Places/Bunker";
 import { BunkerTecho } from "../Places/BunkerTecho";
 import Lights from "../Places/Lights";
 import { Lamp } from "../Places/Lamp";
+import { Survivor1 } from "../../../Characters/Survivor1";
+import { Survivor2 } from "../../../Characters/Survivor2";
+import { Survivor3 } from "../../../Characters/Survivor3";
+import { Survivor4 } from "../../../Characters/Survivor4";
+import { Survivor5 } from "../../../Characters/Survivor5";
+import { Survivor6 } from "../../../Characters/Survivor6";
+import { Survivor7 } from "../../../Characters/Survivor7";
+import { Survivor8 } from "../../../Characters/Survivor8";
 
 const Underground = () => {
   const alexURL = "/assets/models/character/alex_main.glb";
@@ -52,7 +60,7 @@ const Underground = () => {
       <Lamp position={[42, -5.3, 12]} scale={0.05} />
       <Lamp position={[42, -5.3, -12]} scale={0.05} />
       <Lamp position={[-4, -5.3, -1]} scale={0.05} rotation-y={-Math.PI/2} />
-      <Physics>
+      <Physics debug>
         <Lights />
         <Sky
           sunPosition={[0, 0, 0]}
@@ -337,7 +345,7 @@ const Underground = () => {
         </RigidBody>
         //Piso inferior
         <RigidBody type="fixed" >
-          <mesh position={[0, -10.5, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <mesh position={[0, -10.3, 0]} rotation={[Math.PI / 2, 0, 0]}>
             <planeGeometry attach="geometry" args={[120, 120]} />
             <meshStandardMaterial
               transparent={true}
@@ -354,6 +362,16 @@ const Underground = () => {
               opacity={0}
             />
           </mesh>
+        </RigidBody>
+        <RigidBody type="fixed" colliders="cuboid">
+          <Survivor1 position={[42,-10.2,11]} rotation-y={Math.PI} scale={1.55}/>
+          <Survivor2 position={[39,-10.2,10]} rotation-y={2.2} scale={1.65}/>
+          <Survivor3 position={[44,-10.2,9]} rotation-y={1.5+Math.PI} scale={1.65}/>
+          <Survivor4 position={[25,-3.8,-15.5]} rotation-y={Math.PI} scale={1.65}/>
+          <Survivor6 position={[24,-3.8,12]} rotation-y={1.2+Math.PI} scale={1.75}/>
+          <Survivor5 position={[39,-10.2,7]} rotation-y={1.2} scale={1.65}/>
+          <Survivor7 position={[43.6,-10.2,7]} rotation-y={1.7+Math.PI} scale={1.65}/>
+          <Survivor8 position={[15.5,-10.2,-16]} scale={1.65}/>
         </RigidBody>
       </Physics>
     </>
