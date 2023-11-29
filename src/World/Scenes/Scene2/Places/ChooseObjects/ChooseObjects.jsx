@@ -138,10 +138,9 @@ const CameraHandler = ({ slideDistance }) => {
   );
 };
 
-const ChooseObjects = ({ setRequestPointerLock }) => {
+const ChooseObjects = () => {
   const { setActionsGame, resetBacklog } = useGameStore.getState();
   useEffect(() => {
-    setRequestPointerLock(false);
     setActionsGame('showBacklog', true);
     setActionsGame('showOverlay', true);
   }, []);
