@@ -51,7 +51,7 @@ const Underground = () => {
             floatHeight={0}
             capsuleHalfHeight={0.91}
             friction={0.2}
-
+            dragDampingC={0.8}
             name="alex"
             animated
           >
