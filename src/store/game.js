@@ -85,6 +85,8 @@ export const useGameStore = create(devtools(persist((set, get) => ({
     }
   })),
 
+  getDialogueLength: () => get().dialogue.length,
+
   getActionsGame: (action) => get().actionsGame[action],
 
   getDecisions: () => get().decisions,
