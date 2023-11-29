@@ -1,4 +1,3 @@
-
 import { Html } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Leva } from 'leva';
@@ -28,6 +27,7 @@ const Experience = () => {
         }}
         shadows
         camera={cameraSettings}
+      >
         {scene === 0 && <Introduction />}
         {scene === 1 && <Scene1 />}
         {scene === 2 && <Scene2/> }

@@ -9,9 +9,10 @@ const Scene2 = () => {
 
   return (
     <>
-      {place === 'game' && <GameCircle/> }
+      {/* {place === 'game' && <GameCircle/> }
       {place === 'chooseObjects' && <ChooseObjects />}
-      {place === 'underground' && <Underground/> }
+      {place === 'underground' && <Underground/> } */}
+      <Underground/>
     </>
   );
 };

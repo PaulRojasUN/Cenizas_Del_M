@@ -29,7 +29,7 @@ const Underground = () => {
 
   return (
     <>
-      <Physics debug>
+      <Physics>
         <Lights />
         <Sky
           sunPosition={[0, 0, 0]}
@@ -68,7 +68,7 @@ const Underground = () => {
           onCollisionEnter={({ other }) => {
             if (other.rigidBodyObject) {
               if (other.rigidBodyObject.name === "alex") {
-                setSpeed(12);
+                setSpeed(10);
               }
             }
           }}
@@ -97,7 +97,7 @@ const Underground = () => {
           onCollisionEnter={({ other }) => {
             if (other.rigidBodyObject) {
               if (other.rigidBodyObject.name === "alex") {
-                setSpeed(12);
+                setSpeed(10);
               }
             }
           }}
