@@ -5,7 +5,7 @@ import { getSceneScript } from "../../../../utils/script";
 import withLoading from "../../../../components/design/WithLoading";
 
 const Calle = () => {
-  const { setDialogue, setChoice, setDecision, setScene, setIsChoice } =
+  const { setDialogue, setChoice, setDecision, setScene, setPlace,setIsChoice } =
     useGameStore.getState();
   const [sound] = useState(() => new Audio("/assets/sounds/tv.wav"));
   const [hasPlayed, setHasPlayed] = useState(false);
@@ -51,6 +51,7 @@ const Calle = () => {
         const script = getSceneScript(1, [], "scriptGoToBunker");
         const action = () => {
           setScene(2);
+          setPlace('bunker');
           setDecision("hazKey", false);
         };
         setDialogue({ script, action });
@@ -58,6 +59,7 @@ const Calle = () => {
         const script = getSceneScript(1, [], "scriptGoToSofia");
         const action = () => {
           setScene(2);
+          setPlace('bunker')
           setDecision("hazKey", true);
         };
         setDialogue({ script, action });

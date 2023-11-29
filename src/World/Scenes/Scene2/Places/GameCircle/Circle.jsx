@@ -1,7 +1,7 @@
 import { useLoader } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
-import { useCircleGameStore } from '../../../../store/circle-game';
+import { useCircleGameStore } from '../../../../../store/circle-game';
 
 const CircleGame = ({ scale }) => {
   const [parts, coloredParts] = useCircleGameStore((state) => [

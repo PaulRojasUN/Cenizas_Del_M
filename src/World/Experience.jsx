@@ -6,10 +6,9 @@ import { useGameStore } from '../store/game';
 import ShowDialogues from './Dialogues/ShowDialogues';
 import Introduction from './Scenes/Introudction/Introduction';
 import Scene1 from './Scenes/Scene1/Scene1';
-import { ChooseObjects } from './Scenes/Scene2/ChooseObjects/ChooseObjects';
-import { Overlay } from './Scenes/Scene2/ChooseObjects/Overlay';
-import GameCircle from './Scenes/Scene2/GameCircle/GameCircle';
+import { Overlay } from './Scenes/Scene2/Places/ChooseObjects/Overlay';
 import { cameraSettings } from './camera/cameraSetting';
+import Scene2 from './Scenes/Scene2/Scene2';
 
 const Experience = () => {
   const [scene, actionsGame] = useGameStore((state) => [
@@ -31,20 +30,7 @@ const Experience = () => {
       >
         {scene === 0 && <Introduction />}
         {scene === 1 && <Scene1 />}
-        {scene === 2 && (
-          <>
-            <color attach="background" args={['#ececec']} />
-            <Suspense
-              fallback={
-                <Html>
-                  <h1>Loading...</h1>
-                </Html>
-              }
-            >
-              <ChooseObjects setRequestPointerLock={setRequestPointerLock} />
-            </Suspense>
-          </>
-        )}
+        {scene === 2 && <Scene2/> }
       </Canvas>
       <ShowDialogues className="z-50" />
       {actionsGame.showOverlay && (

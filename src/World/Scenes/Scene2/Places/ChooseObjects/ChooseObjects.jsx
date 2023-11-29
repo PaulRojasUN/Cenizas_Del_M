@@ -6,13 +6,14 @@ import {
   MeshDistortMaterial,
   RenderTexture,
 } from '@react-three/drei';
+import withLoading from '../../../../../components/design/WithLoading';
 import { useThree } from '@react-three/fiber';
 import { useAtom } from 'jotai';
 import { useControls } from 'leva';
 import { useEffect, useRef } from 'react';
+import { useGameStore } from '../../../../../store/game';
 import { slideAtom } from './Overlay';
 import { Scene } from './Scene';
-import { useGameStore } from '../../../../store/game';
 
 export const scenes = [
   {
@@ -137,13 +138,13 @@ const CameraHandler = ({ slideDistance }) => {
   );
 };
 
-export const ChooseObjects = ({setRequestPointerLock}) => {
-  const {setActionsGame,resetBacklog} = useGameStore.getState()
+const ChooseObjects = ({ setRequestPointerLock }) => {
+  const { setActionsGame, resetBacklog } = useGameStore.getState();
   useEffect(() => {
-    setRequestPointerLock(false)
+    setRequestPointerLock(false);
     setActionsGame('showBacklog', true);
     setActionsGame('showOverlay', true);
-  }, [])
+  }, []);
   const viewport = useThree((state) => state.viewport);
   const { slideDistance } = useControls({
     slideDistance: {
@@ -187,3 +188,5 @@ export const ChooseObjects = ({setRequestPointerLock}) => {
     </>
   );
 };
+
+export default withLoading(ChooseObjects);

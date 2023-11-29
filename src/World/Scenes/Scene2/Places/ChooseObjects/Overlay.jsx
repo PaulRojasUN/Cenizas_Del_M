@@ -1,14 +1,14 @@
 import { atom, useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import '../../../../css/choice.css';
+import { useGameStore } from '../../../../../store/game';
+import '../../../../../css/choice.css';
 import { scenes } from './ChooseObjects';
-import { useGameStore } from '../../../../store/game';
 
 export const slideAtom = atom(0);
 
 export const Overlay = () => {
-  const {addToBacklog,removeFromBacklog, setPlace} = useGameStore.getState()
-  const [backlog] = useGameStore((state) => [state.backlog])
+  const { addToBacklog, removeFromBacklog, setPlace, setActionsGame } = useGameStore.getState();
+  const [backlog] = useGameStore((state) => [state.backlog]);
   const [slide, setSlide] = useAtom(slideAtom);
   const [displaySlide, setDisplaySlide] = useState(slide);
   const [visible, setVisible] = useState(false);
@@ -27,36 +27,37 @@ export const Overlay = () => {
   }, [slide]);
 
   const handleClick = () => {
-    if(slide===0){
-      addToBacklog('medical')
-    } else if(slide===1){
-      addToBacklog('food')
-    } else if(slide===2){
-      addToBacklog('tools')
-    } else if(slide===3){
+    if (slide === 0) {
+      addToBacklog('medical');
+    } else if (slide === 1) {
+      addToBacklog('food');
+    } else if (slide === 2) {
+      addToBacklog('tools');
+    } else if (slide === 3) {
       addToBacklog('devicePower');
-    } else if(slide===4){
-      addToBacklog('wokiToki')
+    } else if (slide === 4) {
+      addToBacklog('wokiToki');
     }
-  }
+  };
 
-    const handleClick2 = () => {
-      if (slide === 0) {
-        removeFromBacklog('medical');
-      } else if (slide === 1) {
-        removeFromBacklog('food');
-      } else if (slide === 2) {
-        removeFromBacklog('tools');
-      } else if (slide === 3) {
-        removeFromBacklog('devicePower');
-      } else if (slide === 4) {
-        removeFromBacklog('wokiToki');
-      }
-    };
-
-    const changeToPlace = () => {
-      // cambiar a otro lugar
+  const handleClick2 = () => {
+    if (slide === 0) {
+      removeFromBacklog('medical');
+    } else if (slide === 1) {
+      removeFromBacklog('food');
+    } else if (slide === 2) {
+      removeFromBacklog('tools');
+    } else if (slide === 3) {
+      removeFromBacklog('devicePower');
+    } else if (slide === 4) {
+      removeFromBacklog('wokiToki');
     }
+  };
+
+  const changeToPlace = () => {
+    setActionsGame('showOverlay',false)
+    setPlace('bunker')
+  };
 
   return (
     <>
