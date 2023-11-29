@@ -1,17 +1,19 @@
-import { useEffect } from 'react'
-import { setPlaceInGame } from '../../../api/game'
-import { useGameStore } from '../../../store/game'
-import { Bunker } from './Places/Bunker'
+import  ChooseObjects  from './Places/ChooseObjects/ChooseObjects';
+import  GameCircle  from './Places/GameCircle/GameCircle';
+import  Bunker  from './Places/Bunker/Bunker';
+import { useGameStore } from '../../../store/game';
 import Underground from './Parts/Underground'
 
 const Scene2 = () => {
-  const [place] = useGameStore((state) => [state.place])
+  const [place] = useGameStore((state) => [state.place]);
+
   return (
     <>
-      <Underground />
-      {/* {place === 'Bunker' && <Bunker />} */}
+      {place === 'game' && <GameCircle/> }
+      {place === 'chooseObjects' && <ChooseObjects />}
+      {place === 'underground' && <Underground/> }
     </>
-  )
-}
+  );
+};
 
-export default Scene2
+export default Scene2;
