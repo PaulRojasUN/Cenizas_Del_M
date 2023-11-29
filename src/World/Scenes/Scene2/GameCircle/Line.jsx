@@ -1,12 +1,11 @@
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { useKeyboard } from '../../../hooks/useKeyboard';
-import { useCircleGameStore } from '../../../store/circle-game';
-import { useGameStore } from '../../../store/game';
-import { getSceneScript } from '../../../utils/script';
-import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
+import { useKeyboard } from '../../../../hooks/useKeyboard';
+import { useCircleGameStore } from '../../../../store/circle-game';
+import { useGameStore } from '../../../../store/game';
+import { getSceneScript } from '../../../../utils/script';
 
 const LineGame = ({ size, lengthArray, velocity }) => {
   const dirColored = 'assets/textures/circleGame/coloredCircle/';
@@ -61,7 +60,7 @@ const LineGame = ({ size, lengthArray, velocity }) => {
   const dir = new THREE.Vector3(1, 0, 0);
   const origin = new THREE.Vector3(0, 0, 0);
   const length = lengthArray;
-  const color = 0x51473C;
+  const color = 0x51473c;
   const arrow = new THREE.ArrowHelper(dir, origin, length, color);
   line.add(arrow);
 

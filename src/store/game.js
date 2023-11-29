@@ -1,30 +1,36 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
+import { useCircleGameStore } from './circle-game'
+
+const {resetCircleGame} = useCircleGameStore.getState()
 
 export const useGameStore = create(devtools(persist((set, get) => ({
   scene: 0,
   place: 'Introduction',
   backlog: [],
   decisions: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false, openSafeAlone: false, openSafeInGroup: false, deliveredKey: false, hasComunicator: false, hasMedicalSuply: false, knowsAboutSofia: false },
-  actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
+  actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false, showOverlay:false },
   dialogue: [],
   choice: [],
   isChoice: false,
   isLoading: false,
 
 
-  reset: () => set((state) => ({
-    scene: 0,
-    place: 'Introduction',
-    backlog: [],
-    decisions: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false, openSafeAlone: false, openSafeInGroup: false, deliveredKey: false, hasComunicator: false, hasMedicalSuply: false,knowsAboutSofia:false},
-    actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false },
-    dialogue: [],
-    choice: [],
-    isChoice: false,
-    isLoading:false,
-  })),
+  reset: () => {
+    resetCircleGame();
+    set((state) => ({
+      scene: 0,
+      place: 'Introduction',
+      backlog: [],
+      decisions: { checkedNews: false, continueGirlfriendSearch: false, followedCrowd: false, hasBackpack: false, hasFlashlight: false, hasKey: false, openSafeAlone: false, openSafeInGroup: false, deliveredKey: false, hasComunicator: false, hasMedicalSuply: false, knowsAboutSofia: false },
+      actionsGame: { showD1: false, showD2: false, showBacklog: false, winMiniGame: false, showOverlay: false },
+      dialogue: [],
+      choice: [],
+      isChoice: false,
+      isLoading: false,
+    }));
+  },
 
   setIsLoading: (isLoading) => set((state) => ({
     isLoading
@@ -39,7 +45,7 @@ export const useGameStore = create(devtools(persist((set, get) => ({
   })),
 
   addToBacklog: (item) => set((state) => ({
-    backlog: state.backlog.length < 4 ? [...state.backlog, item] : state.backlog
+    backlog: state.backlog.length < 4 && !state.backlog.includes(item) ? [...state.backlog, item] : state.backlog
   })),
 
   resetBacklog: () => set((state) => ({

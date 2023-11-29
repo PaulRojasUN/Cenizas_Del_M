@@ -20,6 +20,8 @@
     "firebase": "10.5.2",
     "framer-motion": "10.16.4",
     "howler": "2.2.4",
+    "jotai": "^2.6.0",
+    "leva": "^0.9.35",
     "nanoid": "5.0.2",
     "nes.css": "2.3.0",
     "node-sass": "9.0.0",
