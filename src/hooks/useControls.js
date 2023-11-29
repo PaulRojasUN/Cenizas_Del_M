@@ -9,7 +9,5 @@ export const keyboardControls = [
 ]
 
 export const blockControls = [
-  { name: 'jump', keys: ['Space'] },
   { name: 'run', keys: ['Shift'] },
-  { name: 'action1', keys: ['KeyR'] }
 ]
