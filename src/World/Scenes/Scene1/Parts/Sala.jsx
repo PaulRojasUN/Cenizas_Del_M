@@ -302,7 +302,6 @@ const Sala = () => {
   useEffect(() => {
     if (lastPressed === "enter") {
       const dialogueLength = getDialogueLength();
-      const showD1 = getActionsGame("showD1");
       if (dialogueLength === 0) {
         setGameControls(keyboardControls);
       } else {
